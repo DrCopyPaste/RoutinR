@@ -1,24 +1,45 @@
-﻿namespace RoutinR.MAUI
+﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+using RoutinR.Services;
+
+namespace RoutinR.MAUI
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private PunchClockService punchClockService;
+        private Timer timer = null;
 
         public MainPage()
         {
             InitializeComponent();
+            punchClockService = new PunchClockService();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void HandleTimerCallback(object state)
         {
-            count++;
+            Application.Current.Dispatcher.DispatchAsync(
+                () =>
+                {
+                    if (!punchClockService.IsRunning) return;
+                    PunchClockRunningTime.Text = ((int)DateTime.Now.Subtract(punchClockService.StartTime.Value).TotalSeconds).ToString();
+                }
+            );
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+        private void PunchClockButton_Clicked(object sender, EventArgs e)
+        {
+            if (punchClockService.IsRunning)
+            {
+                punchClockService.Stop();
+                timer.Dispose();
+            }
             else
-                CounterBtn.Text = $"Clicked {count} times";
+            {
+                punchClockService.Start();
+                PunchClockStartingTime.Text = DateTime.Now.ToString();
+                timer = new Timer(HandleTimerCallback, this, 0, 200);
+            }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            SemanticScreenReader.Announce("toggled punch clock");
         }
     }
 }

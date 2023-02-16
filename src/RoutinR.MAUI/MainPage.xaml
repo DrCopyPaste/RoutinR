@@ -7,32 +7,65 @@
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
-            VerticalOptions="Center">
+            VerticalOptions="Start">
 
-            <Image
+            
+            <!--<Image
                 Source="dotnet_bot.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" />-->
 
             <Label
-                Text="Hello, World!"
+                Text="RoutinR"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
 
             <Label
-                Text="Welcome to .NET Multi-platform App UI"
+                Text="Current job is set to the default job."
                 SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                SemanticProperties.Description="Current job is set to the default job."
                 FontSize="18"
                 HorizontalOptions="Center" />
 
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0"
+                    Text="Started:"
+                    FontSize="18"
+                    HorizontalOptions="Start" />
+
+                <Label Grid.Column="2" Grid.Row="0"
+                    x:Name="PunchClockStartingTime"
+                    FontSize="18"
+                    HorizontalOptions="End" />
+
+                <Label Grid.Column="0" Grid.Row="1"
+                    Text="Running:"
+                    FontSize="18"
+                    HorizontalOptions="Start" />
+
+                <Label Grid.Column="2" Grid.Row="1"
+                    x:Name="PunchClockRunningTime"
+                    FontSize="18"
+                    HorizontalOptions="End" />
+            </Grid>
+            
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                x:Name="PunchClockButton"
+                Text="Punch Clock"
+                SemanticProperties.Hint="Hit this button to start or stop tracking time"
+                Clicked="PunchClockButton_Clicked"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>
