@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PunchClock.Constants\PunchClock.Constants.csproj" />
+    <ProjectReference Include="..\PunchClock.Constants\RoutinR.Constants.csproj" />
   </ItemGroup>
 
 </Project>

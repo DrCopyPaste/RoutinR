@@ -1,4 +1,4 @@
-namespace PunchClock.Core.Tests
+namespace RoutinR.Core.Tests
 {
     public class Test_TimeSheetEntry
     {

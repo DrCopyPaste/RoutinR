@@ -1,4 +1,4 @@
-﻿namespace PunchClock.Constants
+﻿namespace RoutinR.Constants
 {
     public class JobNames
     {

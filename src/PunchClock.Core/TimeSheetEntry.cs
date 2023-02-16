@@ -1,4 +1,4 @@
-﻿namespace PunchClock.Core
+﻿namespace RoutinR.Core
 {
     /// <summary>
     /// represents a time slot

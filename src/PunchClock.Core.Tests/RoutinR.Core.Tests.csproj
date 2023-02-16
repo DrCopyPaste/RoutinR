@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PunchClock.Core\PunchClock.Core.csproj" />
+    <ProjectReference Include="..\PunchClock.Core\RoutinR.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace PunchClock.Services.Tests
+namespace RoutinR.Services.Tests
 {
     public class Test_PunchClockService
     {

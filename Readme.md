@@ -1,5 +1,5 @@
 # About
-PunchClock makes keeping a timesheet as easy as pushing a button.
+RoutinR makes keeping a timesheet as easy as pushing a button.
 (after some initial configuration)
 
 # Limits
@@ -9,29 +9,11 @@ PunchClock makes keeping a timesheet as easy as pushing a button.
 
 # Architecture
 
-- Models used to descibe states are located in PunchClock.Services
-- Services to provide base functionality are located in PunchClock.Services
+- Models used to descibe states are located in RoutinR.Services
+- Services to provide base functionality are located in RoutinR.Services
 
-- core models are being tested in PunchClock.Core.Tests
-- service methods are being tested in PunchClock.Services.Tests
-
-
-# New Names Brainstorming
-- PunchClock bad (collides with some popular namespaces)
-- JobClock
-- MultiClock
-- ClockMe
-- ClockOut
-- Routineer
-- RoutinR
-- RoutinR
-- RoutinR
-- RoutinR
-- RoutinR
-- RoutinR
-- RoutinR
-- RoutinR
-- RoutinR
+- core models are being tested in RoutinR.Core.Tests
+- service methods are being tested in RoutinR.Services.Tests
 
 # ToDo
 
@@ -51,7 +33,7 @@ PunchClock makes keeping a timesheet as easy as pushing a button.
 1. User can use a button in the application to start or stop tracking time
 
 
-- PunchClock is designed to help creating timesheet stats (where the sum of the items may not exceed 24 hours/day)
+- RoutinR is designed to help creating timesheet stats (where the sum of the items may not exceed 24 hours/day)
 - A List/Set of work item types can be created
 - Of these work item types 3 (?) may be selected to be favorite and visible from the home screen on mobile devices
 - a global stop button is visible from the home screen

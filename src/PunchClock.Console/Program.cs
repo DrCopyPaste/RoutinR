@@ -4,7 +4,7 @@
     {
         Console.WriteLine("Hello, World!");
 
-        var punchClock = new PunchClock.Services.PunchClockService();
+        var punchClock = new RoutinR.Services.PunchClockService();
 
         Console.WriteLine($"PunchClock running before starting: {punchClock.IsRunning}");
 

@@ -1,6 +1,6 @@
-using PunchClock.Core;
+using RoutinR.Core;
 
-namespace PunchClock.Services.Tests
+namespace RoutinR.Services.Tests
 {
     public class Test_WorkItemService
     {

@@ -1,6 +1,6 @@
-using PunchClock.Constants;
+using RoutinR.Constants;
 
-namespace PunchClock.Core.Tests
+namespace RoutinR.Core.Tests
 {
     public class Test_Job
     {

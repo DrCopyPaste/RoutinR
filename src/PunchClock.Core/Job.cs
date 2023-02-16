@@ -1,6 +1,6 @@
-﻿using PunchClock.Constants;
+﻿using RoutinR.Constants;
 
-namespace PunchClock.Core
+namespace RoutinR.Core
 {
     public class Job
     {

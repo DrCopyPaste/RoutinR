@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunchClock.Core", "PunchClock.Core\PunchClock.Core.csproj", "{65EFB8AA-771E-4F7B-A8F1-AE2CB0336041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.Core", "PunchClock.Core\RoutinR.Core.csproj", "{65EFB8AA-771E-4F7B-A8F1-AE2CB0336041}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunchClock.Core.Tests", "PunchClock.Core.Tests\PunchClock.Core.Tests.csproj", "{2FCF6FE0-6AAA-4E65-96CA-9806B9E9CB59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.Core.Tests", "PunchClock.Core.Tests\RoutinR.Core.Tests.csproj", "{2FCF6FE0-6AAA-4E65-96CA-9806B9E9CB59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{76AFE4A7-774E-4C2E-85CE-CD00342E9818}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,13 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		..\Readme.md = ..\Readme.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunchClock.Console", "PunchClock.Console\PunchClock.Console.csproj", "{3A421062-1D72-4DC8-92F0-21B0774B10EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.Console", "PunchClock.Console\RoutinR.Console.csproj", "{3A421062-1D72-4DC8-92F0-21B0774B10EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunchClock.Services", "PunchClock.Services\PunchClock.Services.csproj", "{88F14B63-F5EC-4D27-97CF-537C00E4E6AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.Services", "PunchClock.Services\RoutinR.Services.csproj", "{88F14B63-F5EC-4D27-97CF-537C00E4E6AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunchClock.Services.Tests", "PunchClock.Services.Tests\PunchClock.Services.Tests.csproj", "{C03D95D0-1500-4694-BFE0-216DF9067FF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.Services.Tests", "PunchClock.Services.Tests\RoutinR.Services.Tests.csproj", "{C03D95D0-1500-4694-BFE0-216DF9067FF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PunchClock.Constants", "PunchClock.Constants\PunchClock.Constants.csproj", "{9647D535-D0DB-46DF-B052-795A7D72D81E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.Constants", "PunchClock.Constants\RoutinR.Constants.csproj", "{9647D535-D0DB-46DF-B052-795A7D72D81E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4F8F0547-DE1E-4BE1-BE44-4E7607F4DF77}"
 EndProject

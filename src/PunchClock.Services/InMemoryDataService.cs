@@ -1,11 +1,11 @@
-﻿using PunchClock.Core;
+﻿using RoutinR.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PunchClock.Services
+namespace RoutinR.Services
 {
     public class InMemoryDataService
     {

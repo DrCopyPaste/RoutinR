@@ -1,2 +1,2 @@
 global using Xunit;
-global using PunchClock.Core;
+global using RoutinR.Core;

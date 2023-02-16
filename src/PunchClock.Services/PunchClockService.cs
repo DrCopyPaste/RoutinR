@@ -1,9 +1,9 @@
-﻿using PunchClock.Core;
+﻿using RoutinR.Core;
 
-namespace PunchClock.Services
+namespace RoutinR.Services
 {
     /// <summary>
-    /// The main class used to control the PunchClock-Application
+    /// The main class used to control the RoutinR-Application
     /// holds current state (saved work items/ currently running TimeSheetEntry and WorkItem)
     /// </summary>
     public class PunchClockService
