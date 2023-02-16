@@ -10,11 +10,17 @@ namespace RoutinR.Services
     public class InMemoryDataService
     {
         private HashSet<Job> jobs = new HashSet<Job>();
+        private List<JobTimeSheetEntry> jobTimeSheetEntries = new List<JobTimeSheetEntry>();
 
         /// <summary>
         /// Gets the number of jobs in internal collection
         /// </summary>
         public int JobCount => jobs.Count;
+
+        /// <summary>
+        /// Gets the number of job time sheet entries in internal collection
+        /// </summary>
+        public int JobTimeSheetEntryCount => jobTimeSheetEntries.Count;
 
         /// <summary>
         /// Gets a job by name
@@ -24,6 +30,22 @@ namespace RoutinR.Services
         public Job? GetJobByName(string jobName)
         {
             return jobs.FirstOrDefault(job => job.Name == jobName);
+        }
+
+        /// <summary>
+        /// Adds a new job time sheet entry to the internal collection
+        /// </summary>
+        /// <param name="job"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <exception cref="ArgumentException">throws if any of the parameters is null or has no value</exception>
+        public void AddJobTimeSheet(Job job, DateTime? startTime, DateTime? endTime)
+        {
+            if (job == null) throw new ArgumentException($"{nameof(job)} is null");
+            if (!startTime.HasValue) throw new ArgumentException($"{nameof(startTime)} has no value");
+            if (!endTime.HasValue) throw new ArgumentException($"{nameof(startTime)} has no value");
+
+            jobTimeSheetEntries.Add(new JobTimeSheetEntry(job, startTime.Value, endTime.Value));
         }
 
         /// <summary>

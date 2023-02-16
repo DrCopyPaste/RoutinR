@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+using RoutinR.Core;
 using RoutinR.Services;
 
 namespace RoutinR.MAUI
@@ -6,11 +7,13 @@ namespace RoutinR.MAUI
     public partial class MainPage : ContentPage
     {
         private PunchClockService punchClockService;
+        private InMemoryDataService inMemoryDataService;
         private Timer timer = null;
 
         public MainPage()
         {
             InitializeComponent();
+            inMemoryDataService = new InMemoryDataService();
             punchClockService = new PunchClockService();
         }
 
@@ -31,6 +34,9 @@ namespace RoutinR.MAUI
             {
                 punchClockService.Stop();
                 timer.Dispose();
+
+                // var jobTimeSheetEntry = new JobTimeSheetEntry(null, DateTime.Now, DateTime.Now);
+                inMemoryDataService.AddJobTimeSheet(Job.NewDefault(), punchClockService.StartTime, punchClockService.EndTime);
             }
             else
             {

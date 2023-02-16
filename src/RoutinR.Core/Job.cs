@@ -4,7 +4,7 @@ namespace RoutinR.Core
 {
     public class Job
     {
-        private string name = JobNames.Idle;
+        private readonly string name = JobNames.Idle;
         public string Name => name;
 
         private Job() { }
