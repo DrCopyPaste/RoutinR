@@ -46,11 +46,18 @@ jobs:
       - name: List installed .NET info
         shell: pwsh
         run: dotnet --info
+
+      - name: Install dependencies
+        run: dotnet restore src\RoutinR.sln
+      - name: Build
+        run: dotnet build src\RoutinR.Core.Tests\RoutinR.Core.Tests.csproj --configuration Release --no-restore
+      - name: Build
+        run: dotnet build src\RoutinR.Core.Tests\RoutinR.Services.Tests.csproj --configuration Release --no-restore
                 
       # https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview
-      - name: Build Windows MSIX
-        run: |
-          dotnet publish src\RoutinR.MAUI\RoutinR.MAUI.csproj -f net7.0-windows10.0.19041.0 -c Release
+      #- name: Build Windows MSIX
+      #  run: |
+      #    dotnet publish src\RoutinR.MAUI\RoutinR.MAUI.csproj -f net7.0-windows10.0.19041.0 -c Release
 
       #- name: Install dependencies
       #  run: dotnet restore src\RoutinR.sln
