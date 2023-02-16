@@ -52,7 +52,7 @@ jobs:
       - name: Build
         run: dotnet build src\RoutinR.Core.Tests\RoutinR.Core.Tests.csproj --configuration Release --no-restore
       - name: Build
-        run: dotnet build src\RoutinR.Core.Tests\RoutinR.Services.Tests.csproj --configuration Release --no-restore
+        run: dotnet build src\RoutinR.Services.Tests\RoutinR.Services.Tests.csproj --configuration Release --no-restore
                 
       # https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview
       #- name: Build Windows MSIX
