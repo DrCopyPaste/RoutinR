@@ -21,6 +21,16 @@ jobs:
         with:
           fetch-depth: 0
           
+      - name: Nerdbank.GitVersioning
+        uses: AArnott/nbgv@v0.4
+        id: nbgv
+        with:
+          setAllVars: true
+      - name: Building semver2 version
+        run: echo 'SemVer2:${{ steps.nbgv.outputs.SemVer2 }}'
+      - name: Building assembly file version
+        run: echo 'AssemblyFileVersion:${{ steps.nbgv.outputs.AssemblyFileVersion }}'
+      
       - name: Setup .NET SDK ${{env.DOTNETVERSION}}
         uses: actions/setup-dotnet@v1
         with:
