@@ -27,8 +27,8 @@ jobs:
           dotnet-version: '${{env.DOTNETVERSION}}'
                 
       - name: Install dependencies
-        run: dotnet restore src\PunchClock.sln
+        run: dotnet restore src\RoutinR.sln
       - name: Build
-        run: dotnet build src\PunchClock.sln --configuration Release --no-restore
+        run: dotnet build src\RoutinR.sln --configuration Release --no-restore
       - name: Test
-        run: dotnet test src\PunchClock.sln --no-restore --verbosity normal
+        run: dotnet test src\RoutinR.sln --no-restore --verbosity normal
