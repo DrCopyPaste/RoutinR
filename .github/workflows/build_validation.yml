@@ -1,0 +1,42 @@
+name: build_validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+env:
+    DOTNETVERSION: 7.0.103
+    #ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    
+jobs:
+  buildWindows:
+    runs-on: windows-2022
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 7.0.x
+          
+      - name: Setup .NET SDK ${{env.DOTNETVERSION}}
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '${{env.DOTNETVERSION}}'
+          
+      - name: Restore NuGet Packages
+        run: nuget restore src\PunchClock.sln
+                
+      - name: Install dependencies
+        run: dotnet restore src\PunchClock.sln
+      - name: Build
+        run: dotnet build src\PunchClock.sln --configuration Release --no-restore
+      - name: Test
+        run: dotnet test src\PunchClock.sln --no-restore --verbosity normal
