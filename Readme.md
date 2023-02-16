@@ -15,6 +15,8 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - core models are being tested in RoutinR.Core.Tests
 - service methods are being tested in RoutinR.Services.Tests
 
+- Using Preferences to persist application settings see https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
+
 # ToDo
 
 1. Application can toggle tracking time and not tracking time

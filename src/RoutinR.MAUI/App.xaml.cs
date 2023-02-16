@@ -4,6 +4,9 @@
     {
         public App()
         {
+            // PreferencesService.Reset();
+            // PreferencesService.EnsureDefaultConfig();
+
             InitializeComponent();
 
             MainPage = new AppShell();
