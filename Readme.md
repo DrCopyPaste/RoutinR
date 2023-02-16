@@ -24,6 +24,14 @@ PunchClock makes keeping a timesheet as easy as pushing a button.
 - ClockOut
 - Routineer
 - RoutinR
+- RoutinR
+- RoutinR
+- RoutinR
+- RoutinR
+- RoutinR
+- RoutinR
+- RoutinR
+- RoutinR
 
 # ToDo
 
