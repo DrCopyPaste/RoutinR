@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RoutinR.MAUI.ViewModels"
              x:Class="RoutinR.MAUI.AboutPage">
+    <ContentPage.BindingContext>
+        <local:AboutPageViewModel />
+    </ContentPage.BindingContext>
 
     <ScrollView>
         <VerticalStackLayout
@@ -10,7 +14,7 @@
             VerticalOptions="Start">
 
             <Label
-                x:Name="VersionLabel"
+                Text="{Binding VersionInfoText}"
                 SemanticProperties.HeadingLevel="Level5"
                 FontSize="10"
                 HorizontalOptions="Center" />

@@ -17,6 +17,10 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 - Using Preferences to persist application settings see https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
 
+# Maui Stuff
+- using CommunityToolkit.Mvvm.ComponentModel to save boilerplate code
+- only define private lowercase fields inside VideModel and decorate as ObservableProperty => this generates proper public PascalCase properties
+
 # ToDo
 
 1. Application can toggle tracking time and not tracking time

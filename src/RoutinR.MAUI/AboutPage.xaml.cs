@@ -5,7 +5,6 @@
         public AboutPage()
         {
             InitializeComponent();
-            VersionLabel.Text = $"Version {ThisAssembly.AssemblyFileVersion} / {ThisAssembly.AssemblyInformationalVersion}";
         }
     }
 }
