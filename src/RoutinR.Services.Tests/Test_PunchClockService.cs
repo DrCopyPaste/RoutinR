@@ -111,7 +111,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Start_time_is_only_set_after_starting()
+        public void Start_time_has_no_value_only_before_starting_first_time()
         {
             var punchClock = new PunchClockService();
 
