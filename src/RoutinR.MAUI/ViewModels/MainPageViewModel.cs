@@ -25,8 +25,7 @@ namespace RoutinR.MAUI.ViewModels
                 CurrentlyRunning = false;
                 timer.Dispose();
 
-                LastEndTimeText = DateTime.Now.ToString();
-                //LastEndTimeText = punchClockService.EndTime.ToString();
+                LastEndTimeText = punchClockService.EndTimeOrDefault("endtime retrieval error");
 
                 // var jobTimeSheetEntry = new JobTimeSheetEntry(null, DateTime.Now, DateTime.Now);
                 // dataService.AddJobTimeSheet(Job.NewDefault(), punchClockService.StartTime, punchClockService.EndTime);
@@ -36,11 +35,10 @@ namespace RoutinR.MAUI.ViewModels
                 CurrentlyRunning = true;
                 punchClockService.Start();
 
-                // PunchClockStartingTime.Text = DateTime.Now.ToString();
                 timer = new Timer(HandleTimerCallback, this, 0, 200);
 
                 LastEndTimeText = "currently running";
-                LastStartTimeText = DateTime.Now.ToString();
+                LastStartTimeText = punchClockService.StartTimeOrDefault("starttime retrieval error");
             }
         });
 

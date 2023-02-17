@@ -14,7 +14,24 @@ namespace RoutinR.Services
         public bool IsRunning => currentTimeSheetEntry != null && currentTimeSheetEntry.IsRunning;
 
         public DateTime? StartTime => currentTimeSheetEntry?.StartTime;
+
+        public string StartTimeOrDefault(string defaultValue)
+        {
+            if (string.IsNullOrEmpty(defaultValue)) throw new ArgumentException($"{nameof(defaultValue)} is null or empty");
+            if (StartTime.HasValue) return StartTime.Value.ToString();
+
+            return defaultValue;
+        }
+
         public DateTime? EndTime => currentTimeSheetEntry?.EndTime;
+
+        public string EndTimeOrDefault(string defaultValue)
+        {
+            if (string.IsNullOrEmpty(defaultValue)) throw new ArgumentException($"{nameof(defaultValue)} is null or empty");
+            if (EndTime.HasValue) return EndTime.Value.ToString();
+
+            return defaultValue;
+        }
 
         /// <summary>
         /// starts a new TimeSheetEntry with current time

@@ -175,5 +175,67 @@ namespace RoutinR.Services.Tests
             punchClock.Stop();
             Assert.True(punchClock.EndTime.HasValue && punchClock.EndTime.Value > savedStopTime, "end time cannot be smaller than previous end time");
         }
+
+        [Fact]
+        public void StartTimeOrDefault_yields_default_value_before_first_start()
+        {
+            var punchClock = new PunchClockService();
+            Assert.True(punchClock.StartTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.StartTimeOrDefault)} did not yield default value before starting");
+        }
+
+        [Fact]
+        public void StartTimeOrDefault_yields_StartTime_after_first_start()
+        {
+            var punchClock = new PunchClockService();
+
+            punchClock.Start();
+            Assert.True(punchClock.StartTime.HasValue && punchClock.StartTimeOrDefault("customDefaultValue") == punchClock.StartTime.Value.ToString(), $"{nameof(punchClock.StartTimeOrDefault)} did not yield {nameof(punchClock.StartTime)} before starting");
+
+            punchClock.Stop();
+            punchClock.Start();
+            Assert.True(punchClock.StartTime.HasValue && punchClock.StartTimeOrDefault("customDefaultValue") == punchClock.StartTime.Value.ToString(), $"{nameof(punchClock.StartTimeOrDefault)} did not yield {nameof(punchClock.StartTime)} before starting");
+
+            punchClock.Stop();
+            punchClock.Start();
+            Assert.True(punchClock.StartTime.HasValue && punchClock.StartTimeOrDefault("customDefaultValue") == punchClock.StartTime.Value.ToString(), $"{nameof(punchClock.StartTimeOrDefault)} did not yield {nameof(punchClock.StartTime)} before starting");
+        }
+
+        [Fact]
+        public void EndTimeOrDefault_yields_default_value_before_stopping()
+        {
+            var punchClock = new PunchClockService();
+            Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value before stopping");
+
+            punchClock.Start();
+            Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value before stopping");
+
+            punchClock.Stop();
+            punchClock.Start();
+            Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value before stopping");
+
+            punchClock.Stop();
+            punchClock.Start();
+            Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value before stopping");
+        }
+
+        [Fact]
+        public void EndTimeOrDefault_yields_EndTime_after_stopping_but_only_until_starting_again()
+        {
+            var punchClock = new PunchClockService();
+
+            punchClock.Start();
+            punchClock.Stop();
+
+            Assert.True(punchClock.EndTime.HasValue && punchClock.EndTimeOrDefault("customDefaultValue") == punchClock.EndTime.Value.ToString(), $"{nameof(punchClock.EndTimeOrDefault)} did not yield {nameof(punchClock.EndTime)} after stopping");
+            punchClock.Start();
+
+            Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value after starting again");
+
+            punchClock.Stop();
+            Assert.True(punchClock.EndTime.HasValue && punchClock.EndTimeOrDefault("customDefaultValue") == punchClock.EndTime.Value.ToString(), $"{nameof(punchClock.EndTimeOrDefault)} did not yield {nameof(punchClock.EndTime)} after stopping");
+
+            punchClock.Start();
+            Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value after starting again");
+        }
     }
 }

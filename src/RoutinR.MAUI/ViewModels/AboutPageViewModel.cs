@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using RoutinR.Services;
 
 namespace RoutinR.MAUI.ViewModels
 {
