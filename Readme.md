@@ -21,6 +21,10 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - using CommunityToolkit.Mvvm.ComponentModel to save boilerplate code
 - only define private lowercase fields inside VideModel and decorate as ObservableProperty => this generates proper public PascalCase properties
 
+# Interesting Maui Links
+- https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-7.0#commanding
+- https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection
+
 # ToDo
 
 1. Application can toggle tracking time and not tracking time
