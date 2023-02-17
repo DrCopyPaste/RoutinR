@@ -9,7 +9,7 @@ namespace RoutinR.Services
 {
     public class InMemoryDataService
     {
-        private HashSet<Job> jobs = new HashSet<Job>();
+        private HashSet<Job> jobs = new HashSet<Job>() { Job.NewDefault() };
         private List<JobTimeSheetEntry> jobTimeSheetEntries = new List<JobTimeSheetEntry>();
 
         /// <summary>

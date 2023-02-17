@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestPlatform.Utilities;
+using RoutinR.Constants;
 using RoutinR.Core;
 
 namespace RoutinR.Services.Tests
@@ -6,12 +7,17 @@ namespace RoutinR.Services.Tests
     public class Test_InMemoryDataService
     {
         [Fact]
-        public void Cannot_add_default_job_twice()
+        public void Default_job_exists_by_default()
+        {
+            var dataService = new InMemoryDataService();
+            Assert.True(dataService.GetJobByName(JobNames.Idle) != null, "no default job was found");
+        }
+
+        [Fact]
+        public void Cannot_add_default_job()
         {
             var dataService = new InMemoryDataService();
             var gotExpectedException = false;
-
-            dataService.AddJob(Job.NewDefault());
 
             try
             {
@@ -22,7 +28,7 @@ namespace RoutinR.Services.Tests
                 gotExpectedException = true;
             }
 
-            Assert.True(gotExpectedException, "adding default job twice did not raise the expected exception");
+            Assert.True(gotExpectedException, "adding default job did not raise the expected exception");
         }
 
         [Fact]
@@ -46,11 +52,12 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Job_count_is_zero_after_initialization()
+        public void Job_count_is_one_after_initialization()
         {
             var dataService = new InMemoryDataService();
 
-            Assert.True(dataService.JobCount == 0, "job count does not equal 0 after initialization");
+            // default job already exists making job count = 1 before adding anything custom
+            Assert.True(dataService.JobCount == 1, "job count does not equal 1 after initialization");
         }
 
         [Fact]
@@ -58,14 +65,15 @@ namespace RoutinR.Services.Tests
         {
             var dataService = new InMemoryDataService();
 
+            // default job already exists making job count = 1 before adding anything custom
             dataService.AddJob(Job.NewFromName("abc"));
-            Assert.True(dataService.JobCount == 1, "job count does not equal 1 after first add");
+            Assert.True(dataService.JobCount == 2, "job count does not equal 1 after first add");
 
             dataService.AddJob(Job.NewFromName("def"));
-            Assert.True(dataService.JobCount == 2, "job count does not equal 2 after second add");
+            Assert.True(dataService.JobCount == 3, "job count does not equal 2 after second add");
 
             dataService.AddJob(Job.NewFromName("ghi"));
-            Assert.True(dataService.JobCount == 3, "job count does not equal 3 after third add");
+            Assert.True(dataService.JobCount == 4, "job count does not equal 3 after third add");
         }
 
         [Fact]
@@ -129,17 +137,22 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        public void Default_job_can_be_retrieved()
+        {
+            var dataService = new InMemoryDataService();
+
+            var jobDefault = dataService.GetJobByName(JobNames.Idle);
+            Assert.True(jobDefault != null && jobDefault.Name == JobNames.Idle, "default job was null or did not have the right name");
+        }
+
+        [Fact]
         public void Jobs_added_can_be_retrieved()
         {
             var dataService = new InMemoryDataService();
 
-            dataService.AddJob(Job.NewDefault());
             dataService.AddJob(Job.NewFromName("Job1"));
             dataService.AddJob(Job.NewFromName("Job2"));
             dataService.AddJob(Job.NewFromName("Job3"));
-
-            var jobDefault = dataService.GetJobByName(Constants.JobNames.Idle);
-            Assert.True(jobDefault != null && jobDefault.Name == Constants.JobNames.Idle, "default job was null or did not have the right name");
 
             var job1 = dataService.GetJobByName("Job1");
             Assert.True(job1 != null && job1.Name == "Job1", "job 1 was null or did not have the right name");

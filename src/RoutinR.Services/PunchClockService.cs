@@ -8,6 +8,7 @@ namespace RoutinR.Services
     /// </summary>
     public class PunchClockService
     {
+        private Job currentJob = Job.NewDefault();
         private TimeSheetEntry? currentTimeSheetEntry;
 
         public bool IsRunning => currentTimeSheetEntry != null && currentTimeSheetEntry.IsRunning;
