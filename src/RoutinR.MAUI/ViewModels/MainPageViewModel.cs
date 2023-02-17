@@ -6,12 +6,13 @@ namespace RoutinR.MAUI.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
-        // private readonly PunchClockService punchClockService;
+        private readonly PunchClockService punchClockService;
 
-        public MainPageViewModel()
+        public MainPageViewModel(PunchClockService punchClockService)
         {
+            this.punchClockService = punchClockService;
+
             CurrentlyRunning = false;
-            VersionInfo = "true so 56";
             LastStartTimeText = "never started before";
             LastEndTimeText = "never started or stopped before";
         }
@@ -20,10 +21,12 @@ namespace RoutinR.MAUI.ViewModels
         {
             if (CurrentlyRunning)
             {
+                punchClockService.Stop();
                 CurrentlyRunning = false;
                 timer.Dispose();
 
                 LastEndTimeText = DateTime.Now.ToString();
+                //LastEndTimeText = punchClockService.EndTime.ToString();
 
                 // var jobTimeSheetEntry = new JobTimeSheetEntry(null, DateTime.Now, DateTime.Now);
                 // dataService.AddJobTimeSheet(Job.NewDefault(), punchClockService.StartTime, punchClockService.EndTime);
@@ -31,6 +34,8 @@ namespace RoutinR.MAUI.ViewModels
             else
             {
                 CurrentlyRunning = true;
+                punchClockService.Start();
+
                 // PunchClockStartingTime.Text = DateTime.Now.ToString();
                 timer = new Timer(HandleTimerCallback, this, 0, 200);
 
@@ -54,9 +59,6 @@ namespace RoutinR.MAUI.ViewModels
 
         [ObservableProperty]
         private bool currentlyRunning;
-
-        [ObservableProperty]
-        private string versionInfo;
 
         [ObservableProperty]
         private string lastStartTimeText;
