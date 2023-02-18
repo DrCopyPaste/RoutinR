@@ -66,6 +66,7 @@ namespace RoutinR.MAUI.ViewModels
             Application.Current.Dispatcher.DispatchAsync(
                 () =>
                 {
+                    if (Paused) return;
                     if (!CurrentlyRunning) return;
 
                     TotalRuntimeText = TimeSpanFormatter.Format(punchClockService.TotalRunTime);
@@ -73,6 +74,7 @@ namespace RoutinR.MAUI.ViewModels
             );
         }
 
+        public bool Paused { get; set; } = false;
         public Timer Timer { get; private set; }
 
         [ObservableProperty]

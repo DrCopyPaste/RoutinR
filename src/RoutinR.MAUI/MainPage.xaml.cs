@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration;
-using RoutinR.Core;
-using RoutinR.MAUI.ViewModels;
-using RoutinR.Services;
+﻿using RoutinR.MAUI.ViewModels;
 
 namespace RoutinR.MAUI
 {
@@ -13,9 +10,15 @@ namespace RoutinR.MAUI
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            ((MainPageViewModel)BindingContext).Paused = false;
+            base.OnAppearing();
+        }
+
         protected override void OnDisappearing()
         {
-            BindingContext = null;
+            ((MainPageViewModel)BindingContext).Paused = true;
             base.OnDisappearing();
         }
     }
