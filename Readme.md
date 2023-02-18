@@ -3,9 +3,10 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 (after some initial configuration)
 
 # Limits
-
 - crossing timezones is not supported
 - day light savings transitions are not supported (FBT/ SFT)
+- start time is expected to be always smaller than end and both are expected to always be in the past
+- violating this might crash the application
 
 # Architecture
 
@@ -26,10 +27,22 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-7.0#commanding
 - https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection
 
-# ToDo
 
-1. Application can toggle tracking time and not tracking time
-2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
+# Features
+- Hit the Punch Clock Button to start tracking time
+- a stopwatch like clock appears showing the total current running time
+- current starting time is shown
+- Hit the Punch Clock Button again to stop tracking time and log it
+- previous start and end time are shown
+
+# ToDo
+i. test timespan formatstrings
+ii. save current start time to preferences/ other when starting to restore it when restarting
+(gets reset on stopping, since that should persist to db/ other)
+iii. persist logged times to a "real" db
+
+done 1. Application can toggle tracking time and not tracking time
+done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
 3. The internal collection of start- and stop-times can be persisted/ exported (json, database, sth. else?)
 
 4. Work-Items can be created
