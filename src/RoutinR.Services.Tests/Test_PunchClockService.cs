@@ -54,7 +54,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Is_not_running_after_stopping()
+        public void After_stopping_is_running_is_false()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
@@ -63,14 +63,14 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Is_not_running_before_starting()
+        public void Before_starting_is_running_is_false()
         {
             var punchClock = new PunchClockService();
             Assert.True(!punchClock.IsRunning, "punch clock is running before starting");
         }
 
         [Fact]
-        public void Is_not_running_after_starting_and_stopping_multiple_times()
+        public void After_starting_and_stopping_multiple_times_is_running_is_false()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
@@ -83,7 +83,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Is_running_after_starting()
+        public void After_starting_is_running_is_true()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
@@ -91,7 +91,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Is_running_after_restoring_start_time()
+        public void After_restoring_start_time_is_running_is_true()
         {
             var punchClock = new PunchClockService();
             punchClock.StartFrom(DateTime.Now.AddMinutes(-1));
@@ -99,7 +99,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Is_running_after_starting_and_stopping_and_starting_multiple_times()
+        public void After_starting_and_stopping_and_starting_multiple_times_is_running_is_true()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
@@ -111,7 +111,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Start_time_resets_when_starting_without_previously_stopping()
+        public void After_starting_without_previously_stopping_start_time_resets()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
@@ -127,7 +127,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Start_time_increases_when_starting_again()
+        public void After_starting_again_start_time_increases()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
@@ -138,7 +138,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Start_time_has_no_value_only_before_starting_first_time()
+        public void After_starting_first_time_start_time_has_a_value()
         {
             var punchClock = new PunchClockService();
 
@@ -155,7 +155,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Start_time_stays_the_same_after_stopping()
+        public void After_stopping_start_time_stays_the_same()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
@@ -178,7 +178,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void End_time_is_only_set_after_stopping()
+        public void After_stopping_end_time_is_set_not_before()
         {
             var punchClock = new PunchClockService();
 
@@ -198,7 +198,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void End_time_resets_after_starting_again()
+        public void After_starting_again_end_time_resets()
         {
             var punchClock = new PunchClockService();
 
@@ -221,7 +221,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void StartTimeOrDefault_yields_StartTime_after_first_start()
+        public void After_first_start_StartTimeOrDefault_yields_StartTime()
         {
             var punchClock = new PunchClockService();
 
@@ -238,7 +238,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void EndTimeOrDefault_yields_default_value_before_stopping()
+        public void Before_stopping_EndTimeOrDefault_yields_default_value()
         {
             var punchClock = new PunchClockService();
             Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value before stopping");
@@ -256,7 +256,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void EndTimeOrDefault_yields_EndTime_after_stopping_but_only_until_starting_again()
+        public void After_stopping_EndTimeOrDefault_yields_EndTime_but_only_until_starting_again()
         {
             var punchClock = new PunchClockService();
 
@@ -276,14 +276,14 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Total_runtime_equals_zero_before_starting()
+        public void Before_starting_total_runtime_equals_zero()
         {
             var punchClock = new PunchClockService();
             Assert.True(punchClock.TotalRunTime.Equals(TimeSpan.Zero), $"{nameof(punchClock.TotalRunTime)} did not yield zero before starting");
         }
 
         [Fact]
-        public void Total_runtime_is_greater_than_zero_after_starting()
+        public void After_starting_total_runtime_is_greater_than_zero()
         {
             var punchClock = new PunchClockService();
 
@@ -292,7 +292,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Total_runtime_increases_after_starting()
+        public void After_starting_total_runtime_increases()
         {
             var punchClock = new PunchClockService();
 
@@ -305,7 +305,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Total_runtime_stays_constant_after_stopping()
+        public void After_stopping_Total_runtime_stays_constant()
         {
             var punchClock = new PunchClockService();
 
