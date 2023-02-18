@@ -22,8 +22,8 @@ namespace RoutinR.Services.Tests
             Assert.True(gotExpectedException, "restoring start time to the future did not raise the expected exception");
         }
 
-        [Trait("Category", "Basic starting and stopping")]
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Start_time_is_returned_from_starting()
         {
             var punchClock = new PunchClockService();
@@ -32,8 +32,8 @@ namespace RoutinR.Services.Tests
             Assert.True(punchClock.StartTime.HasValue && punchClock.StartTime.Value == startTime, "start time returned from start call does not equal actual start time");
         }
 
-        [Trait("Category", "Basic starting and stopping")]
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_stopping_a_complete_job_time_sheet_entry_is_returned()
         {
             var punchClock = new PunchClockService();

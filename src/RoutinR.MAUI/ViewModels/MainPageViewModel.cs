@@ -45,7 +45,7 @@ namespace RoutinR.MAUI.ViewModels
                 Timer.Dispose();
                 LastEndTimeText = jobTimeSheetEntry.EndTime.ToString();
 
-                dataService.AddJobTimeSheet(jobTimeSheetEntry);
+                dataService.AddJobTimeSheetEntry(jobTimeSheetEntry);
             }
             else
             {

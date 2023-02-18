@@ -9,8 +9,8 @@ namespace RoutinR.Services
 {
     public class InMemoryDataService
     {
-        private HashSet<Job> jobs = new HashSet<Job>() { Job.NewDefault() };
-        private List<JobTimeSheetEntry> jobTimeSheetEntries = new List<JobTimeSheetEntry>();
+        private readonly HashSet<Job> jobs = new HashSet<Job>() { Job.NewDefault() };
+        private readonly List<JobTimeSheetEntry> jobTimeSheetEntries = new List<JobTimeSheetEntry>();
 
         /// <summary>
         /// Gets the number of jobs in internal collection
@@ -36,7 +36,7 @@ namespace RoutinR.Services
         /// Adds a new job time sheet entry to the internal collection
         /// </summary>
         /// <param name="jobTimeSheetEntry">the entry to be added</param>
-        public void AddJobTimeSheet(JobTimeSheetEntry jobTimeSheetEntry)
+        public void AddJobTimeSheetEntry(JobTimeSheetEntry jobTimeSheetEntry)
         {
             jobTimeSheetEntries.Add(jobTimeSheetEntry);
         }

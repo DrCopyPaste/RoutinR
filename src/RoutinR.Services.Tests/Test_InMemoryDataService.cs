@@ -7,6 +7,7 @@ namespace RoutinR.Services.Tests
     public class Test_InMemoryDataService
     {
         [Fact]
+        [Trait("Category", "Jobs")]
         public void Default_job_exists_by_default()
         {
             var dataService = new InMemoryDataService();
@@ -14,6 +15,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Jobs")]
         public void Cannot_add_default_job()
         {
             var dataService = new InMemoryDataService();
@@ -32,6 +34,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Jobs")]
         public void Cannot_add_a_job_name_that_already_exists()
         {
             var dataService = new InMemoryDataService();
@@ -52,6 +55,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Jobs")]
         public void Job_count_is_one_after_initialization()
         {
             var dataService = new InMemoryDataService();
@@ -61,6 +65,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Jobs")]
         public void Adding_a_job_increases_job_count()
         {
             var dataService = new InMemoryDataService();
@@ -77,6 +82,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Jobs")]
         public void Deleting_a_job_is_not_supported()
         {
             var dataService = new InMemoryDataService();
@@ -97,6 +103,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Jobs")]
         public void Updating_a_job_is_not_supported()
         {
             var dataService = new InMemoryDataService();
@@ -117,6 +124,55 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Jobs")]
+        public void Default_job_can_be_retrieved()
+        {
+            var dataService = new InMemoryDataService();
+
+            var jobDefault = dataService.GetJobByName(JobNames.Idle);
+            Assert.True(jobDefault != null && jobDefault.Name == JobNames.Idle, "default job was null or did not have the right name");
+        }
+
+        [Fact]
+        [Trait("Category", "Jobs")]
+        public void Jobs_added_can_be_retrieved()
+        {
+            var dataService = new InMemoryDataService();
+
+            dataService.AddJob(Job.NewFromName("Job1"));
+            dataService.AddJob(Job.NewFromName("Job2"));
+            dataService.AddJob(Job.NewFromName("Job3"));
+
+            var job1 = dataService.GetJobByName("Job1");
+            Assert.True(job1 != null && job1.Name == "Job1", "job 1 was null or did not have the right name");
+
+            var job2 = dataService.GetJobByName("Job2");
+            Assert.True(job2 != null && job2.Name == "Job2", "job 2 was null or did not have the right name");
+
+            var job3 = dataService.GetJobByName("Job3");
+            Assert.True(job3 != null && job3.Name == "Job3", "job 3 was null or did not have the right name");
+        }
+
+        //[Fact]
+        //[Trait("Category", "Job sheet entries")]
+        //public void Job_time_sheet_entries_added_can_be_retrieved()
+        //{
+        //    var dataService = new InMemoryDataService();
+
+        //    dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-1), endTime: DateTime.Now));
+
+        //    //var job1 = dataService.GetJobByName("Job1");
+        //    //Assert.True(job1 != null && job1.Name == "Job1", "job 1 was null or did not have the right name");
+
+        //    //var job2 = dataService.GetJobByName("Job2");
+        //    //Assert.True(job2 != null && job2.Name == "Job2", "job 2 was null or did not have the right name");
+
+        //    //var job3 = dataService.GetJobByName("Job3");
+        //    //Assert.True(job3 != null && job3.Name == "Job3", "job 3 was null or did not have the right name");
+        //}
+
+        [Fact]
+        [Trait("Category", "Exporting")]
         public void Exporting_is_not_supported()
         {
             var dataService = new InMemoryDataService();
@@ -134,34 +190,6 @@ namespace RoutinR.Services.Tests
             }
 
             Assert.True(gotExpectedException, "exporting not raise the expected exception");
-        }
-
-        [Fact]
-        public void Default_job_can_be_retrieved()
-        {
-            var dataService = new InMemoryDataService();
-
-            var jobDefault = dataService.GetJobByName(JobNames.Idle);
-            Assert.True(jobDefault != null && jobDefault.Name == JobNames.Idle, "default job was null or did not have the right name");
-        }
-
-        [Fact]
-        public void Jobs_added_can_be_retrieved()
-        {
-            var dataService = new InMemoryDataService();
-
-            dataService.AddJob(Job.NewFromName("Job1"));
-            dataService.AddJob(Job.NewFromName("Job2"));
-            dataService.AddJob(Job.NewFromName("Job3"));
-
-            var job1 = dataService.GetJobByName("Job1");
-            Assert.True(job1 != null && job1.Name == "Job1", "job 1 was null or did not have the right name");
-
-            var job2 = dataService.GetJobByName("Job2");
-            Assert.True(job2 != null && job2.Name == "Job2", "job 2 was null or did not have the right name");
-
-            var job3 = dataService.GetJobByName("Job3");
-            Assert.True(job3 != null && job3.Name == "Job3", "job 3 was null or did not have the right name");
         }
     }
 }
