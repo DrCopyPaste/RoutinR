@@ -30,6 +30,7 @@ namespace RoutinR.MAUI
         public static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.Services.AddTransient<AboutPage>();
+            mauiAppBuilder.Services.AddTransient<JobsPage>();
             mauiAppBuilder.Services.AddTransient<MainPage>();
 
             return mauiAppBuilder;
@@ -38,6 +39,7 @@ namespace RoutinR.MAUI
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.Services.AddTransient<AboutPageViewModel>();
+            mauiAppBuilder.Services.AddTransient<JobsPageViewModel>();
             mauiAppBuilder.Services.AddTransient<MainPageViewModel>();
 
             return mauiAppBuilder;

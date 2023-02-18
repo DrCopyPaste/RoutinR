@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RoutinR.Core;assembly=RoutinR.Core"
+             x:Class="RoutinR.MAUI.JobsPage"
+             Title="JobsPage">
+    <VerticalStackLayout>
+        
+        <Entry Placeholder="Enter new job name"
+               Text="{Binding NewJobName}"
+               Grid.Row="1"/>
+
+        <Button Text="Add"
+                Command="{Binding AddCommand}"
+                Grid.Row="1"
+                Grid.Column="1"/>
+        
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Jobs}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type local:Job}">
+                    <SwipeView>
+                        <!--<SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobsPageViewModel}}, Path=DeleteCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>-->
+                        
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <!--<Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
+                                           CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>-->
+                                <Label Text="{Binding Name}"
+                                       FontSize="24"/>
+                            </Frame>
+                        </Grid>
+                        
+                    </SwipeView>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

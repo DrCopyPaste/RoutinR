@@ -153,6 +153,24 @@ namespace RoutinR.Services.Tests
             Assert.True(job3 != null && job3.Name == "Job3", "job 3 was null or did not have the right name");
         }
 
+        [Fact]
+        [Trait("Category", "Jobs")]
+        public void GetJobs_gets_all_jobs_in_collection()
+        {
+            var dataService = new InMemoryDataService();
+
+            dataService.AddJob(Job.NewFromName("Job1"));
+            dataService.AddJob(Job.NewFromName("Job2"));
+            dataService.AddJob(Job.NewFromName("Job3"));
+
+            var alljobs = dataService.GetJobs();
+
+            Assert.True(alljobs.Any(job => job.Name == JobNames.Idle), "idle job does not exist in job collection");
+            Assert.True(alljobs.Any(job => job.Name == "Job1"), "job 1 does not exist in job collection");
+            Assert.True(alljobs.Any(job => job.Name == "Job2"), "job 2 does not exist in job collection");
+            Assert.True(alljobs.Any(job => job.Name == "Job3"), "job 3 does not exist in job collection");
+        }
+
         //[Fact]
         //[Trait("Category", "Job sheet entries")]
         //public void Job_time_sheet_entries_added_can_be_retrieved()

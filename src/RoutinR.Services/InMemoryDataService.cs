@@ -1,16 +1,11 @@
 ﻿using RoutinR.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoutinR.Services
 {
     public class InMemoryDataService
     {
-        private readonly HashSet<Job> jobs = new HashSet<Job>() { Job.NewDefault() };
-        private readonly List<JobTimeSheetEntry> jobTimeSheetEntries = new List<JobTimeSheetEntry>();
+        private readonly HashSet<Job> jobs = new() { Job.NewDefault() };
+        private readonly List<JobTimeSheetEntry> jobTimeSheetEntries = new();
 
         /// <summary>
         /// Gets the number of jobs in internal collection
@@ -30,6 +25,15 @@ namespace RoutinR.Services
         public Job? GetJobByName(string jobName)
         {
             return jobs.FirstOrDefault(job => job.Name == jobName);
+        }
+
+        /// <summary>
+        /// Gets all jobs in internal collection
+        /// </summary>
+        /// <returns><enumerable of jobs/returns>
+        public IEnumerable<Job> GetJobs()
+        {
+            return jobs.AsEnumerable();
         }
 
         /// <summary>
