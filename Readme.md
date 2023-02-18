@@ -36,7 +36,6 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - previous start and end time are shown
 
 # ToDo
-i. test timespan formatstrings
 ii. save current start time to preferences/ other when starting to restore it when restarting
 (gets reset on stopping, since that should persist to db/ other)
 iii. persist logged times to a "real" db

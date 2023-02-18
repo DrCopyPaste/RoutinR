@@ -3,10 +3,37 @@ namespace RoutinR.Core.Tests
     public class Test_TimeSheetEntry
     {
         [Fact]
+        public void Restoring_start_time_sets_expected_start_time()
+        {
+            var savedTime = DateTime.Now.AddMinutes(-1);
+            var restoredTimeSheetEntry = new TimeSheetEntry(savedTime);
+            Assert.True(restoredTimeSheetEntry.StartTime == savedTime, "restored start time did not equal expected start time");
+        }
+
+        [Fact]
+        public void Restoring_start_time_starts_running()
+        {
+            var savedTime = DateTime.Now.AddMinutes(-1);
+            var restoredTimeSheetEntry = new TimeSheetEntry(savedTime);
+            Assert.True(restoredTimeSheetEntry.IsRunning, "restored time sheet entry is not running");
+        }
+
+        [Fact]
         public void Start_time_must_be_in_the_past()
         {
             var timeSheetEntry = new TimeSheetEntry();
             Assert.True(timeSheetEntry.StartTime < DateTime.Now, "start time is the future");
+
+            bool gotException = false;
+            try
+            {
+                var restoredTimeSheetEntry = new TimeSheetEntry(DateTime.Now.AddMinutes(1));
+            }
+            catch (ArgumentException)
+            {
+                gotException = true;
+            }
+            Assert.True(gotException, "restoring a start time from the future did not raise the expected exception");
         }
 
         [Fact]
@@ -75,7 +102,7 @@ namespace RoutinR.Core.Tests
             {
                 timeSheetEntry.Stop();
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentException)
             {
                 gotExpectedException = true;
             }

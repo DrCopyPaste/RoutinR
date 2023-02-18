@@ -5,7 +5,7 @@
     /// </summary>
     public class TimeSheetEntry
     {
-        private DateTime startTime = DateTime.Now;
+        private readonly DateTime startTime = DateTime.Now;
         private DateTime? endTime = null;
 
         public bool IsRunning => !endTime.HasValue;
@@ -19,15 +19,21 @@
         { }
 
         /// <summary>
+        /// starts logging time from given time
+        /// </summary>
+        /// <param name="startFrom">time to set start time to</param>
+        public TimeSheetEntry(DateTime startFrom)
+        {
+            if (DateTime.Now < startFrom) throw new ArgumentException("Time sheet entry starts in the future.");
+            startTime = startFrom;
+        }
+
+        /// <summary>
         /// stops logging time
         /// </summary>
         public void Stop()
         {
-            if (endTime.HasValue)
-            {
-                throw new ArgumentOutOfRangeException("Time sheet entry was already stopped.");
-            }
-
+            if (endTime.HasValue) throw new ArgumentException("Time sheet entry was already stopped.");
             endTime = DateTime.Now;
         }
     }
