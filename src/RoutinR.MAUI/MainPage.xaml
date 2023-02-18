@@ -53,7 +53,14 @@
                     FontSize="18"
                     HorizontalOptions="End" />
             </Grid>
-            
+
+            <Label
+                Text="{Binding TotalRuntimeText}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Total running time since last start"
+                FontSize="18"
+                HorizontalOptions="Center" />
+
             <Button
                 Command="{Binding PunchClockClick}"
                 Text="Punch Clock"

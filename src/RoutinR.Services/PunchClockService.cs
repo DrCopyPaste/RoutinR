@@ -8,12 +8,22 @@ namespace RoutinR.Services
     /// </summary>
     public class PunchClockService
     {
-        private Job currentJob = Job.NewDefault();
         private TimeSheetEntry? currentTimeSheetEntry;
 
         public bool IsRunning => currentTimeSheetEntry != null && currentTimeSheetEntry.IsRunning;
 
         public DateTime? StartTime => currentTimeSheetEntry?.StartTime;
+
+        public TimeSpan TotalRunTime
+        {
+            get
+            {
+                if (!StartTime.HasValue) return TimeSpan.Zero;
+                if (EndTime.HasValue) return EndTime.Value.Subtract(StartTime.Value);
+
+                return DateTime.Now.Subtract(StartTime.Value);
+            }
+        }
 
         public string StartTimeOrDefault(string defaultValue)
         {

@@ -237,5 +237,64 @@ namespace RoutinR.Services.Tests
             punchClock.Start();
             Assert.True(punchClock.EndTimeOrDefault("customDefaultValue") == "customDefaultValue", $"{nameof(punchClock.EndTimeOrDefault)} did not yield default value after starting again");
         }
+
+        [Fact]
+        public void Total_runtime_equals_zero_before_starting()
+        {
+            var punchClock = new PunchClockService();
+            Assert.True(punchClock.TotalRunTime.Equals(TimeSpan.Zero), $"{nameof(punchClock.TotalRunTime)} did not yield zero before starting");
+        }
+
+        [Fact]
+        public void Total_runtime_is_greater_than_zero_after_starting()
+        {
+            var punchClock = new PunchClockService();
+
+            punchClock.Start();
+            Assert.True(punchClock.TotalRunTime > TimeSpan.Zero, $"{nameof(punchClock.TotalRunTime)} is not greater than zero after starting");
+        }
+
+        [Fact]
+        public void Total_runtime_increases_after_starting()
+        {
+            var punchClock = new PunchClockService();
+
+            punchClock.Start();
+
+            var totalRunTime1 = punchClock.TotalRunTime;
+            Thread.Sleep(1);
+            var totalRunTime2 = punchClock.TotalRunTime;
+            Assert.True(totalRunTime1 < totalRunTime2, $"{nameof(punchClock.TotalRunTime)} did not increase after starting");
+        }
+
+        [Fact]
+        public void Total_runtime_stays_constant_after_stopping()
+        {
+            var punchClock = new PunchClockService();
+
+            punchClock.Start();
+            punchClock.Stop();
+
+            var totalRunTime1 = punchClock.TotalRunTime;
+            Thread.Sleep(1);
+            var totalRunTime2 = punchClock.TotalRunTime;
+            Assert.True(totalRunTime1 == totalRunTime2, $"{nameof(punchClock.TotalRunTime)} did not stay constant after stopping");
+        }
+
+        [Fact]
+        public void Total_runtime_resets_after_starting_again()
+        {
+            var punchClock = new PunchClockService();
+
+            punchClock.Start();
+            Thread.Sleep(2);
+            punchClock.Stop();
+
+            var totalRunTime1 = punchClock.TotalRunTime;
+
+            punchClock.Start();
+            var totalRunTime2 = punchClock.TotalRunTime;
+            Assert.True(totalRunTime1 > totalRunTime2, $"first {nameof(punchClock.TotalRunTime)} was not longer than second one");
+        }
     }
 }

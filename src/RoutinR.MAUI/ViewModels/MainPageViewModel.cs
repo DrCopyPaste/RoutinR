@@ -15,6 +15,7 @@ namespace RoutinR.MAUI.ViewModels
             CurrentlyRunning = false;
             LastStartTimeText = "never started before";
             LastEndTimeText = "never started or stopped before";
+            TotalRuntimeText = "0";
         }
 
         public Command PunchClockClick => new(() =>
@@ -35,7 +36,7 @@ namespace RoutinR.MAUI.ViewModels
                 CurrentlyRunning = true;
                 punchClockService.Start();
 
-                timer = new Timer(HandleTimerCallback, this, 0, 200);
+                timer = new Timer(HandleTimerCallback, this, 0, 20);
 
                 LastEndTimeText = "currently running";
                 LastStartTimeText = punchClockService.StartTimeOrDefault("starttime retrieval error");
@@ -48,7 +49,8 @@ namespace RoutinR.MAUI.ViewModels
                 () =>
                 {
                     if (!CurrentlyRunning) return;
-                    // PunchClockRunningTime.Text = ((int)DateTime.Now.Subtract(punchClockService.StartTime.Value).TotalSeconds).ToString();
+
+                    TotalRuntimeText = TimeSpanFormatter.Format(punchClockService.TotalRunTime);
                 }
             );
         }
@@ -63,5 +65,8 @@ namespace RoutinR.MAUI.ViewModels
 
         [ObservableProperty]
         private string lastEndTimeText;
+
+        [ObservableProperty]
+        private string totalRuntimeText;
     }
 }

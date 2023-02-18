@@ -20,6 +20,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 # Maui Stuff
 - using CommunityToolkit.Mvvm.ComponentModel to save boilerplate code
 - only define private lowercase fields inside VideModel and decorate as ObservableProperty => this generates proper public PascalCase properties
+(but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, bur restarting vs solves problems as always)
 
 # Interesting Maui Links
 - https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-7.0#commanding
