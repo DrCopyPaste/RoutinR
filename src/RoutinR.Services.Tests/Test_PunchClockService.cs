@@ -3,6 +3,57 @@ namespace RoutinR.Services.Tests
     public class Test_PunchClockService
     {
         [Fact]
+        public void Cannot_restore_start_time_to_the_future()
+        {
+            var punchClock = new PunchClockService();
+            var savedStartTime = DateTime.Now.AddMinutes(1);
+
+            var gotExpectedException = false;
+            try
+            {
+                punchClock.StartFrom(savedStartTime);
+            }
+            catch (ArgumentException)
+            {
+                gotExpectedException = true;
+            }
+
+            Assert.True(gotExpectedException, "restoring start time to the future did not raise the expected exception");
+        }
+
+        [Fact]
+        public void Cannot_stop_without_previously_starting()
+        {
+            var punchClock = new PunchClockService();
+            var gotAnException = false;
+
+            try
+            {
+                punchClock.Stop();
+            }
+            catch
+            {
+                gotAnException = true;
+            }
+
+            Assert.True(gotAnException, "stopping without previously starting did not rais an exception");
+            punchClock.Start();
+            punchClock.Stop();
+            gotAnException = false;
+
+            try
+            {
+                punchClock.Stop();
+            }
+            catch
+            {
+                gotAnException = true;
+            }
+
+            Assert.True(gotAnException, "stopping without previously starting did not rais an exception");
+        }
+
+        [Fact]
         public void Is_not_running_after_stopping()
         {
             var punchClock = new PunchClockService();
@@ -40,6 +91,14 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        public void Is_running_after_restoring_start_time()
+        {
+            var punchClock = new PunchClockService();
+            punchClock.StartFrom(DateTime.Now.AddMinutes(-1));
+            Assert.True(punchClock.IsRunning, "punch clock is not running after restoring start time");
+        }
+
+        [Fact]
         public void Is_running_after_starting_and_stopping_and_starting_multiple_times()
         {
             var punchClock = new PunchClockService();
@@ -65,38 +124,6 @@ namespace RoutinR.Services.Tests
             punchClock.Start();
             Assert.True(!savedStartTime.Equals(punchClock.StartTime), "saved start time equals new start time after starting again");
 
-        }
-
-        [Fact]
-        public void Stopping_without_previously_starting_fails()
-        {
-            var punchClock = new PunchClockService();
-            var gotAnException = false;
-
-            try
-            {
-                punchClock.Stop();
-            }
-            catch
-            {
-                gotAnException = true;
-            }
-
-            Assert.True(gotAnException, "stopping without previously starting did not rais an exception");
-            punchClock.Start();
-            punchClock.Stop();
-            gotAnException = false;
-
-            try
-            {
-                punchClock.Stop();
-            }
-            catch
-            {
-                gotAnException = true;
-            }
-
-            Assert.True(gotAnException, "stopping without previously starting did not rais an exception");
         }
 
         [Fact]
@@ -138,6 +165,16 @@ namespace RoutinR.Services.Tests
 
             punchClock.Stop();
             Assert.True(punchClock.StartTime.HasValue && punchClock.StartTime.Equals(savedStartTime), "punch clock's start time is not the same as it was before stopping");
+        }
+
+        [Fact]
+        public void Start_time_can_be_restored()
+        {
+            var punchClock = new PunchClockService();
+            var savedStartTime = DateTime.Now.AddMinutes(-1);
+
+            punchClock.StartFrom(savedStartTime);
+            Assert.True(punchClock.StartTime.HasValue && punchClock.StartTime == savedStartTime, "punch clock's start time is not the same as the start time to be restored");
         }
 
         [Fact]
@@ -282,7 +319,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Total_runtime_resets_after_starting_again()
+        public void After_starting_again_total_runtime_resets()
         {
             var punchClock = new PunchClockService();
 

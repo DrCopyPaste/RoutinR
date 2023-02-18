@@ -44,6 +44,15 @@ namespace RoutinR.Services
         }
 
         /// <summary>
+        /// starts a new TimeSheetEntry with a custom set start time
+        /// </summary>
+        /// <param name="startFrom">start time to be used</param>
+        public void StartFrom(DateTime startFrom)
+        {
+            currentTimeSheetEntry = new TimeSheetEntry(startFrom);
+        }
+
+        /// <summary>
         /// starts a new TimeSheetEntry with current time
         /// </summary>
         public void Start()
