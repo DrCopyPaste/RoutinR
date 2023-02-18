@@ -68,14 +68,15 @@ namespace RoutinR.Services
         /// raises Exception if called before calling Start
         /// </summary>
         /// <returns>end time</returns>
-        public DateTime Stop()
+        public JobTimeSheetEntry Stop()
         {
             if (currentTimeSheetEntry == null) throw new InvalidOperationException("cannot stop, because there was no previous start");
 
             currentTimeSheetEntry.Stop();
 
             if (!currentTimeSheetEntry.EndTime.HasValue) throw new InvalidOperationException("end time was not set on current time sheet entry");
-            return currentTimeSheetEntry.EndTime.Value;
+
+            return new JobTimeSheetEntry(job: Job.NewDefault(), currentTimeSheetEntry.StartTime, currentTimeSheetEntry.EndTime.Value);
         }
     }
 }

@@ -34,13 +34,15 @@ namespace RoutinR.Services.Tests
 
         [Trait("Category", "Basic starting and stopping")]
         [Fact]
-        public void End_time_is_returned_from_stopping()
+        public void After_stopping_a_complete_job_time_sheet_entry_is_returned()
         {
             var punchClock = new PunchClockService();
             punchClock.Start();
-            var endTime = punchClock.Stop();
+            var jobTimeSheetEntry = punchClock.Stop();
 
-            Assert.True(punchClock.EndTime.HasValue && punchClock.EndTime.Value == endTime, "start time returned from start call does not equal actual start time");
+            //Assert.True(punchClock.StartTime.HasValue && punchClock.StartTime.Value == jobTimeSheetEntry.StartTime, "job in generated job time sheet entry does not equal punchclock's job");
+            Assert.True(punchClock.StartTime.HasValue && punchClock.StartTime.Value == jobTimeSheetEntry.StartTime, "start time in generated job time sheet entry does not equal punchclock's start time");
+            Assert.True(punchClock.EndTime.HasValue && punchClock.EndTime.Value == jobTimeSheetEntry.EndTime, "end time in generated job time sheet entry does not equal punchclock's end time");
         }
 
         [Fact]

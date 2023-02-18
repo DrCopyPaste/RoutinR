@@ -7,10 +7,12 @@ namespace RoutinR.MAUI.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
+        private readonly InMemoryDataService dataService;
         private readonly PunchClockService punchClockService;
 
-        public MainPageViewModel(PunchClockService punchClockService)
+        public MainPageViewModel(PunchClockService punchClockService, InMemoryDataService dataService)
         {
+            this.dataService = dataService;
             this.punchClockService = punchClockService;
 
             if (Preferences.Default.ContainsKey(SettingNames.PreviousStartTime))
@@ -36,12 +38,14 @@ namespace RoutinR.MAUI.ViewModels
         {
             if (CurrentlyRunning)
             {
-                var previousEndTime = punchClockService.Stop();
+                var jobTimeSheetEntry = punchClockService.Stop();
                 Preferences.Default.Remove(SettingNames.PreviousStartTime);
 
                 CurrentlyRunning = false;
                 Timer.Dispose();
-                LastEndTimeText = previousEndTime.ToString();
+                LastEndTimeText = jobTimeSheetEntry.EndTime.ToString();
+
+                dataService.AddJobTimeSheet(jobTimeSheetEntry);
             }
             else
             {

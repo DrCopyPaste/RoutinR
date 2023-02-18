@@ -35,17 +35,10 @@ namespace RoutinR.Services
         /// <summary>
         /// Adds a new job time sheet entry to the internal collection
         /// </summary>
-        /// <param name="job"></param>
-        /// <param name="startTime"></param>
-        /// <param name="endTime"></param>
-        /// <exception cref="ArgumentException">throws if any of the parameters is null or has no value</exception>
-        public void AddJobTimeSheet(Job job, DateTime? startTime, DateTime? endTime)
+        /// <param name="jobTimeSheetEntry">the entry to be added</param>
+        public void AddJobTimeSheet(JobTimeSheetEntry jobTimeSheetEntry)
         {
-            if (job == null) throw new ArgumentException($"{nameof(job)} is null");
-            if (!startTime.HasValue) throw new ArgumentException($"{nameof(startTime)} has no value");
-            if (!endTime.HasValue) throw new ArgumentException($"{nameof(startTime)} has no value");
-
-            jobTimeSheetEntries.Add(new JobTimeSheetEntry(job, startTime.Value, endTime.Value));
+            jobTimeSheetEntries.Add(jobTimeSheetEntry);
         }
 
         /// <summary>

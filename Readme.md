@@ -38,6 +38,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - previous start time of a running session is being restored when application is closed and restarted
 
 # ToDo
+ii. add unique jobs to a list
 iii. persist logged times to a "real" db
 
 done 1. Application can toggle tracking time and not tracking time
@@ -53,7 +54,8 @@ done 2. Starting and Stopping tracking time inserts those points in time to an i
 - this is really only to make creating statistics of per day times easy
 - so this might be changed in the future, then reworking how stats work :-)
 
-1. User can use a button in the application to start or stop tracking time
+7. gracefully fail in cases the app encounters something unexpected
+(like times from the future, negative timespans, etc.)
 
 
 - RoutinR is designed to help creating timesheet stats (where the sum of the items may not exceed 24 hours/day)
