@@ -3,6 +3,7 @@ namespace RoutinR.Services.Tests
     public class Test_PunchClockService
     {
         [Fact]
+        [Trait("Category", "Restoring")]
         public void Cannot_restore_start_time_to_the_future()
         {
             var punchClock = new PunchClockService();
@@ -22,6 +23,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Cannot_stop_without_previously_starting()
         {
             var punchClock = new PunchClockService();
@@ -36,7 +38,7 @@ namespace RoutinR.Services.Tests
                 gotAnException = true;
             }
 
-            Assert.True(gotAnException, "stopping without previously starting did not rais an exception");
+            Assert.True(gotAnException, "stopping without previously starting did not raise an exception");
             punchClock.Start();
             punchClock.Stop();
             gotAnException = false;
@@ -54,6 +56,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_stopping_is_running_is_false()
         {
             var punchClock = new PunchClockService();
@@ -63,6 +66,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Before_starting_is_running_is_false()
         {
             var punchClock = new PunchClockService();
@@ -70,6 +74,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_and_stopping_multiple_times_is_running_is_false()
         {
             var punchClock = new PunchClockService();
@@ -83,6 +88,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_is_running_is_true()
         {
             var punchClock = new PunchClockService();
@@ -91,6 +97,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_restoring_start_time_is_running_is_true()
         {
             var punchClock = new PunchClockService();
@@ -99,6 +106,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_and_stopping_and_starting_multiple_times_is_running_is_true()
         {
             var punchClock = new PunchClockService();
@@ -111,6 +119,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_without_previously_stopping_start_time_resets()
         {
             var punchClock = new PunchClockService();
@@ -127,6 +136,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_again_start_time_increases()
         {
             var punchClock = new PunchClockService();
@@ -138,6 +148,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_first_time_start_time_has_a_value()
         {
             var punchClock = new PunchClockService();
@@ -155,6 +166,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_stopping_start_time_stays_the_same()
         {
             var punchClock = new PunchClockService();
@@ -168,7 +180,8 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
-        public void Start_time_can_be_restored()
+        [Trait("Category", "Restoring")]
+        public void After_restoring_start_time_equals_desired_time()
         {
             var punchClock = new PunchClockService();
             var savedStartTime = DateTime.Now.AddMinutes(-1);
@@ -178,6 +191,18 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Restoring")]
+        public void After_restoring_is_running_is_true()
+        {
+            var punchClock = new PunchClockService();
+            var savedStartTime = DateTime.Now.AddMinutes(-1);
+
+            punchClock.StartFrom(savedStartTime);
+            Assert.True(punchClock.IsRunning, "punch clock is not running after being restored");
+        }
+
+        [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_stopping_end_time_is_set_not_before()
         {
             var punchClock = new PunchClockService();
@@ -198,6 +223,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_again_end_time_resets()
         {
             var punchClock = new PunchClockService();
@@ -214,6 +240,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void StartTimeOrDefault_yields_default_value_before_first_start()
         {
             var punchClock = new PunchClockService();
@@ -221,6 +248,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_first_start_StartTimeOrDefault_yields_StartTime()
         {
             var punchClock = new PunchClockService();
@@ -238,6 +266,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Before_stopping_EndTimeOrDefault_yields_default_value()
         {
             var punchClock = new PunchClockService();
@@ -256,6 +285,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_stopping_EndTimeOrDefault_yields_EndTime_but_only_until_starting_again()
         {
             var punchClock = new PunchClockService();
@@ -276,6 +306,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Before_starting_total_runtime_equals_zero()
         {
             var punchClock = new PunchClockService();
@@ -283,6 +314,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_total_runtime_is_greater_than_zero()
         {
             var punchClock = new PunchClockService();
@@ -292,6 +324,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_total_runtime_increases()
         {
             var punchClock = new PunchClockService();
@@ -305,6 +338,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_stopping_Total_runtime_stays_constant()
         {
             var punchClock = new PunchClockService();
@@ -319,6 +353,7 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void After_starting_again_total_runtime_resets()
         {
             var punchClock = new PunchClockService();
