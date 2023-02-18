@@ -3,6 +3,7 @@ namespace RoutinR.Core.Tests
     public class Test_TimeSheetEntry
     {
         [Fact]
+        [Trait("Category", "Restoring")]
         public void Restoring_start_time_sets_expected_start_time()
         {
             var savedTime = DateTime.Now.AddMinutes(-1);
@@ -11,6 +12,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Restoring")]
         public void Restoring_start_time_starts_running()
         {
             var savedTime = DateTime.Now.AddMinutes(-1);
@@ -18,6 +20,7 @@ namespace RoutinR.Core.Tests
             Assert.True(restoredTimeSheetEntry.IsRunning, "restored time sheet entry is not running");
         }
 
+        [Trait("Category", "Basic starting and stopping")]
         [Fact]
         public void Start_time_must_be_in_the_past()
         {
@@ -37,6 +40,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Start_time_must_stay_the_same_after_stopping()
         {
             var timeSheetEntry = new TimeSheetEntry();
@@ -46,6 +50,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Start_time_must_be_smaller_than_end_time_after_stopping()
         {
             var timeSheetEntry = new TimeSheetEntry();
@@ -54,6 +59,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void End_time_must_be_set_after_stopping()
         {
             var timeSheetEntry = new TimeSheetEntry();
@@ -62,6 +68,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void End_time_must_not_be_set_until_stopping()
         {
             var timeSheetEntry = new TimeSheetEntry();
@@ -71,6 +78,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void End_time_must_be_in_the_past_after_stopping()
         {
             var timeSheetEntry = new TimeSheetEntry();
@@ -79,6 +87,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Is_running_until_stopped()
         {
             var timeSheetEntry = new TimeSheetEntry();
@@ -92,6 +101,7 @@ namespace RoutinR.Core.Tests
         }
 
         [Fact]
+        [Trait("Category", "Basic starting and stopping")]
         public void Cannot_be_stopped_multiple_times()
         {
             var timeSheetEntry = new TimeSheetEntry();

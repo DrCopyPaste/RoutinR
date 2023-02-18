@@ -26,6 +26,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 # Interesting Maui Links
 - https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-7.0#commanding
 - https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection
+- https://learn.microsoft.com/de-de/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
 
 
 # Features
@@ -34,10 +35,9 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - current starting time is shown
 - Hit the Punch Clock Button again to stop tracking time and log it
 - previous start and end time are shown
+- previous start time of a running session is being restored when application is closed and restarted
 
 # ToDo
-ii. save current start time to preferences/ other when starting to restore it when restarting
-(gets reset on stopping, since that should persist to db/ other)
 iii. persist logged times to a "real" db
 
 done 1. Application can toggle tracking time and not tracking time

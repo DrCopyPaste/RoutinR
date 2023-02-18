@@ -12,5 +12,11 @@ namespace RoutinR.MAUI
             BindingContext = viewModel;
             InitializeComponent();
         }
+
+        protected override void OnDisappearing()
+        {
+            BindingContext = null;
+            base.OnDisappearing();
+        }
     }
 }

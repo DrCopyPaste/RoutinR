@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using RoutinR.Constants;
 using RoutinR.Core;
 using RoutinR.Services;
 
@@ -12,6 +13,19 @@ namespace RoutinR.MAUI.ViewModels
         {
             this.punchClockService = punchClockService;
 
+            if (Preferences.Default.ContainsKey(SettingNames.PreviousStartTime))
+            {
+                var restoredStartTime = Preferences.Default.Get(SettingNames.PreviousStartTime, DateTime.MinValue);
+
+                punchClockService.StartFrom(restoredStartTime);
+                LastStartTimeText = restoredStartTime.ToString();
+                CurrentlyRunning = true;
+                Timer = new Timer(HandleTimerCallback, this, 0, 20);
+                LastEndTimeText = "currently running";
+
+                return;
+            }
+
             CurrentlyRunning = false;
             LastStartTimeText = "never started before";
             LastEndTimeText = "never started or stopped before";
@@ -22,24 +36,24 @@ namespace RoutinR.MAUI.ViewModels
         {
             if (CurrentlyRunning)
             {
-                punchClockService.Stop();
+                var previousEndTime = punchClockService.Stop();
+                Preferences.Default.Remove(SettingNames.PreviousStartTime);
+
                 CurrentlyRunning = false;
-                timer.Dispose();
-
-                LastEndTimeText = punchClockService.EndTimeOrDefault("endtime retrieval error");
-
-                // var jobTimeSheetEntry = new JobTimeSheetEntry(null, DateTime.Now, DateTime.Now);
-                // dataService.AddJobTimeSheet(Job.NewDefault(), punchClockService.StartTime, punchClockService.EndTime);
+                Timer.Dispose();
+                LastEndTimeText = previousEndTime.ToString();
             }
             else
             {
+                var previousStartTime = punchClockService.Start();
+
+                // save last start time to preferences to restore it in case of a restart
+                Preferences.Default.Set(SettingNames.PreviousStartTime, previousStartTime);
+
                 CurrentlyRunning = true;
-                punchClockService.Start();
-
-                timer = new Timer(HandleTimerCallback, this, 0, 20);
-
+                Timer = new Timer(HandleTimerCallback, this, 0, 20);
                 LastEndTimeText = "currently running";
-                LastStartTimeText = punchClockService.StartTimeOrDefault("starttime retrieval error");
+                LastStartTimeText = previousStartTime.ToString();
             }
         });
 
@@ -55,7 +69,7 @@ namespace RoutinR.MAUI.ViewModels
             );
         }
 
-        private Timer timer = null;
+        public Timer Timer { get; private set; }
 
         [ObservableProperty]
         private bool currentlyRunning;

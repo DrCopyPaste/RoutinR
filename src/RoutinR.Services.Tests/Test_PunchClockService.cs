@@ -22,6 +22,27 @@ namespace RoutinR.Services.Tests
             Assert.True(gotExpectedException, "restoring start time to the future did not raise the expected exception");
         }
 
+        [Trait("Category", "Basic starting and stopping")]
+        [Fact]
+        public void Start_time_is_returned_from_starting()
+        {
+            var punchClock = new PunchClockService();
+            var startTime = punchClock.Start();
+
+            Assert.True(punchClock.StartTime.HasValue && punchClock.StartTime.Value == startTime, "start time returned from start call does not equal actual start time");
+        }
+
+        [Trait("Category", "Basic starting and stopping")]
+        [Fact]
+        public void End_time_is_returned_from_stopping()
+        {
+            var punchClock = new PunchClockService();
+            punchClock.Start();
+            var endTime = punchClock.Stop();
+
+            Assert.True(punchClock.EndTime.HasValue && punchClock.EndTime.Value == endTime, "start time returned from start call does not equal actual start time");
+        }
+
         [Fact]
         [Trait("Category", "Basic starting and stopping")]
         public void Cannot_stop_without_previously_starting()
