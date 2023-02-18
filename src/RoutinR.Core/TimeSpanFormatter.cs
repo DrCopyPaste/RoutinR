@@ -4,6 +4,8 @@
     {
         public static string Format(TimeSpan timeSpan)
         {
+            if (timeSpan < TimeSpan.Zero) throw new ArgumentException("timespan is smaller than zero");
+
             if (timeSpan.TotalSeconds < 60) return timeSpan.ToString("ss\\:ff");
             if (timeSpan.TotalMinutes < 60) return timeSpan.ToString("mm\\:ss");
             if (timeSpan.TotalHours < 24) return timeSpan.ToString("h\\:mm");
