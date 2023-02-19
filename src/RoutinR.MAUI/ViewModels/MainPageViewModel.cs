@@ -78,6 +78,9 @@ namespace RoutinR.MAUI.ViewModels
         public Timer Timer { get; private set; }
 
         [ObservableProperty]
+        private Job currentJob;
+
+        [ObservableProperty]
         private bool currentlyRunning;
 
         [ObservableProperty]

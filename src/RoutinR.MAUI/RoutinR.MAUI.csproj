@@ -59,6 +59,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\RoutinR.Services\RoutinR.Services.csproj" />
+	  <ProjectReference Include="..\RoutinR.Startup\RoutinR.Startup.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

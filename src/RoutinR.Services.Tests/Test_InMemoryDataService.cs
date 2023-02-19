@@ -6,11 +6,17 @@ namespace RoutinR.Services.Tests
 {
     public class Test_InMemoryDataService
     {
+        private readonly InMemoryDataService dataService;
+
+        public Test_InMemoryDataService()
+        {
+            this.dataService = new InMemoryDataService();
+        }
+
         [Fact]
         [Trait("Category", "Jobs")]
         public void Default_job_exists_by_default()
         {
-            var dataService = new InMemoryDataService();
             Assert.True(dataService.GetJobByName(JobNames.Idle) != null, "no default job was found");
         }
 
@@ -18,7 +24,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Cannot_add_default_job()
         {
-            var dataService = new InMemoryDataService();
             var gotExpectedException = false;
 
             try
@@ -37,7 +42,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Cannot_add_a_job_name_that_already_exists()
         {
-            var dataService = new InMemoryDataService();
             var gotExpectedException = false;
 
             dataService.AddJob(Job.NewFromName("abc"));
@@ -58,8 +62,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Job_count_is_one_after_initialization()
         {
-            var dataService = new InMemoryDataService();
-
             // default job already exists making job count = 1 before adding anything custom
             Assert.True(dataService.JobCount == 1, "job count does not equal 1 after initialization");
         }
@@ -68,7 +70,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Adding_a_job_increases_job_count()
         {
-            var dataService = new InMemoryDataService();
 
             // default job already exists making job count = 1 before adding anything custom
             dataService.AddJob(Job.NewFromName("abc"));
@@ -85,7 +86,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Deleting_a_job_is_not_supported()
         {
-            var dataService = new InMemoryDataService();
             var gotExpectedException = false;
 
             dataService.AddJob(Job.NewFromName("abc"));
@@ -106,7 +106,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Updating_a_job_is_not_supported()
         {
-            var dataService = new InMemoryDataService();
             var gotExpectedException = false;
 
             dataService.AddJob(Job.NewFromName("abc"));
@@ -127,8 +126,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Default_job_can_be_retrieved()
         {
-            var dataService = new InMemoryDataService();
-
             var jobDefault = dataService.GetJobByName(JobNames.Idle);
             Assert.True(jobDefault != null && jobDefault.Name == JobNames.Idle, "default job was null or did not have the right name");
         }
@@ -137,8 +134,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void Jobs_added_can_be_retrieved()
         {
-            var dataService = new InMemoryDataService();
-
             dataService.AddJob(Job.NewFromName("Job1"));
             dataService.AddJob(Job.NewFromName("Job2"));
             dataService.AddJob(Job.NewFromName("Job3"));
@@ -157,8 +152,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Jobs")]
         public void GetJobs_gets_all_jobs_in_collection()
         {
-            var dataService = new InMemoryDataService();
-
             dataService.AddJob(Job.NewFromName("Job1"));
             dataService.AddJob(Job.NewFromName("Job2"));
             dataService.AddJob(Job.NewFromName("Job3"));
@@ -175,7 +168,6 @@ namespace RoutinR.Services.Tests
         //[Trait("Category", "Job sheet entries")]
         //public void Job_time_sheet_entries_added_can_be_retrieved()
         //{
-        //    var dataService = new InMemoryDataService();
 
         //    dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-1), endTime: DateTime.Now));
 
@@ -193,7 +185,6 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Exporting")]
         public void Exporting_is_not_supported()
         {
-            var dataService = new InMemoryDataService();
             var gotExpectedException = false;
 
             dataService.AddJob(Job.NewFromName("abc"));
