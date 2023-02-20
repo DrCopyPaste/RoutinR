@@ -36,10 +36,26 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - Hit the Punch Clock Button again to stop tracking time and log it
 - previous start and end time are shown
 - previous start time of a running session is being restored when application is closed and restarted
+- use the default idle job to track time
+- or add custom job names
+- timesheets for all jobs can be viewed in a list
+
+
+
+# Features ToDo
+- current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
+- job timesheets can be filtered by jobname and time interval
+- job timesheets can be updated (change assigned job and/ or start/ end time)
 
 # ToDo
+
+0. testing job time sheet entries (and with dataservice)
+i. wrap all (core or service calling) client code with exception handling
+
 ii. add unique jobs to a list
-iii. persist logged times to a "real" db
+iii. persist logged times
+
+
 
 done 1. Application can toggle tracking time and not tracking time
 done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)

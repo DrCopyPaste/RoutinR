@@ -60,6 +60,7 @@ namespace RoutinR.MAUI
         {
             serviceCollection.AddTransient<AboutPage>();
             serviceCollection.AddTransient<JobsPage>();
+            serviceCollection.AddTransient<JobTimeSheetEntriesPage>();
             serviceCollection.AddTransient<MainPage>();
         }
 
@@ -67,6 +68,7 @@ namespace RoutinR.MAUI
         {
             serviceCollection.AddTransient<AboutPageViewModel>();
             serviceCollection.AddTransient<JobsPageViewModel>();
+            serviceCollection.AddTransient<JobTimeSheetEntriesPageViewModel>();
             serviceCollection.AddTransient<MainPageViewModel>();
         }
     }

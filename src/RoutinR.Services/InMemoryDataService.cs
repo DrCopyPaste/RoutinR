@@ -37,6 +37,15 @@ namespace RoutinR.Services
         }
 
         /// <summary>
+        /// Gets all job time sheet entries
+        /// </summary>
+        /// <returns>enumerable of time sheet entries</returns>
+        public IEnumerable<JobTimeSheetEntry> GetJobTimeSheetEntries()
+        {
+            return jobTimeSheetEntries.AsEnumerable();
+        }
+
+        /// <summary>
         /// Adds a new job time sheet entry to the internal collection
         /// </summary>
         /// <param name="jobTimeSheetEntry">the entry to be added</param>

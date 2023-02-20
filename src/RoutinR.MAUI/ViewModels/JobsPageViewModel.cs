@@ -15,10 +15,9 @@ namespace RoutinR.MAUI.ViewModels
         public JobsPageViewModel(InMemoryDataService dataService)
         {
             this.dataService = dataService;
-            jobs = new ObservableCollection<Job>();
+            Jobs = new ObservableCollection<Job>();
 
-            var persistedJobs = dataService.GetJobs();
-            foreach(var job in persistedJobs) jobs.Add(job);
+            foreach(var job in dataService.GetJobs()) Jobs.Add(job);
         }
 
         [RelayCommand]

@@ -15,6 +15,10 @@
         ContentTemplate="{DataTemplate local:JobsPage}"
         Route="JobsPage" />
     <ShellContent
+        Title="Job time sheet entries"
+        ContentTemplate="{DataTemplate local:JobTimeSheetEntriesPage}"
+        Route="JobTimeSheetEntriesPage" />
+    <ShellContent
         Title="About"
         ContentTemplate="{DataTemplate local:AboutPage}"
         Route="AboutPage" />

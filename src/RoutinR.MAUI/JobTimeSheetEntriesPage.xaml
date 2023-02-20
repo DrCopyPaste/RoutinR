@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RoutinR.Core;assembly=RoutinR.Core"
+             x:Class="RoutinR.MAUI.JobTimeSheetEntriesPage"
+             Title="JobTimeSheetEntriesPage">
+    <VerticalStackLayout>
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding JobTimeSheetEntries}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type local:JobTimeSheetEntry}">
+                    <SwipeView>
+                        <!--<SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobsPageViewModel}}, Path=DeleteCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>-->
+
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <!--<Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
+                                           CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>-->
+                                <Label FontSize="24">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1} until {2}">
+                                            <Binding Path="StartTime" />
+                                            <Binding Path="Job.Name" />
+                                            <Binding Path="EndTime" />
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </Frame>
+                        </Grid>
+
+                    </SwipeView>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
