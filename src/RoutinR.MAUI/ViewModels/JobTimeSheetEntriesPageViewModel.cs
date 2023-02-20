@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using RoutinR.Core;
 using RoutinR.Services;
 using System.Collections.ObjectModel;
@@ -23,5 +24,11 @@ namespace RoutinR.MAUI.ViewModels
 
         [ObservableProperty]
         ObservableCollection<JobTimeSheetEntry> jobTimeSheetEntries;
+
+        [RelayCommand]
+        async Task Tap(string s)
+        {
+            await Shell.Current.GoToAsync($"{nameof(JobTimeSheetEntryPage)}");
+        }
     }
 }

@@ -2,15 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:RoutinR.Core;assembly=RoutinR.Core"
+             xmlns:viewmodel="clr-namespace:RoutinR.MAUI.ViewModels"
              x:Class="RoutinR.MAUI.JobTimeSheetEntriesPage"
              Title="JobTimeSheetEntriesPage">
-    <VerticalStackLayout>
+    <Grid RowDefinitions="100, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
         <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
                         ItemsSource="{Binding JobTimeSheetEntries}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type local:JobTimeSheetEntry}">
-                    <SwipeView>
+                    <!--<SwipeView>-->
                         <!--<SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem Text="Delete"
@@ -22,11 +27,13 @@
 
                         <Grid Padding="0,5">
                             <Frame>
-                                <!--<Frame.GestureRecognizers>
+                                <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
-                                           CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>-->
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobTimeSheetEntriesPageViewModel}}, Path=TapCommand}" />
+                                    <!--<TapGestureRecognizer 
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobTimeSheetEntriesPageViewModel}}, Path=TapCommand}"
+                                           CommandParameter="{Binding .}"/>-->
+                                </Frame.GestureRecognizers>
                                 <Label FontSize="24">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0}: {1} until {2}">
@@ -39,11 +46,11 @@
                             </Frame>
                         </Grid>
 
-                    </SwipeView>
+                    <!--</SwipeView>-->
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

@@ -24,10 +24,15 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 (but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, bur restarting vs solves problems as always)
 
 # Interesting Maui Links
+- https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/?view=net-maui-7.0
+- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-7.0
 - https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-7.0#commanding
 - https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection
 - https://learn.microsoft.com/de-de/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
 
+
+# Maui issues:
+- crashes when scrollable content in swipeview on windows exceeds display: https://github.com/dotnet/maui/issues/8870
 
 # Features
 - Hit the Punch Clock Button to start tracking time
@@ -49,10 +54,8 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 # ToDo
 
+0. prevent updating entries to colliding time intervals with the pending time sheet
 i. wrap all (core or service calling) client code with exception handling
-
-ii. add unique jobs to a list
-iii. persist logged times
 
 
 

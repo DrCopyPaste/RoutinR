@@ -4,7 +4,11 @@
              xmlns:local="clr-namespace:RoutinR.Core;assembly=RoutinR.Core"
              x:Class="RoutinR.MAUI.JobsPage"
              Title="JobsPage">
-    <VerticalStackLayout>
+    <Grid RowDefinitions="100, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
         
         <Entry Placeholder="Enter new job name"
                Text="{Binding NewJobName}"
@@ -20,7 +24,7 @@
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type local:Job}">
-                    <SwipeView>
+                    <!--<SwipeView>-->
                         <!--<SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem Text="Delete"
@@ -42,11 +46,11 @@
                             </Frame>
                         </Grid>
                         
-                    </SwipeView>
+                    <!--</SwipeView>-->
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
