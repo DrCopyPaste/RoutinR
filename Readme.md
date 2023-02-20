@@ -49,7 +49,6 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 # ToDo
 
-0. testing job time sheet entries (and with dataservice)
 i. wrap all (core or service calling) client code with exception handling
 
 ii. add unique jobs to a list
