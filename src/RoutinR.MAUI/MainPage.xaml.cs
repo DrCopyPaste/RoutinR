@@ -6,7 +6,7 @@ namespace RoutinR.MAUI
 {
     public partial class MainPage : ContentPage
     {
-        private int appearenceCounter = 0;
+        private bool initialized = false;
         public MainPage(MainPageViewModel viewModel)
         {
             BindingContext = viewModel;
@@ -15,9 +15,9 @@ namespace RoutinR.MAUI
 
         protected override void OnAppearing()
         {
-            if (appearenceCounter != 0) ((MainPageViewModel)BindingContext).RefreshEntriesAndSelectJob();
+            if (initialized) ((MainPageViewModel)BindingContext).RefreshEntriesAndSelectJob();
 
-            appearenceCounter = appearenceCounter + 1;
+            initialized = true;
             ((MainPageViewModel)BindingContext).Paused = false;
             base.OnAppearing();
         }
