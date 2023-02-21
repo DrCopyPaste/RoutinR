@@ -58,11 +58,11 @@ namespace RoutinR.MAUI
 
         public static void RegisterViewsToServiceCollection(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<AboutPage>();
-            serviceCollection.AddTransient<JobsPage>();
-            serviceCollection.AddTransient<JobTimeSheetEntriesPage>();
-            serviceCollection.AddTransient<JobTimeSheetEntryPage>();
-            serviceCollection.AddTransient<MainPage>();
+            serviceCollection.AddSingleton<AboutPage>();
+            serviceCollection.AddSingleton<JobsPage>();
+            serviceCollection.AddSingleton<JobTimeSheetEntriesPage>();
+            serviceCollection.AddSingleton<JobTimeSheetEntryPage>();
+            serviceCollection.AddSingleton<MainPage>();
         }
 
         public static void RegisterViewModelsToServiceCollection(IServiceCollection serviceCollection)

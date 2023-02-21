@@ -44,21 +44,24 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - use the default idle job to track time
 - or add custom job names
 - timesheets for all jobs can be viewed in a list
+- current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
 
 
 
 # Features ToDo
-- current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
-- job timesheets can be filtered by jobname and time interval
+- job timesheets can be filtered by jobname and time interval (also today/ this week/ this month filter for time sheet entries)
+
 - job timesheets can be updated (change assigned job and/ or start/ end time)
 
-# ToDo
 
-0. prevent updating entries to colliding time intervals with the pending time sheet
-i. wrap all (core or service calling) client code with exception handling
+- pretty format time sheet entries
+- rename job time sheet entries => time sheets (time sheet entries into SOMETHING?)
+- wrap all (core or service calling) client code with exception handling
 
 
 
+
+# Misc
 done 1. Application can toggle tracking time and not tracking time
 done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
 3. The internal collection of start- and stop-times can be persisted/ exported (json, database, sth. else?)

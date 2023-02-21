@@ -64,19 +64,27 @@ namespace RoutinR.Services
 
         /// <summary>
         /// stops tracking time for the current TimeSheetEntry and logs the current time as end time
-        /// 
-        /// raises Exception if called before calling Start
+        /// <summary>
+        /// stops tracking time for the current TimeSheetEntry and logs the current time as end time
         /// </summary>
-        /// <returns>end time</returns>
-        public JobTimeSheetEntry Stop()
+        /// <param name="job">
+        /// job to log this completed time sheet to,
+        /// logs to default job if null
+        /// </param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">
+        /// if called before calling Start
+        /// or if end time was not set for some reason
+        /// </exception>
+        public JobTimeSheetEntry Stop(Job? job = null)
         {
             if (currentTimeSheetEntry == null) throw new InvalidOperationException("cannot stop, because there was no previous start");
+            var targetJob = job ?? Job.NewDefault();
 
             currentTimeSheetEntry.Stop();
 
             if (!currentTimeSheetEntry.EndTime.HasValue) throw new InvalidOperationException("end time was not set on current time sheet entry");
-
-            return new JobTimeSheetEntry(job: Job.NewDefault(), currentTimeSheetEntry.StartTime, currentTimeSheetEntry.EndTime.Value);
+            return new JobTimeSheetEntry(job: targetJob, currentTimeSheetEntry.StartTime, currentTimeSheetEntry.EndTime.Value);
         }
     }
 }

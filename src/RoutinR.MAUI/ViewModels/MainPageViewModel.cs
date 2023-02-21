@@ -2,6 +2,7 @@
 using RoutinR.Constants;
 using RoutinR.Core;
 using RoutinR.Services;
+using System.Collections.ObjectModel;
 
 namespace RoutinR.MAUI.ViewModels
 {
@@ -14,6 +15,10 @@ namespace RoutinR.MAUI.ViewModels
         {
             this.dataService = dataService;
             this.punchClockService = punchClockService;
+
+            Jobs = new ObservableCollection<Job>();
+            RefreshEntriesAndSelectJob();
+            RestoreCurrentJob();
 
             if (Preferences.Default.ContainsKey(SettingNames.PreviousStartTime))
             {
@@ -34,11 +39,34 @@ namespace RoutinR.MAUI.ViewModels
             TotalRuntimeText = "0";
         }
 
+        private void RestoreCurrentJob()
+        {
+            if (!Preferences.Default.ContainsKey(SettingNames.CurrentJobName))
+            {
+                return;
+            }
+
+            var defaultJob = Jobs.First();
+            
+            var restoredJobName = Preferences.Default.Get(SettingNames.CurrentJobName, defaultJob.Name);
+            var jobFromDb = this.dataService.GetJobByName(restoredJobName);
+            if (jobFromDb == null)
+            {
+                // if restored job does not exist in db, restore preference setting to default
+                Preferences.Default.Set(SettingNames.CurrentJobName, defaultJob.Name);
+                CurrentJob = defaultJob;
+            }
+            else
+            {
+                CurrentJob = jobFromDb;
+            }
+        }
+
         public Command PunchClockClick => new(() =>
         {
             if (CurrentlyRunning)
             {
-                var jobTimeSheetEntry = punchClockService.Stop();
+                var jobTimeSheetEntry = punchClockService.Stop(CurrentJob);
                 Preferences.Default.Remove(SettingNames.PreviousStartTime);
 
                 CurrentlyRunning = false;
@@ -74,8 +102,28 @@ namespace RoutinR.MAUI.ViewModels
             );
         }
 
+        public void RefreshEntriesAndSelectJob()
+        {
+            var lastJobName = CurrentJob == null ? Job.NewDefault().Name : CurrentJob.Name;
+
+            Jobs.Clear();
+            foreach (var job in this.dataService.GetJobs()) Jobs.Add(job);
+
+            var jobFromDb = jobs.FirstOrDefault(job => job.Name == lastJobName);
+            if (jobFromDb != null)
+            {
+                CurrentJob = jobFromDb;
+                return;
+            }
+
+            CurrentJob = Job.NewDefault();
+        }
+
         public bool Paused { get; set; } = false;
         public Timer Timer { get; private set; }
+
+        [ObservableProperty]
+        private ObservableCollection<Job> jobs;
 
         [ObservableProperty]
         private Job currentJob;
