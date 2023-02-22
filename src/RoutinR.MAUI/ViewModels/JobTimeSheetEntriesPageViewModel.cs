@@ -26,9 +26,14 @@ namespace RoutinR.MAUI.ViewModels
         ObservableCollection<JobTimeSheetEntry> jobTimeSheetEntries;
 
         [RelayCommand]
-        async Task Tap(string s)
+        async Task Tap(JobTimeSheetEntry entry)
         {
-            await Shell.Current.GoToAsync($"{nameof(JobTimeSheetEntryPage)}");
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "JobTimeSheetEntry", entry }
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(JobTimeSheetEntryPage)}", navigationParameter);
         }
     }
 }

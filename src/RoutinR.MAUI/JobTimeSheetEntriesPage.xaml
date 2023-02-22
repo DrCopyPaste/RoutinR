@@ -29,7 +29,9 @@
                             <Frame>
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobTimeSheetEntriesPageViewModel}}, Path=TapCommand}" />
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobTimeSheetEntriesPageViewModel}}, Path=TapCommand}"
+                                           CommandParameter="{Binding .}"
+                                        />
                                     <!--<TapGestureRecognizer 
                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobTimeSheetEntriesPageViewModel}}, Path=TapCommand}"
                                            CommandParameter="{Binding .}"/>-->

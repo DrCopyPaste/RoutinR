@@ -29,6 +29,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-7.0#commanding
 - https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection
 - https://learn.microsoft.com/de-de/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
+- https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/markup/extensions/bindable-object-extensions
 
 
 # Maui issues:
@@ -46,12 +47,14 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - timesheets for all jobs can be viewed in a list
 - current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
 
-
+- saved job timesheets can be updated (change assigned job and/ or start/ end time)
 
 # Features ToDo
+- visualize adjacent/ potentially overlapping time sheet entries when editing job time sheet entries
+- change timespan format (seconds and/or ms should always be visible to indicate progress)
+- consistend datetime formatters
 - job timesheets can be filtered by jobname and time interval (also today/ this week/ this month filter for time sheet entries)
-
-- job timesheets can be updated (change assigned job and/ or start/ end time)
+- enable merging adjacent time sheet entries if they share the same job
 
 
 - pretty format time sheet entries
