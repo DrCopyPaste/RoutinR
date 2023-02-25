@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserInterfaces", "UserInter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.MAUI", "RoutinR.MAUI\RoutinR.MAUI.csproj", "{D5B8F441-743E-4885-9315-2FC96C9189D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutinR.Startup", "RoutinR.Startup\RoutinR.Startup.csproj", "{3C8758A7-C2C1-4E48-8CB4-1614D1D37F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutinR.Startup", "RoutinR.Startup\RoutinR.Startup.csproj", "{3C8758A7-C2C1-4E48-8CB4-1614D1D37F16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

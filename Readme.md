@@ -31,6 +31,12 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - https://learn.microsoft.com/de-de/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
 - https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/markup/extensions/bindable-object-extensions
 
+# Interesting Testing Links
+- https://www.youtube.com/watch?v=GrJJXixjR8M (Implementing API Key Authentication in ASP.NET Core)
+- https://www.youtube.com/watch?v=VuFQtyRmS0E How to unit test Minimal APIs in .NET 6 (and why it's hard)
+- https://www.youtube.com/watch?v=7roqteWLw4s Integration testing | ASP.NET Core 5 REST API Tutorial 15
+- 
+
 
 # Maui issues:
 - crashes when scrollable content in swipeview on windows exceeds display: https://github.com/dotnet/maui/issues/8870
@@ -46,10 +52,13 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - or add custom job names
 - timesheets for all jobs can be viewed in a list
 - current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
-
 - saved job timesheets can be updated (change assigned job and/ or start/ end time)
 
 # Features ToDo
+- external apis can be linked by creating api export profiles containing post url, api user, api key
+-- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
+
+
 - visualize adjacent/ potentially overlapping time sheet entries when editing job time sheet entries
 - change timespan format (seconds and/or ms should always be visible to indicate progress)
 - consistend datetime formatters
@@ -69,14 +78,10 @@ done 1. Application can toggle tracking time and not tracking time
 done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
 3. The internal collection of start- and stop-times can be persisted/ exported (json, database, sth. else?)
 
-4. Work-Items can be created
-5. Work-Items consist of
-- a name
-- an internal collection of start- and stop-times
-6. Highlander-principle: there can only ever be one timer running
+ Highlander-principle: there can only ever be one timer running
 - starting tracking time for a task-item stops tracking time for all other task-items, 
 - this is really only to make creating statistics of per day times easy
-- so this might be changed in the future, then reworking how stats work :-)
+- so this MIGHT be changed in the future, then reworking how stats work :-)
 
 7. gracefully fail in cases the app encounters something unexpected
 (like times from the future, negative timespans, etc.)

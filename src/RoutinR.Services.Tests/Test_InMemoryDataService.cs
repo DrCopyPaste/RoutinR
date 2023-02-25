@@ -353,10 +353,23 @@ namespace RoutinR.Services.Tests
         }
 
         //[Fact]
-        //[Trait("Category", "Job time sheet entries")]
-        //public void Job_time_sheet_entries_added_can_be_retrieved()
+        //[Trait("Category", "Exporting")]
+        //public void Exporting_is_not_supported()
         //{
-        //    dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-1), endTime: DateTime.Now));
+        //    var gotExpectedException = false;
+
+        //    dataService.AddJob(Job.NewFromName("abc"));
+
+        //    try
+        //    {
+        //        dataService.Export();
+        //    }
+        //    catch (NotImplementedException)
+        //    {
+        //        gotExpectedException = true;
+        //    }
+
+        //    Assert.True(gotExpectedException, "exporting not raise the expected exception");
         //}
 
         [Fact]

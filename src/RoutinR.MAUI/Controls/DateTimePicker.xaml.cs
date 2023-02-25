@@ -1,5 +1,8 @@
 namespace RoutinR.MAUI.Controls;
 
+/// <summary>
+/// Binding TO DateTime only works at initialization time
+/// </summary>
 public partial class DateTimePicker : ContentView
 {
     public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime), typeof(DateTimePicker), default(DateTime));
