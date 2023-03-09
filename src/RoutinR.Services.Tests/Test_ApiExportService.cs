@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using RoutinR.Core;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json.Nodes;
+using System.Text;
 
 namespace RoutinR.Services.Tests
 {
@@ -32,8 +34,11 @@ namespace RoutinR.Services.Tests
         {
             var route = $"{baseUrl}{External.TestApi.Constants.Timesheet_Post_Route}";
 
-            var task = httpClient.PostAsync(route, null);
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(new ApiTimeSheetEntry() { Name = "TestEntry" }), Encoding.UTF8, "application/json");
+            var task = httpClient.PostAsync(route, content);
             var response = task.GetAwaiter().GetResult();
+
+            var result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
         }
     }
 }
