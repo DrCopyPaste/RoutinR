@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.119">
@@ -28,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\External.TestApi\External.TestApi.csproj" />
     <ProjectReference Include="..\RoutinR.Services\RoutinR.Services.csproj" />
     <ProjectReference Include="..\RoutinR.Startup\RoutinR.Startup.csproj" />
   </ItemGroup>
