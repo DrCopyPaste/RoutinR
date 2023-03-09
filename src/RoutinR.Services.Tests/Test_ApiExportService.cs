@@ -2,7 +2,7 @@ using RoutinR.Core;
 
 namespace RoutinR.Services.Tests
 {
-    public class Test_WorkItemService
+    public class Test_ApiExportService
     {
         [Fact]
         public void Work_items_may_exist()

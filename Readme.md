@@ -32,6 +32,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/markup/extensions/bindable-object-extensions
 
 # Interesting Testing Links
+- https://medium.com/asos-techblog/testing-authorization-scenarios-in-asp-net-core-web-api-484bc95d5f6f 
 - https://www.youtube.com/watch?v=GrJJXixjR8M (Implementing API Key Authentication in ASP.NET Core)
 - https://www.youtube.com/watch?v=VuFQtyRmS0E How to unit test Minimal APIs in .NET 6 (and why it's hard)
 - https://www.youtube.com/watch?v=7roqteWLw4s Integration testing | ASP.NET Core 5 REST API Tutorial 15
