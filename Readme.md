@@ -59,6 +59,8 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - external apis can be linked by creating api export profiles containing post url, api user, api key
 -- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
 
+- testing ApiExportProfile
+- testing ExportService.ExportToApi extreme cases
 
 - visualize adjacent/ potentially overlapping time sheet entries when editing job time sheet entries
 - change timespan format (seconds and/or ms should always be visible to indicate progress)
@@ -68,7 +70,11 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 
 - pretty format time sheet entries
-- rename job time sheet entries => time sheets (time sheet entries into SOMETHING?)
+- rename
+	=> TimeSheetEntry => TimeSheet
+	=> JobTimeSheetEntry => TimeSheetEntry
+
+
 - wrap all (core or service calling) client code with exception handling
 
 
@@ -77,7 +83,8 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 # Misc
 done 1. Application can toggle tracking time and not tracking time
 done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
-3. The internal collection of start- and stop-times can be persisted/ exported (json, database, sth. else?)
+3. The internal collection of start- and stop-times can be exported (json, database, sth. else?)
+4. The internal collection of start- and stop-times can be persisted (database)
 
  Highlander-principle: there can only ever be one timer running
 - starting tracking time for a task-item stops tracking time for all other task-items, 

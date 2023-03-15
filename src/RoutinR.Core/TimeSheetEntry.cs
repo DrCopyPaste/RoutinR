@@ -19,9 +19,12 @@
         { }
 
         /// <summary>
-        /// starts logging time from given time
+        /// starts logging time from given time in the past
         /// </summary>
-        /// <param name="startFrom">time to set start time to</param>
+        /// <param name="startFrom">
+        /// time to set start time to
+        /// must be in the past
+        /// </param>
         public TimeSheetEntry(DateTime startFrom)
         {
             if (DateTime.Now < startFrom) throw new ArgumentException("Time sheet entry starts in the future.");
