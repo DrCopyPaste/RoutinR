@@ -61,6 +61,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 - testing ApiExportProfile
 - testing ExportService.ExportToApi extreme cases
+- prevent adding post templates that dont contain placeholders (make readonly, add getter/adder?)
 
 - visualize adjacent/ potentially overlapping time sheet entries when editing job time sheet entries
 - change timespan format (seconds and/or ms should always be visible to indicate progress)

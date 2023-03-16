@@ -33,14 +33,14 @@ namespace RoutinR.MAUI.ViewModels
         ObservableCollection<Job> jobs;
 
         [ObservableProperty]
-        JobTimeSheetEntry jobTimeSheetEntry;
+        TimeSheetEntry jobTimeSheetEntry;
 
         [RelayCommand]
         async Task SaveChanges()
         {
             dataService.UpdateJobTimeSheetEntry(
                 JobTimeSheetEntry,
-                new JobTimeSheetEntry(UpdatedJob, UpdatedStartTime, UpdatedEndTime));
+                new TimeSheetEntry(UpdatedJob, UpdatedStartTime, UpdatedEndTime));
         }
 
         internal Task InitAsync()

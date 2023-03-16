@@ -172,7 +172,7 @@ namespace RoutinR.Services.Tests
             var gotExpectedException = false;
             try
             {
-                dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewFromName("random non existing name"), startTime: DateTime.Now.AddMinutes(-1), endTime: DateTime.Now));
+                dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewFromName("random non existing name"), startTime: DateTime.Now.AddMinutes(-1), endTime: DateTime.Now));
             }
             catch (MissingFieldException)
             {
@@ -192,13 +192,13 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Job time sheet entries")]
         public void Job_time_sheet_entries_count_increases_by_adding_new_job_time_sheet_entries()
         {
-            dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 37), endTime: new DateTime(2010, 1, 1, 10, 13, 38)));
+            dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 37), endTime: new DateTime(2010, 1, 1, 10, 13, 38)));
             Assert.True(dataService.JobTimeSheetEntryCount == 1, "Job time sheet entry count does not equal zero after initialization");
 
-            dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 40), endTime: new DateTime(2010, 1, 1, 10, 13, 50)));
+            dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 40), endTime: new DateTime(2010, 1, 1, 10, 13, 50)));
             Assert.True(dataService.JobTimeSheetEntryCount == 2, "Job time sheet entry count does not equal zero after initialization");
 
-            dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 11, 13, 37), endTime: new DateTime(2010, 1, 2, 10, 13, 37)));
+            dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 11, 13, 37), endTime: new DateTime(2010, 1, 2, 10, 13, 37)));
             Assert.True(dataService.JobTimeSheetEntryCount == 3, "Job time sheet entry count does not equal zero after initialization");
         }
 
@@ -206,13 +206,13 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Job time sheet entries")]
         public void Adjacent_job_time_sheet_entries_start_and_end_times_may_touch()
         {
-            dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 37), endTime: new DateTime(2010, 1, 1, 10, 13, 38)));
+            dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 37), endTime: new DateTime(2010, 1, 1, 10, 13, 38)));
             Assert.True(dataService.JobTimeSheetEntryCount == 1, "Job time sheet entry count does not equal zero after initialization");
 
-            dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 38), endTime: new DateTime(2010, 1, 1, 10, 13, 50)));
+            dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 38), endTime: new DateTime(2010, 1, 1, 10, 13, 50)));
             Assert.True(dataService.JobTimeSheetEntryCount == 2, "Job time sheet entry count does not equal zero after initialization");
 
-            dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 50), endTime: new DateTime(2010, 1, 2, 10, 13, 37)));
+            dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2010, 1, 1, 10, 13, 50), endTime: new DateTime(2010, 1, 2, 10, 13, 37)));
             Assert.True(dataService.JobTimeSheetEntryCount == 3, "Job time sheet entry count does not equal zero after initialization");
         }
 
@@ -223,11 +223,11 @@ namespace RoutinR.Services.Tests
             var originalStartTime = DateTime.Now.AddMinutes(-1);
             var originalEndTime = DateTime.Now;
 
-            dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime, originalEndTime));
+            dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime, originalEndTime));
             var gotExpectedException = false;
             try
             {
-                dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime, originalEndTime));
+                dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime, originalEndTime));
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -238,7 +238,7 @@ namespace RoutinR.Services.Tests
             var gotExpectedException2 = false;
             try
             {
-                dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime.AddSeconds(30), DateTime.Now));
+                dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime.AddSeconds(30), DateTime.Now));
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -249,7 +249,7 @@ namespace RoutinR.Services.Tests
             var gotExpectedException3 = false;
             try
             {
-                dataService.AddJobTimeSheetEntry(new JobTimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime.AddDays(-1), originalEndTime));
+                dataService.AddJobTimeSheetEntry(new TimeSheetEntry(job: Job.NewDefault(), startTime: originalStartTime.AddDays(-1), originalEndTime));
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -265,19 +265,19 @@ namespace RoutinR.Services.Tests
             var job2 = Job.NewFromName("Job2");
             dataService.AddJob(job2);
 
-            var entry = new JobTimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-100), DateTime.Now);
+            var entry = new TimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-100), DateTime.Now);
             dataService.AddJobTimeSheetEntry(entry);
 
-            var changeName = new JobTimeSheetEntry(job: job2, startTime: DateTime.Now.AddMinutes(-100), DateTime.Now);
+            var changeName = new TimeSheetEntry(job: job2, startTime: DateTime.Now.AddMinutes(-100), DateTime.Now);
             dataService.UpdateJobTimeSheetEntry(entry, changeName);
 
-            var changeStartTime = new JobTimeSheetEntry(job: job2, startTime: DateTime.Now.AddMinutes(-50), DateTime.Now);
+            var changeStartTime = new TimeSheetEntry(job: job2, startTime: DateTime.Now.AddMinutes(-50), DateTime.Now);
             dataService.UpdateJobTimeSheetEntry(changeName, changeStartTime);
 
-            var changeEndTime = new JobTimeSheetEntry(job: job2, startTime: DateTime.Now.AddMinutes(-50), DateTime.Now);
+            var changeEndTime = new TimeSheetEntry(job: job2, startTime: DateTime.Now.AddMinutes(-50), DateTime.Now);
             dataService.UpdateJobTimeSheetEntry(changeStartTime, changeEndTime);
 
-            var changeEveryThing = new JobTimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2000, 2, 28, 5, 30, 0), new DateTime(2001, 1, 12, 17, 42, 0));
+            var changeEveryThing = new TimeSheetEntry(job: Job.NewDefault(), startTime: new DateTime(2000, 2, 28, 5, 30, 0), new DateTime(2001, 1, 12, 17, 42, 0));
             dataService.UpdateJobTimeSheetEntry(changeEndTime, changeEveryThing);
 
             var updatedEntry = dataService.GetJobTimeSheetEntries().ToArray()[0];
@@ -289,10 +289,10 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Job time sheet entries")]
         public void Cannot_update_a_job_timesheet_entry_to_a_non_existing_job()
         {
-            var entry = new JobTimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-20), DateTime.Now.AddMinutes(-10));
+            var entry = new TimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-20), DateTime.Now.AddMinutes(-10));
             dataService.AddJobTimeSheetEntry(entry);
 
-            var wrongJobNameEntry = new JobTimeSheetEntry(job: Job.NewFromName("nonExistingEntryName"), startTime: entry.StartTime, entry.EndTime);
+            var wrongJobNameEntry = new TimeSheetEntry(job: Job.NewFromName("nonExistingEntryName"), startTime: entry.StartTime, entry.EndTime);
             var gotExpectedException = false;
             try
             {
@@ -309,13 +309,13 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "Job time sheet entries")]
         public void Cannot_create_overlapping_timesheets_by_updating()
         {
-            var entry1 = new JobTimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-20), DateTime.Now.AddMinutes(-10));
-            var entry2 = new JobTimeSheetEntry(job: Job.NewDefault(), startTime: entry1.EndTime, DateTime.Now);
+            var entry1 = new TimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-20), DateTime.Now.AddMinutes(-10));
+            var entry2 = new TimeSheetEntry(job: Job.NewDefault(), startTime: entry1.EndTime, DateTime.Now);
 
             dataService.AddJobTimeSheetEntry(entry1);
             dataService.AddJobTimeSheetEntry(entry2);
 
-            var existingTimeInterval = new JobTimeSheetEntry(job: Job.NewFromName(entry1.Job.Name), startTime: entry1.StartTime, entry1.EndTime);
+            var existingTimeInterval = new TimeSheetEntry(job: Job.NewFromName(entry1.Job.Name), startTime: entry1.StartTime, entry1.EndTime);
             var gotExpectedException2 = false;
             try
             {
@@ -327,7 +327,7 @@ namespace RoutinR.Services.Tests
             }
             Assert.True(gotExpectedException2, "updating a job time sheet entry to a non existing job name did not raise the expected exception");
 
-            var startTimeFallsIntoExistingInterval = new JobTimeSheetEntry(job: Job.NewFromName(entry1.Job.Name), startTime: entry1.StartTime.AddMinutes(1), entry2.EndTime);
+            var startTimeFallsIntoExistingInterval = new TimeSheetEntry(job: Job.NewFromName(entry1.Job.Name), startTime: entry1.StartTime.AddMinutes(1), entry2.EndTime);
             var gotExpectedException3 = false;
             try
             {
@@ -339,7 +339,7 @@ namespace RoutinR.Services.Tests
             }
             Assert.True(gotExpectedException3, "updating a job time sheet entry's start time to fall in between start and end time of another existing entry did not raise the expected exception");
 
-            var endTimeFallsIntoExistingInterval = new JobTimeSheetEntry(job: Job.NewFromName(entry1.Job.Name), startTime: entry1.StartTime.AddMinutes(-1), entry1.EndTime.AddMinutes(-1));
+            var endTimeFallsIntoExistingInterval = new TimeSheetEntry(job: Job.NewFromName(entry1.Job.Name), startTime: entry1.StartTime.AddMinutes(-1), entry1.EndTime.AddMinutes(-1));
             var gotExpectedException4 = false;
             try
             {

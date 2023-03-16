@@ -14,7 +14,7 @@
                         ItemsSource="{Binding JobTimeSheetEntries}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type local:JobTimeSheetEntry}">
+                <DataTemplate x:DataType="{x:Type local:TimeSheetEntry}">
                     <!--<SwipeView>-->
                         <!--<SwipeView.RightItems>
                             <SwipeItems>

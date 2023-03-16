@@ -1,43 +1,35 @@
-﻿namespace RoutinR.Core
+﻿using RoutinR.Constants;
+
+namespace RoutinR.Core
 {
-    /// <summary>
-    /// represents a time slot
-    /// </summary>
     public class TimeSheetEntry
     {
-        private readonly DateTime startTime = DateTime.Now;
-        private DateTime? endTime = null;
+        private readonly Job job;
+        private readonly DateTime startTime;
+        private readonly DateTime endTime;
 
-        public bool IsRunning => !endTime.HasValue;
+        public Job Job => job;
         public DateTime StartTime => startTime;
-        public DateTime? EndTime => endTime;
+        public DateTime EndTime => endTime;
 
         /// <summary>
-        /// starts logging time on construction
+        /// not meant to be called
+        /// use this instead:
+        /// 
+        /// TimeSheetEntry(string jobName, DateTime startTime, DateTime endTime)
         /// </summary>
-        public TimeSheetEntry()
-        { }
+        private TimeSheetEntry() { job = Job.NewDefault(); }
 
-        /// <summary>
-        /// starts logging time from given time in the past
-        /// </summary>
-        /// <param name="startFrom">
-        /// time to set start time to
-        /// must be in the past
-        /// </param>
-        public TimeSheetEntry(DateTime startFrom)
+        public TimeSheetEntry(Job job, DateTime startTime, DateTime endTime)
         {
-            if (DateTime.Now < startFrom) throw new ArgumentException("Time sheet entry starts in the future.");
-            startTime = startFrom;
-        }
+            if (job == null) throw new ArgumentException($"{nameof(job)} is null");
+            if (startTime >= DateTime.Now) throw new ArgumentException($"{nameof(startTime)} is from the future");
+            if (endTime >= DateTime.Now) throw new ArgumentException($"{nameof(endTime)} is from the future");
+            if (startTime >= endTime) throw new ArgumentException($"{nameof(startTime)} is not smaller than {nameof(endTime)}");
 
-        /// <summary>
-        /// stops logging time
-        /// </summary>
-        public void Stop()
-        {
-            if (endTime.HasValue) throw new ArgumentException("Time sheet entry was already stopped.");
-            endTime = DateTime.Now;
+            this.job = job;
+            this.startTime = startTime;
+            this.endTime = endTime;
         }
     }
 }

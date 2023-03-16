@@ -12,7 +12,7 @@ namespace RoutinR.Services
         /// <param name="apiExportProfile">the export profile containing target url, headers, placeholders and post template</param>
         /// <param name="httpClient">the http client to be used with this post request</param>
         /// <returns></returns>
-        public async Task<ExportResult> ExportToApi(JobTimeSheetEntry timeSheetEntry, ApiExportProfile apiExportProfile, HttpClient httpClient)
+        public async Task<ExportResult> ExportToApi(TimeSheetEntry timeSheetEntry, ApiExportProfile apiExportProfile, HttpClient httpClient)
         {
             if (!apiExportProfile.JobNameJsonTemplates.Any(template => template.Key == timeSheetEntry.Job.Name)) return new ExportResult($"Export profile does not contain a template definition for job {timeSheetEntry.Job.Name}");
 

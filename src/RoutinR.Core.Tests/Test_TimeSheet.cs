@@ -1,13 +1,13 @@
 namespace RoutinR.Core.Tests
 {
-    public class Test_TimeSheetEntry
+    public class Test_TimeSheet
     {
         [Fact]
         [Trait("Category", "Restoring")]
         public void Restoring_start_time_sets_expected_start_time()
         {
             var savedTime = DateTime.Now.AddMinutes(-1);
-            var restoredTimeSheetEntry = new TimeSheetEntry(savedTime);
+            var restoredTimeSheetEntry = new TimeSheet(savedTime);
             Assert.True(restoredTimeSheetEntry.StartTime == savedTime, "restored start time did not equal expected start time");
         }
 
@@ -16,7 +16,7 @@ namespace RoutinR.Core.Tests
         public void Restoring_start_time_starts_running()
         {
             var savedTime = DateTime.Now.AddMinutes(-1);
-            var restoredTimeSheetEntry = new TimeSheetEntry(savedTime);
+            var restoredTimeSheetEntry = new TimeSheet(savedTime);
             Assert.True(restoredTimeSheetEntry.IsRunning, "restored time sheet entry is not running");
         }
 
@@ -24,13 +24,13 @@ namespace RoutinR.Core.Tests
         [Fact]
         public void Start_time_must_be_in_the_past()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             Assert.True(timeSheetEntry.StartTime < DateTime.Now, "start time is the future");
 
             bool gotException = false;
             try
             {
-                var restoredTimeSheetEntry = new TimeSheetEntry(DateTime.Now.AddMinutes(1));
+                var restoredTimeSheetEntry = new TimeSheet(DateTime.Now.AddMinutes(1));
             }
             catch (ArgumentException)
             {
@@ -43,7 +43,7 @@ namespace RoutinR.Core.Tests
         [Trait("Category", "Basic starting and stopping")]
         public void Start_time_must_stay_the_same_after_stopping()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             var savedStartTime = timeSheetEntry.StartTime;
             timeSheetEntry.Stop();
             Assert.True(timeSheetEntry.StartTime.Equals(savedStartTime), "start time after stopping should does not start time after construction");
@@ -53,7 +53,7 @@ namespace RoutinR.Core.Tests
         [Trait("Category", "Basic starting and stopping")]
         public void Start_time_must_be_smaller_than_end_time_after_stopping()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             timeSheetEntry.Stop();
             Assert.True(timeSheetEntry.EndTime.HasValue && timeSheetEntry.EndTime.Value > timeSheetEntry.StartTime, "end time is not smaller than start time");
         }
@@ -62,7 +62,7 @@ namespace RoutinR.Core.Tests
         [Trait("Category", "Basic starting and stopping")]
         public void End_time_must_be_set_after_stopping()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             timeSheetEntry.Stop();
             Assert.True(timeSheetEntry.EndTime.HasValue, "end time has no value after stopping");
         }
@@ -71,7 +71,7 @@ namespace RoutinR.Core.Tests
         [Trait("Category", "Basic starting and stopping")]
         public void End_time_must_not_be_set_until_stopping()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             Assert.True(!timeSheetEntry.EndTime.HasValue, "end time has a value before stopping");
             timeSheetEntry.Stop();
             Assert.True(timeSheetEntry.EndTime.HasValue, "end time has no after stopping");
@@ -81,7 +81,7 @@ namespace RoutinR.Core.Tests
         [Trait("Category", "Basic starting and stopping")]
         public void End_time_must_be_in_the_past_after_stopping()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             timeSheetEntry.Stop();
             Assert.True(timeSheetEntry.EndTime.HasValue && timeSheetEntry.EndTime.Value < DateTime.Now, "end time is the future");
         }
@@ -90,7 +90,7 @@ namespace RoutinR.Core.Tests
         [Trait("Category", "Basic starting and stopping")]
         public void Is_running_until_stopped()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             Assert.True(timeSheetEntry.IsRunning, "timesheetentry should be running, there was no stop command, yet");
             Assert.True(!timeSheetEntry.EndTime.HasValue, "timesheetentry should have no end time set, yet");
 
@@ -104,7 +104,7 @@ namespace RoutinR.Core.Tests
         [Trait("Category", "Basic starting and stopping")]
         public void Cannot_be_stopped_multiple_times()
         {
-            var timeSheetEntry = new TimeSheetEntry();
+            var timeSheetEntry = new TimeSheet();
             timeSheetEntry.Stop();
 
             var gotExpectedException = false;

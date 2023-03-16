@@ -7,7 +7,7 @@ namespace RoutinR.Services
     public class InMemoryDataService
     {
         private readonly HashSet<Job> jobs = new() { Job.NewDefault() };
-        private readonly List<JobTimeSheetEntry> jobTimeSheetEntries = new();
+        private readonly List<TimeSheetEntry> jobTimeSheetEntries = new();
 
         /// <summary>
         /// Gets the number of jobs in internal collection
@@ -42,7 +42,7 @@ namespace RoutinR.Services
         /// Gets all job time sheet entries
         /// </summary>
         /// <returns>enumerable of time sheet entries</returns>
-        public IEnumerable<JobTimeSheetEntry> GetJobTimeSheetEntries()
+        public IEnumerable<TimeSheetEntry> GetJobTimeSheetEntries()
         {
             return jobTimeSheetEntries.AsEnumerable();
         }
@@ -53,7 +53,7 @@ namespace RoutinR.Services
         /// <param name="jobTimeSheetEntry">the entry to be added</param>
         /// <exception cref="MissingFieldException">if no job with given name exists</exception>
         /// <exception cref="ArgumentOutOfRangeException">if new job time sheet interval would overlap existing time sheet entries</exception>
-        public void AddJobTimeSheetEntry(JobTimeSheetEntry jobTimeSheetEntry)
+        public void AddJobTimeSheetEntry(TimeSheetEntry jobTimeSheetEntry)
         {
             if (!jobs.Any(job => job.Name == jobTimeSheetEntry.Job.Name)) throw new MissingFieldException("no job with that name exists");
             if (
@@ -82,7 +82,7 @@ namespace RoutinR.Services
         /// if the entry could not be updated
         /// (job name does not exist, time interval would overlap existing ones)
         /// </exception>
-        public void UpdateJobTimeSheetEntry(JobTimeSheetEntry existingEntry, JobTimeSheetEntry updatedEntry)
+        public void UpdateJobTimeSheetEntry(TimeSheetEntry existingEntry, TimeSheetEntry updatedEntry)
         {
             var originalEntries = jobTimeSheetEntries.ToList();
             jobTimeSheetEntries.RemoveAll(entry =>

@@ -32,7 +32,7 @@ namespace RoutinR.Services.Tests
         public void ExportToApi_can_post_and_get_successful_result()
         {
             var exportService = new ExportService();
-            var timesheetEntry = new JobTimeSheetEntry(job: Job.NewDefault(), DateTime.Now.Subtract(TimeSpan.FromMinutes(1)), DateTime.Now);
+            var timesheetEntry = new TimeSheetEntry(job: Job.NewDefault(), DateTime.Now.Subtract(TimeSpan.FromMinutes(1)), DateTime.Now);
 
             var exportProfile = new ApiExportProfile(
                 name: "TestExportProfile",
@@ -104,7 +104,7 @@ namespace RoutinR.Services.Tests
             // DONT COMMIT sensitive login data here
 
             var exportService = new ExportService();
-            var timesheetEntry = new JobTimeSheetEntry(job: Job.NewDefault(), DateTime.Now.Subtract(TimeSpan.FromMinutes(1)), DateTime.Now);
+            var timesheetEntry = new TimeSheetEntry(job: Job.NewDefault(), DateTime.Now.Subtract(TimeSpan.FromMinutes(1)), DateTime.Now);
 
             var exportProfile = new ApiExportProfile(
                 name: "TestExportProfile",

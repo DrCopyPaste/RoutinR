@@ -8,7 +8,7 @@ namespace RoutinR.Services
     /// </summary>
     public class PunchClockService
     {
-        private TimeSheetEntry? currentTimeSheetEntry;
+        private TimeSheet? currentTimeSheetEntry;
 
         public bool IsRunning => currentTimeSheetEntry != null && currentTimeSheetEntry.IsRunning;
 
@@ -49,7 +49,7 @@ namespace RoutinR.Services
         /// <param name="startFrom">start time to be used</param>
         public void StartFrom(DateTime startFrom)
         {
-            currentTimeSheetEntry = new TimeSheetEntry(startFrom);
+            currentTimeSheetEntry = new TimeSheet(startFrom);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace RoutinR.Services
         /// <returns>start time</returns>
         public DateTime Start()
         {
-            currentTimeSheetEntry = new TimeSheetEntry();
+            currentTimeSheetEntry = new TimeSheet();
             return currentTimeSheetEntry.StartTime;
         }
 
@@ -76,7 +76,7 @@ namespace RoutinR.Services
         /// if called before calling Start
         /// or if end time was not set for some reason
         /// </exception>
-        public JobTimeSheetEntry Stop(Job? job = null)
+        public TimeSheetEntry Stop(Job? job = null)
         {
             if (currentTimeSheetEntry == null) throw new InvalidOperationException("cannot stop, because there was no previous start");
             var targetJob = job ?? Job.NewDefault();
@@ -84,7 +84,7 @@ namespace RoutinR.Services
             currentTimeSheetEntry.Stop();
 
             if (!currentTimeSheetEntry.EndTime.HasValue) throw new InvalidOperationException("end time was not set on current time sheet entry");
-            return new JobTimeSheetEntry(job: targetJob, currentTimeSheetEntry.StartTime, currentTimeSheetEntry.EndTime.Value);
+            return new TimeSheetEntry(job: targetJob, currentTimeSheetEntry.StartTime, currentTimeSheetEntry.EndTime.Value);
         }
     }
 }

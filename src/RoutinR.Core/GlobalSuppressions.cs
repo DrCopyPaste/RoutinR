@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0016:Use 'throw' expression", Justification = "<Pending>", Scope = "member", Target = "~M:RoutinR.Core.JobTimeSheetEntry.#ctor(RoutinR.Core.Job,System.DateTime,System.DateTime)")]
+[assembly: SuppressMessage("Style", "IDE0016:Use 'throw' expression", Justification = "<Pending>", Scope = "member", Target = "~M:RoutinR.Core.TimeSheetEntry.#ctor(RoutinR.Core.Job,System.DateTime,System.DateTime)")]

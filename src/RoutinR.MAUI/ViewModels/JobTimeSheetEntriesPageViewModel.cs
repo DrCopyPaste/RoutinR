@@ -13,7 +13,7 @@ namespace RoutinR.MAUI.ViewModels
         public JobTimeSheetEntriesPageViewModel(InMemoryDataService dataService)
         {
             this.dataService = dataService;
-            JobTimeSheetEntries = new ObservableCollection<JobTimeSheetEntry>();
+            JobTimeSheetEntries = new ObservableCollection<TimeSheetEntry>();
         }
 
         public void RefreshEntries()
@@ -23,10 +23,10 @@ namespace RoutinR.MAUI.ViewModels
         }
 
         [ObservableProperty]
-        ObservableCollection<JobTimeSheetEntry> jobTimeSheetEntries;
+        ObservableCollection<TimeSheetEntry> jobTimeSheetEntries;
 
         [RelayCommand]
-        async Task Tap(JobTimeSheetEntry entry)
+        async Task Tap(TimeSheetEntry entry)
         {
             var navigationParameter = new Dictionary<string, object>
             {
