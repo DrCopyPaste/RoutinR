@@ -25,16 +25,9 @@ namespace RoutinR.Core
             if (this.StartTimeToken != that.StartTimeToken) return false;
             if (this.EndTimeToken != that.EndTimeToken) return false;
 
-            if (this.JobNameJsonTemplates.Count != that.JobNameJsonTemplates.Count) return false;
             if (!this.JobNameJsonTemplates.OrderBy(x => x.Key).SequenceEqual(that.JobNameJsonTemplates.OrderBy(x => x.Key))) return false;
 
-            if (this.Headers != null && that.Headers == null) return false;
-            if (this.Headers == null && that.Headers != null) return false;
-
-            // No Headers, early exit; "or" instead of "and" because vs thinks Headers might still be null :-)
-            if (this.Headers == null || that.Headers == null) return true;
-            if (this.Headers.Count != that.Headers.Count) return false;
-
+            if (this.Headers == null || that.Headers == null) return this.Headers == null && that.Headers == null;
             return this.Headers.OrderBy(x => x.Key).SequenceEqual(that.Headers.OrderBy(x => x.Key));
         }
 
