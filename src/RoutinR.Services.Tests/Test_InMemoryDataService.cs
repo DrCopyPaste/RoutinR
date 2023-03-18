@@ -357,6 +357,8 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "ApiExportProfiles")]
         public void Adding_a_profile_increases_count()
         {
+            dataService.AddJob(Job.NewFromName("JobName"));
+
             var countBefore = dataService.ApiExportProfileCount;
             var apiExportProfile = new ApiExportProfile(
                 name: "TestName",
@@ -375,6 +377,8 @@ namespace RoutinR.Services.Tests
         [Trait("Category", "ApiExportProfiles")]
         public void Profiles_can_be_added_and_retrieved()
         {
+            dataService.AddJob(Job.NewFromName("JobName"));
+
             var addedProfile = new ApiExportProfile(
                 name: "TestName",
                 postUrl: "https://postUrl",
@@ -387,6 +391,39 @@ namespace RoutinR.Services.Tests
             var profileFromService = dataService.GetApiExportProfileByName(name: "TestName");
 
             Assert.True(addedProfile.Equals(profileFromService), "added profile does not equal profile from service call");
+        }
+
+        [Fact]
+        [Trait("Category", "ApiExportProfiles")]
+        public void Profiles_can_be_updated_and_retrieved()
+        {
+            dataService.AddJob(Job.NewFromName("JobName"));
+            dataService.AddJob(Job.NewFromName("JobName1"));
+
+            var addedProfile = new ApiExportProfile(
+                name: "TestName",
+                postUrl: "https://postUrl",
+                startTimeToken: "_START_",
+                endTimeToken: "_END_",
+                headers: new() { { "header1", "value1" } },
+                jobNameJsonTemplates: new() { { "JobName", "_START__END_" } });
+            dataService.AddApiExportProfile(addedProfile);
+
+            var itemCount = dataService.ApiExportProfileCount;
+
+            var updatedProfile = new ApiExportProfile(
+                name: "TestName1",
+                postUrl: "https://postUrl1",
+                startTimeToken: "_START1_",
+                endTimeToken: "_END1_",
+                headers: new() { { "header2", "value2" } },
+                jobNameJsonTemplates: new() { { "JobName1", "_START1__END1_" } });
+            dataService.UpdateApiExportProfile(addedProfile, updatedProfile);
+
+            Assert.True(itemCount == dataService.ApiExportProfileCount, "profile count increased after updating an entry");
+
+            var profileFromService = dataService.GetApiExportProfileByName(updatedProfile.Name);
+            Assert.True(profileFromService != null && profileFromService.Equals(updatedProfile), "updated profile from service was null or not equal to the expected updated state");
         }
 
         [Fact]

@@ -145,7 +145,7 @@ namespace RoutinR.Services
         public void AddApiExportProfile(ApiExportProfile apiExportProfile)
         {
             if (apiExportProfiles.Any(profile => profile.Name == apiExportProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
-
+            if (apiExportProfile.JobNameJsonTemplates.Any(template => !jobs.Any(job => job.Name == template.Key))) throw new ArgumentException("not all job templates have valid corresponding jobs");
             apiExportProfiles.Add(apiExportProfile);
         }
 
