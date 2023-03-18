@@ -73,6 +73,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 - pretty format time sheet entries
 - wrap all (core or service calling) client code with exception handling
+- Test "Equals"/"GetHashCode" ?
 
 
 

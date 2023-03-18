@@ -386,15 +386,7 @@ namespace RoutinR.Services.Tests
 
             var profileFromService = dataService.GetApiExportProfileByName(name: "TestName");
 
-            Assert.True(profileFromService != null, "profile from service is null");
-            Assert.True(profileFromService.Name == addedProfile.Name, "profile from service did not have expected name");
-            Assert.True(profileFromService.PostUrl == addedProfile.PostUrl, "profile from service did not have expected post url");
-            Assert.True(profileFromService.Headers != null && profileFromService.Headers.Count == 1, "profile from service does not contain any headers");
-            Assert.True(profileFromService.Headers.ContainsKey("header1"), "profile from service does not contain header1");
-            Assert.True(profileFromService.Headers["header1"] == "value1", "profile's header was not correct");
-            Assert.True(profileFromService.JobNameJsonTemplates != null && profileFromService.JobNameJsonTemplates.Count == 1, "profile from service does not contain any headers");
-            Assert.True(profileFromService.JobNameJsonTemplates.ContainsKey("JobName"), "profile from service does not contain JobName template");
-            Assert.True(profileFromService.JobNameJsonTemplates["JobName"] == "_START__END_", "profile's job template was not correct");
+            Assert.True(addedProfile.Equals(profileFromService), "added profile does not equal profile from service call");
         }
 
         [Fact]

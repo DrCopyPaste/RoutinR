@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RoutinR.Core
 {
@@ -11,8 +12,65 @@ namespace RoutinR.Core
         public readonly string StartTimeToken;
         public readonly string EndTimeToken;
 
-        public readonly ReadOnlyDictionary<string, string>? Headers = null;
         public readonly ReadOnlyDictionary<string, string> JobNameJsonTemplates;
+        public readonly ReadOnlyDictionary<string, string>? Headers = null;
+
+        public override bool Equals(object? obj)
+        {
+            var that = obj as ApiExportProfile;
+            if (that == null) return false;
+
+            if (this.Name != that.Name) return false;
+            if (this.PostUrl != that.PostUrl) return false;
+            if (this.StartTimeToken != that.StartTimeToken) return false;
+            if (this.EndTimeToken != that.EndTimeToken) return false;
+
+            if (this.JobNameJsonTemplates.Count != that.JobNameJsonTemplates.Count) return false;
+            if (!this.JobNameJsonTemplates.OrderBy(x => x.Key).SequenceEqual(that.JobNameJsonTemplates.OrderBy(x => x.Key))) return false;
+
+            if (this.Headers != null && that.Headers == null) return false;
+            if (this.Headers == null && that.Headers != null) return false;
+
+            // No Headers, early exit; "or" instead of "and" because vs thinks Headers might still be null :-)
+            if (this.Headers == null || that.Headers == null) return true;
+            if (this.Headers.Count != that.Headers.Count) return false;
+
+            return this.Headers.OrderBy(x => x.Key).SequenceEqual(that.Headers.OrderBy(x => x.Key));
+        }
+
+        /// <summary>
+        /// Get HashCode of this instance
+        /// 
+        /// e.g. see https://stackoverflow.com/a/263416
+        /// </summary>
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                // pick 2 prime numbers, the number to multiply by should be large
+                int hash = 17;
+
+                hash = hash * 486187739 + Name.GetHashCode();
+                hash = hash * 486187739 + PostUrl.GetHashCode();
+                hash = hash * 486187739 + StartTimeToken.GetHashCode();
+                hash = hash * 486187739 + EndTimeToken.GetHashCode();
+
+                foreach (var template in JobNameJsonTemplates.OrderBy(x => x.Key))
+                {
+                    hash = hash * 486187739 + template.Key.GetHashCode();
+                    hash = hash * 486187739 + template.Value.GetHashCode();
+                }
+
+                if (Headers == null) return hash;
+                foreach (var header in Headers.OrderBy(x => x.Key))
+                {
+                    hash = hash * 486187739 + header.Key.GetHashCode();
+                    hash = hash * 486187739 + header.Value.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
 
         public ApiExportProfile(
             string name,
