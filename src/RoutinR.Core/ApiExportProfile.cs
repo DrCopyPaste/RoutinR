@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace RoutinR.Core
 {
@@ -10,8 +11,8 @@ namespace RoutinR.Core
         public readonly string StartTimeToken;
         public readonly string EndTimeToken;
 
-        public readonly Dictionary<string, string> Headers = new Dictionary<string, string>();
-        public readonly Dictionary<string, string> JobNameJsonTemplates = new Dictionary<string, string>();
+        public readonly ReadOnlyDictionary<string, string>? Headers = null;
+        public readonly ReadOnlyDictionary<string, string> JobNameJsonTemplates;
 
         public ApiExportProfile(
             string name,
@@ -24,6 +25,8 @@ namespace RoutinR.Core
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name is empty or null");
             if (string.IsNullOrEmpty(postUrl)) throw new ArgumentNullException("post url is empty or null");
             if (!postUrl.StartsWith("http://") && !postUrl.StartsWith("https://")) throw new ArgumentException("post url did not start with http:// or https://");
+            if (jobNameJsonTemplates == null || !jobNameJsonTemplates.Any()) throw new ArgumentException("jobJsonTemplates is null or empty");
+            if (startTimeToken == endTimeToken) throw new ArgumentException("startTimeToken is identical to endTimeToken");
             if (string.IsNullOrEmpty(startTimeToken)) throw new ArgumentNullException("startTimeToken is empty or null");
             if (string.IsNullOrEmpty(endTimeToken)) throw new ArgumentNullException("endTimeToken is empty or null");
 
@@ -32,12 +35,23 @@ namespace RoutinR.Core
             StartTimeToken = startTimeToken;
             EndTimeToken = endTimeToken;
 
-            if (headers == null) return;
-            foreach (var header in headers) Headers.Add(header.Key, header.Value);
-
-            if (jobNameJsonTemplates == null) return;
             if (jobNameJsonTemplates.Any(template => !template.Value.Contains(startTimeToken) || !template.Value.Contains(endTimeToken))) throw new ArgumentException("cannot add template, because it does not contain the expected start time token");
-            foreach (var template in jobNameJsonTemplates) JobNameJsonTemplates.Add(template.Key, template.Value);
+            foreach (var template in jobNameJsonTemplates)
+            {
+                if (
+                    !template.Value.Replace(startTimeToken, string.Empty).Contains(endTimeToken)
+                    ||
+                    !template.Value.Replace(endTimeToken, string.Empty).Contains(startTimeToken)
+                    )
+                {
+                    throw new ArgumentException("starttime and endtime token overlap, cannot add template");
+                }
+            }
+
+            JobNameJsonTemplates = new ReadOnlyDictionary<string, string>(jobNameJsonTemplates);
+
+            if (headers == null) return;
+            Headers = new ReadOnlyDictionary<string, string>(headers);
         }
     }
 }

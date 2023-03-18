@@ -20,8 +20,8 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 # Maui Stuff
 - using CommunityToolkit.Mvvm.ComponentModel to save boilerplate code
-- only define private lowercase fields inside VideModel and decorate as ObservableProperty => this generates proper public PascalCase properties
-(but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, bur restarting vs solves problems as always)
+- only define private lowercase fields inside ViewModel and decorate as ObservableProperty => this generates proper public PascalCase properties
+(but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, but restarting vs solves problems as always)
 
 # Interesting Maui Links
 - https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/?view=net-maui-7.0
@@ -59,6 +59,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - external apis can be linked by creating api export profiles containing post url, api user, api key
 -- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
 
+- testing TimeSheetEntry
 - testing ApiExportProfile
 - testing ExportService.ExportToApi extreme cases
 - prevent adding post templates that dont contain placeholders (make readonly, add getter/adder?)
@@ -71,11 +72,6 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 
 - pretty format time sheet entries
-- rename
-	=> TimeSheetEntry => TimeSheet
-	=> JobTimeSheetEntry => TimeSheetEntry
-
-
 - wrap all (core or service calling) client code with exception handling
 
 

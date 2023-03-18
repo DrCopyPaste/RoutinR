@@ -8,6 +8,7 @@ namespace RoutinR.Services
     {
         private readonly HashSet<Job> jobs = new() { Job.NewDefault() };
         private readonly List<TimeSheetEntry> jobTimeSheetEntries = new();
+        private readonly List<ApiExportProfile> apiExportProfiles = new();
 
         /// <summary>
         /// Gets the number of jobs in internal collection
@@ -18,6 +19,8 @@ namespace RoutinR.Services
         /// Gets the number of job time sheet entries in internal collection
         /// </summary>
         public int JobTimeSheetEntryCount => jobTimeSheetEntries.Count;
+
+        public int ApiExportProfileCount => apiExportProfiles.Count;
 
         /// <summary>
         /// Gets a job by name
@@ -137,6 +140,32 @@ namespace RoutinR.Services
         public void Export()
         {
             throw new NotImplementedException("exporting is not supported");
+        }
+
+        public void AddApiExportProfile(ApiExportProfile apiExportProfile)
+        {
+            if (apiExportProfiles.Any(profile => profile.Name == apiExportProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
+
+            apiExportProfiles.Add(apiExportProfile);
+        }
+
+        public ApiExportProfile? GetApiExportProfileByName(string name)
+        {
+            return apiExportProfiles.FirstOrDefault(profile => profile.Name == name);
+        }
+
+        public IEnumerable<ApiExportProfile> GetApiExportProfiles()
+        {
+            return apiExportProfiles.AsEnumerable();
+        }
+
+        public void UpdateApiExportProfile(ApiExportProfile existingProfile, ApiExportProfile updatedProfile)
+        {
+            if (existingProfile.Name != updatedProfile.Name && apiExportProfiles.Any(profile => profile.Name == updatedProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
+            if (updatedProfile.JobNameJsonTemplates.Any(template => !jobs.Any(job => job.Name == template.Key))) throw new ArgumentException("not all job templates have valid corresponding jobs");
+
+            apiExportProfiles.Remove(existingProfile);
+            apiExportProfiles.Add(updatedProfile);
         }
     }
 }

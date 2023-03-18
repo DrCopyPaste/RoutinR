@@ -7,6 +7,8 @@ namespace RoutinR.Services
     {
         /// <summary>
         /// Exports a timeSheetEntry to an external api
+        /// 
+        /// httpClient's DefaultHeaders are cleared before applying headers from export profile
         /// </summary>
         /// <param name="timeSheetEntry">the entry to be exported</param>
         /// <param name="apiExportProfile">the export profile containing target url, headers, placeholders and post template</param>
@@ -24,7 +26,10 @@ namespace RoutinR.Services
             var postContent = new StringContent(postTemplate, Encoding.UTF8, "application/json");
 
             httpClient.DefaultRequestHeaders.Clear();
-            foreach (var headerItem in apiExportProfile.Headers) httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+            if (apiExportProfile.Headers != null)
+            {
+                foreach (var headerItem in apiExportProfile.Headers) httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+            }
             
             var httpResponse = await httpClient.PostAsync(apiExportProfile.PostUrl, postContent);
             

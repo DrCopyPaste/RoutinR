@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestPlatform.Utilities;
 using RoutinR.Constants;
 using RoutinR.Core;
 using System.Data;
+using System.Reflection.PortableExecutable;
 
 namespace RoutinR.Services.Tests
 {
@@ -352,32 +353,55 @@ namespace RoutinR.Services.Tests
             Assert.True(gotExpectedException4, "updating a job time sheet entry's end time to fall in between start and end time of another existing entry did not raise the expected exception");
         }
 
-        //[Fact]
-        //[Trait("Category", "Exporting")]
-        //public void Exporting_is_not_supported()
-        //{
-        //    var gotExpectedException = false;
+        [Fact]
+        [Trait("Category", "ApiExportProfiles")]
+        public void Adding_a_profile_increases_count()
+        {
+            var countBefore = dataService.ApiExportProfileCount;
+            var apiExportProfile = new ApiExportProfile(
+                name: "TestName",
+                postUrl: "https://postUrl",
+                startTimeToken: "_START_",
+                endTimeToken: "_END_",
+                headers: new() { { "header1", "value1" } },
+                jobNameJsonTemplates: new() { { "JobName", "_START__END_" } });
+            dataService.AddApiExportProfile(apiExportProfile);
+            var countAfter = dataService.ApiExportProfileCount;
 
-        //    dataService.AddJob(Job.NewFromName("abc"));
+            Assert.True(countAfter == (countBefore + 1), "Api export profile count did not increase by one after adding");
+        }
 
-        //    try
-        //    {
-        //        dataService.Export();
-        //    }
-        //    catch (NotImplementedException)
-        //    {
-        //        gotExpectedException = true;
-        //    }
+        [Fact]
+        [Trait("Category", "ApiExportProfiles")]
+        public void Profiles_can_be_added_and_retrieved()
+        {
+            var addedProfile = new ApiExportProfile(
+                name: "TestName",
+                postUrl: "https://postUrl",
+                startTimeToken: "_START_",
+                endTimeToken: "_END_",
+                headers: new() { { "header1", "value1" } },
+                jobNameJsonTemplates: new() { { "JobName", "_START__END_" } });
+            dataService.AddApiExportProfile(addedProfile);
 
-        //    Assert.True(gotExpectedException, "exporting not raise the expected exception");
-        //}
+            var profileFromService = dataService.GetApiExportProfileByName(name: "TestName");
+
+            Assert.True(profileFromService != null, "profile from service is null");
+            Assert.True(profileFromService.Name == addedProfile.Name, "profile from service did not have expected name");
+            Assert.True(profileFromService.PostUrl == addedProfile.PostUrl, "profile from service did not have expected post url");
+            Assert.True(profileFromService.Headers != null && profileFromService.Headers.Count == 1, "profile from service does not contain any headers");
+            Assert.True(profileFromService.Headers.ContainsKey("header1"), "profile from service does not contain header1");
+            Assert.True(profileFromService.Headers["header1"] == "value1", "profile's header was not correct");
+            Assert.True(profileFromService.JobNameJsonTemplates != null && profileFromService.JobNameJsonTemplates.Count == 1, "profile from service does not contain any headers");
+            Assert.True(profileFromService.JobNameJsonTemplates.ContainsKey("JobName"), "profile from service does not contain JobName template");
+            Assert.True(profileFromService.JobNameJsonTemplates["JobName"] == "_START__END_", "profile's job template was not correct");
+        }
 
         [Fact]
         [Trait("Category", "Exporting")]
         public void Exporting_is_not_supported()
         {
             var gotExpectedException = false;
-
             dataService.AddJob(Job.NewFromName("abc"));
 
             try
