@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RoutinR.MAUI.Controls;
 using RoutinR.MAUI.ViewModels;
 using RoutinR.Services;
 
@@ -59,6 +60,7 @@ namespace RoutinR.MAUI
         public static void RegisterViewsToServiceCollection(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<AboutPage>();
+            serviceCollection.AddTransient<ApiExportProfilesPage>();
             serviceCollection.AddTransient<JobsPage>();
             serviceCollection.AddTransient<JobTimeSheetEntriesPage>();
             serviceCollection.AddTransient<JobTimeSheetEntryPage>();
@@ -69,6 +71,7 @@ namespace RoutinR.MAUI
         public static void RegisterViewModelsToServiceCollection(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<AboutPageViewModel>();
+            serviceCollection.AddTransient<ApiExportProfilesPageViewModel>();
             serviceCollection.AddTransient<JobsPageViewModel>();
             serviceCollection.AddTransient<JobTimeSheetEntriesPageViewModel>();
             serviceCollection.AddTransient<JobTimeSheetEntryPageViewModel>();

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RoutinR.Core;assembly=RoutinR.Core"
+             xmlns:xControls="clr-namespace:RoutinR.MAUI.Controls"
+             x:Class="RoutinR.MAUI.ApiExportProfilesPage"
+             Title="ApiExportProfilesPage">
+    <ScrollView>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              ColumnDefinitions="*,*">
+
+            <Entry Grid.Row="0" Placeholder="Name for a new profile" Text="{Binding NewProfileName}" />
+            <Entry Grid.Row="1" Placeholder="Target post url for new profile" Text="{Binding NewPostUrl}" />
+            <Entry Grid.Row="2" Placeholder="Placeholder for start time in templates for new profile" Text="{Binding NewStartTimeToken}" />
+            <Entry Grid.Row="3" Placeholder="Placeholder for end time in templates  for new profile" Text="{Binding NewEndTimeToken}" />
+        
+            <VerticalStackLayout Grid.Row="4">
+                <Label Text="Added Headers:" />
+                <Label Text="{Binding NewHeaders.Count}" />
+                <xControls:DictionaryEditor CollectionSource="{Binding NewHeaders}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="5">
+                <Label Text="Job Templates:" />
+                <Label Text="{Binding NewJobTemplates.Count}" />
+                <xControls:DictionaryEditor CollectionSource="{Binding NewJobTemplates}" />
+            </VerticalStackLayout>
+
+            <Button Grid.Row="6" Text="Add" Command="{Binding AddCommand}" />
+
+            <CollectionView Grid.Row="7" 
+                            ItemsSource="{Binding ApiExportProfiles}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type local:ApiExportProfile}">
+                        <!--<SwipeView>-->
+                        <!--<SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobsPageViewModel}}, Path=DeleteCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>-->
+
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <!--<Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>-->
+                                <Label Text="{Binding Name}"
+                                           FontSize="24"/>
+                            </Frame>
+                        </Grid>
+
+                        <!--</SwipeView>-->
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </Grid>
+    </ScrollView>
+</ContentPage>

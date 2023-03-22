@@ -137,11 +137,6 @@ namespace RoutinR.Services
             throw new NotImplementedException("deleting is not supported");
         }
 
-        public void Export()
-        {
-            throw new NotImplementedException("exporting is not supported");
-        }
-
         public void AddApiExportProfile(ApiExportProfile apiExportProfile)
         {
             if (apiExportProfiles.Any(profile => profile.Name == apiExportProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");

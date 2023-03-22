@@ -29,7 +29,6 @@ namespace RoutinR.MAUI.ViewModels
             dataService.AddJob(Job.NewFromName(NewJobName));
             Jobs.Add(Job.NewFromName(NewJobName));
 
-            // add our item
             NewJobName = string.Empty;
         }
 

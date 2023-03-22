@@ -19,9 +19,9 @@
         ContentTemplate="{DataTemplate local:JobTimeSheetEntriesPage}"
         Route="JobTimeSheetEntriesPage" />
     <ShellContent
-        Title="Settings"
-        ContentTemplate="{DataTemplate local:SettingsPage}"
-        Route="SettingsPage" />
+        Title="ApiExportProfiles"
+        ContentTemplate="{DataTemplate local:ApiExportProfilesPage}"
+        Route="ApiExportProfilesPage" />
     <ShellContent
         Title="About"
         ContentTemplate="{DataTemplate local:AboutPage}"

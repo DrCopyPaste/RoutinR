@@ -109,7 +109,7 @@ namespace RoutinR.MAUI.ViewModels
             Jobs.Clear();
             foreach (var job in this.dataService.GetJobs()) Jobs.Add(job);
 
-            var jobFromDb = jobs.FirstOrDefault(job => job.Name == lastJobName);
+            var jobFromDb = Jobs.FirstOrDefault(job => job.Name == lastJobName);
             if (jobFromDb != null)
             {
                 CurrentJob = jobFromDb;

@@ -6,7 +6,8 @@ namespace RoutinR.Core
 {
     public class ApiExportProfile
     {
-        public readonly string Name;
+        private readonly string name;
+        public string Name => name;
         public readonly string PostUrl;
 
         public readonly string StartTimeToken;
@@ -17,8 +18,7 @@ namespace RoutinR.Core
 
         public override bool Equals(object? obj)
         {
-            var that = obj as ApiExportProfile;
-            if (that == null) return false;
+            if (obj is not ApiExportProfile that) return false;
 
             if (this.Name != that.Name) return false;
             if (this.PostUrl != that.PostUrl) return false;
@@ -27,7 +27,7 @@ namespace RoutinR.Core
 
             if (!this.JobNameJsonTemplates.OrderBy(x => x.Key).SequenceEqual(that.JobNameJsonTemplates.OrderBy(x => x.Key))) return false;
 
-            if (this.Headers == null || that.Headers == null) return this.Headers == null && that.Headers == null;
+            if (this.Headers == null || that.Headers == null) return this.Headers == that.Headers;
             return this.Headers.OrderBy(x => x.Key).SequenceEqual(that.Headers.OrderBy(x => x.Key));
         }
 
@@ -73,15 +73,15 @@ namespace RoutinR.Core
             string startTimeToken = "_RoutinRStartTime_",
             string endTimeToken = "_RoutinREndTime_")
         {
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name is empty or null");
-            if (string.IsNullOrEmpty(postUrl)) throw new ArgumentNullException("post url is empty or null");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(postUrl)) throw new ArgumentNullException(nameof(postUrl));
             if (!postUrl.StartsWith("http://") && !postUrl.StartsWith("https://")) throw new ArgumentException("post url did not start with http:// or https://");
             if (jobNameJsonTemplates == null || !jobNameJsonTemplates.Any()) throw new ArgumentException("jobJsonTemplates is null or empty");
             if (startTimeToken == endTimeToken) throw new ArgumentException("startTimeToken is identical to endTimeToken");
-            if (string.IsNullOrEmpty(startTimeToken)) throw new ArgumentNullException("startTimeToken is empty or null");
-            if (string.IsNullOrEmpty(endTimeToken)) throw new ArgumentNullException("endTimeToken is empty or null");
+            if (string.IsNullOrEmpty(startTimeToken)) throw new ArgumentNullException(nameof(startTimeToken));
+            if (string.IsNullOrEmpty(endTimeToken)) throw new ArgumentNullException(nameof(endTimeToken));
 
-            Name = name;
+            this.name = name;
             PostUrl = postUrl;
             StartTimeToken = startTimeToken;
             EndTimeToken = endTimeToken;

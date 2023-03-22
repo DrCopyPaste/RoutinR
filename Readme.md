@@ -24,19 +24,20 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 (but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, but restarting vs solves problems as always)
 
 # Interesting Maui Links
+- https://github.com/jsuarezruiz/awesome-dotnet-maui
 - https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/?view=net-maui-7.0
 - https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-7.0
 - https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/mvvm?view=net-maui-7.0#commanding
 - https://learn.microsoft.com/en-us/dotnet/architecture/maui/dependency-injection
 - https://learn.microsoft.com/de-de/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
 - https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/markup/extensions/bindable-object-extensions
+- https://www.youtube.com/watch?v=ts-gqSFFlvE&list=PLNfklfxfM6YiO7fA0fJNO4rrbFLVIk3af&index=1 (MAUI Samples Playlist)
 
 # Interesting Testing Links
 - https://medium.com/asos-techblog/testing-authorization-scenarios-in-asp-net-core-web-api-484bc95d5f6f 
 - https://www.youtube.com/watch?v=GrJJXixjR8M (Implementing API Key Authentication in ASP.NET Core)
 - https://www.youtube.com/watch?v=VuFQtyRmS0E How to unit test Minimal APIs in .NET 6 (and why it's hard)
 - https://www.youtube.com/watch?v=7roqteWLw4s Integration testing | ASP.NET Core 5 REST API Tutorial 15
-- 
 
 
 # Maui issues:
@@ -75,7 +76,10 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - wrap all (core or service calling) client code with exception handling
 - Test "Equals"/"GetHashCode" ?
 
+- ?allow apiprofile without job templates (in case jobs are created afterwards?)?
+- form field validation
 
+- rename jobjsontemplates => jobtemplates
 
 
 # Misc
