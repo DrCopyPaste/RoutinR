@@ -17,13 +17,13 @@
             <VerticalStackLayout Grid.Row="4">
                 <Label Text="Added Headers:" />
                 <Label Text="{Binding NewHeaders.Count}" />
-                <xControls:DictionaryEditor CollectionSource="{Binding NewHeaders}" />
+                <xControls:DictionaryEditor CollectionSource="{Binding NewHeaders}" KeyPlaceholder="asd" ValuePlaceholder="bcd" />
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="5">
                 <Label Text="Job Templates:" />
                 <Label Text="{Binding NewJobTemplates.Count}" />
-                <xControls:DictionaryEditor CollectionSource="{Binding NewJobTemplates}" EditingKeyCollectionSource="{Binding JobNames}" />
+                <xControls:DictionaryEditor CollectionSource="{Binding NewJobTemplates}" EditingKeyCollectionSource="{Binding JobNames}" KeyPlaceholder="Job name" ValuePlaceholder="template including placeholders for start and end time" />
             </VerticalStackLayout>
 
             <Button Grid.Row="6" Text="Add" Command="{Binding AddCommand}" />

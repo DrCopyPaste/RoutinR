@@ -16,8 +16,8 @@
                     ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=EditingKeyCollectionSource}"
                     x:Name="PendingCollectionKey"
                     IsVisible="False" />
-                <Entry Grid.Column="0" Placeholder="header key name" x:Name="PendingKey" IsVisible="True" />
-                <Editor Grid.Column="1" Placeholder="header value" x:Name="PendingValue" />
+                <Entry Grid.Column="0" Placeholder="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=KeyPlaceholder}" x:Name="PendingKey" IsVisible="True" />
+                <Editor Grid.Column="1" Placeholder="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=ValuePlaceholder}" x:Name="PendingValue" />
                 <Button Grid.Column="2" Text="Add" Clicked="Button_Clicked" />
         </Grid>
         <Grid>

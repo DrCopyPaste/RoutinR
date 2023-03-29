@@ -8,6 +8,31 @@ public partial class DictionaryEditor : ContentView
 {
     private string editing = string.Empty;
 
+    public static readonly BindableProperty KeyPlaceholderProperty = BindableProperty.Create(nameof(KeyPlaceholder), typeof(string), typeof(DictionaryEditor), default(string),
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var control = (DictionaryEditor)bindable;
+        });
+
+    public string KeyPlaceholder
+    {
+        get => (string)GetValue(DictionaryEditor.KeyPlaceholderProperty);
+        set => SetValue(DictionaryEditor.KeyPlaceholderProperty, value);
+    }
+
+    public static readonly BindableProperty ValuePlaceholderProperty = BindableProperty.Create(nameof(ValuePlaceholder), typeof(string), typeof(DictionaryEditor), default(string),
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var control = (DictionaryEditor)bindable;
+        });
+
+    public string ValuePlaceholder
+    {
+        get => (string)GetValue(DictionaryEditor.ValuePlaceholderProperty);
+        set => SetValue(DictionaryEditor.ValuePlaceholderProperty, value);
+    }
+
+
     public static readonly BindableProperty CollectionSourceProperty = BindableProperty.Create(nameof(CollectionSource), typeof(ObservableCollection<KeyValuePair<string, string>>), typeof(DictionaryEditor), default(ObservableCollection<KeyValuePair<string, string>>),
         propertyChanged: (bindable, oldValue, newValue) =>
         {

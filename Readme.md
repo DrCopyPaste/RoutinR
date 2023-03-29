@@ -23,6 +23,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 	only define private lowercase fields inside ViewModel and decorate as ObservableProperty => this generates proper public PascalCase properties
 	(but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, but restarting vs solves problems as always)
 
+- dotnet workload install maui-android maui-ios maui-maccatalyst
 - dotnet workload update
 
 # Interesting Maui Links
@@ -45,6 +46,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 # Maui issues:
 - crashes when scrollable content in swipeview on windows exceeds display: https://github.com/dotnet/maui/issues/8870
 - Picker width on Windows not filling container: https://github.com/dotnet/maui/issues/6391
+- AndroidManifest file does not exist: https://github.com/dotnet/maui/issues/1129
 
 # Features
 - Hit the Punch Clock Button to start tracking time
