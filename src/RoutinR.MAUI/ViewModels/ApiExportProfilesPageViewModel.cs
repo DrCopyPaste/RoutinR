@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RoutinR.Constants;
 using RoutinR.Core;
 using RoutinR.Services;
 using System;
@@ -19,14 +20,6 @@ namespace RoutinR.MAUI.ViewModels
         public ApiExportProfilesPageViewModel(InMemoryDataService dataService)
         {
             this.dataService = dataService;
-
-            Jobs = new ObservableCollection<Job>();
-            foreach (var job in dataService.GetJobs()) Jobs.Add(job);
-
-
-            JobNames = new ObservableCollection<string>();
-            foreach (var job in Jobs) JobNames.Add(job.Name);
-
             dataService.AddApiExportProfile(new ApiExportProfile(
                 name: "TestName1",
                 postUrl: "https://postUrl1",
@@ -35,11 +28,13 @@ namespace RoutinR.MAUI.ViewModels
                 headers: new() { { "header2", "value2" } },
                 jobNameJsonTemplates: new() { { Job.NewDefault().Name, "_START1__END1_" } }));
 
+            Jobs = new ObservableCollection<Job>();
+            JobNames = new ObservableCollection<string>();
             ApiExportProfiles = new();
-            foreach (var apiExportProfile in dataService.GetApiExportProfiles()) ApiExportProfiles.Add(apiExportProfile);
-
             NewHeaders = new();
             NewJobTemplates = new();
+
+            Refresh();
         }
 
         [RelayCommand]
@@ -71,6 +66,18 @@ namespace RoutinR.MAUI.ViewModels
 
             dataService.AddApiExportProfile(newProfile);
             ApiExportProfiles.Add(newProfile);
+        }
+
+        public void Refresh()
+        {
+            Jobs.Clear();
+            foreach (var job in dataService.GetJobs()) Jobs.Add(job);
+
+            JobNames.Clear();
+            foreach (var job in Jobs) JobNames.Add(job.Name);
+
+            ApiExportProfiles.Clear();
+            foreach (var apiExportProfile in dataService.GetApiExportProfiles()) ApiExportProfiles.Add(apiExportProfile);
         }
 
         [ObservableProperty]
