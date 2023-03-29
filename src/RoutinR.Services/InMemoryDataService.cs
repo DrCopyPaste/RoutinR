@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RoutinR.Services
 {
-    public class InMemoryDataService
+    public class InMemoryDataService : IDataService
     {
         private readonly HashSet<Job> jobs = new() { Job.NewDefault() };
         private readonly List<TimeSheetEntry> jobTimeSheetEntries = new();
