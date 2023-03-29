@@ -61,8 +61,8 @@ namespace RoutinR.MAUI.ViewModels
                 postUrl: NewPostUrl,
                 headers: NewHeaders.ToDictionary(x => x.Key, x => x.Value),
                 jobNameJsonTemplates: NewJobTemplates.ToDictionary(x => x.Key, x => x.Value),
-                startTimeToken: "123",
-                endTimeToken: "456");
+                startTimeToken: NewStartTimeToken,
+                endTimeToken: NewEndTimeToken);
 
             dataService.AddApiExportProfile(newProfile);
             ApiExportProfiles.Add(newProfile);
