@@ -20,7 +20,7 @@
                 <Editor Grid.Column="1" Placeholder="header value" x:Name="PendingValue" />
                 <Button Grid.Column="2" Text="Add" Clicked="Button_Clicked" />
         </Grid>
-        <VerticalStackLayout>
+        <Grid>
             <CollectionView ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=CollectionSource}"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
@@ -41,6 +41,6 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
-        </VerticalStackLayout>
+        </Grid>
     </VerticalStackLayout>
 </ContentView>
