@@ -17,7 +17,7 @@
                     x:Name="PendingCollectionKey"
                     IsVisible="False" />
                 <Entry Grid.Column="0" Placeholder="header key name" x:Name="PendingKey" IsVisible="True" />
-                <Entry Grid.Column="1" Placeholder="header value" x:Name="PendingValue" />
+                <Editor Grid.Column="1" Placeholder="header value" x:Name="PendingValue" />
                 <Button Grid.Column="2" Text="Add" Clicked="Button_Clicked" />
         </Grid>
         <VerticalStackLayout>
