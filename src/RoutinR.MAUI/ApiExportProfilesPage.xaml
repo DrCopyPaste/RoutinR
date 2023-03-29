@@ -23,7 +23,7 @@
             <VerticalStackLayout Grid.Row="5">
                 <Label Text="Job Templates:" />
                 <Label Text="{Binding NewJobTemplates.Count}" />
-                <xControls:DictionaryEditor CollectionSource="{Binding NewJobTemplates}" />
+                <xControls:DictionaryEditor CollectionSource="{Binding NewJobTemplates}" EditingKeyCollectionSource="{Binding JobNames}" />
             </VerticalStackLayout>
 
             <Button Grid.Row="6" Text="Add" Command="{Binding AddCommand}" />

@@ -20,6 +20,21 @@ public partial class DictionaryEditor : ContentView
         set => SetValue(DictionaryEditor.CollectionSourceProperty, value);
     }
 
+    public static readonly BindableProperty EditingKeyCollectionSourceProperty = BindableProperty.Create(nameof(EditingKeyCollectionSourceProperty), typeof(ObservableCollection<string>), typeof(DictionaryEditor), default(ObservableCollection<string>),
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var control = (DictionaryEditor)bindable;
+
+            (control as DictionaryEditor).PendingKey.IsVisible = newValue == null;
+            (control as DictionaryEditor).PendingCollectionKey.IsVisible = newValue != null;
+        });
+
+    public ObservableCollection<string> EditingKeyCollectionSource
+    {
+        get => (ObservableCollection<string>)GetValue(DictionaryEditor.EditingKeyCollectionSourceProperty);
+        set => SetValue(DictionaryEditor.EditingKeyCollectionSourceProperty, value);
+    }
+
     public DictionaryEditor()
 	{
 		InitializeComponent();
@@ -28,16 +43,16 @@ public partial class DictionaryEditor : ContentView
     [RelayCommand]
     async Task AddOrUpdate()
     {
-        if (string.IsNullOrEmpty(PendingKey.Text)) return;
+        if (string.IsNullOrEmpty(getPendingKey())) return;
         if (string.IsNullOrEmpty(PendingValue.Text)) return;
-        if (string.IsNullOrEmpty(editing) && CollectionSource.Any(x => x.Key == PendingKey.Text)) return;
+        if (string.IsNullOrEmpty(editing) && CollectionSource.Any(x => x.Key == getPendingKey())) return;
 
         // keyname was changed but already exists in dictionary
-        if (!string.IsNullOrEmpty(editing) && editing != PendingKey.Text && CollectionSource.Any(x => x.Key == PendingKey.Text)) return;
+        if (!string.IsNullOrEmpty(editing) && editing != getPendingKey() && CollectionSource.Any(x => x.Key == getPendingKey())) return;
         if (!string.IsNullOrEmpty(editing) && !CollectionSource.Any(x => x.Key == editing)) return;
         if (!string.IsNullOrEmpty(editing)) CollectionSource.RemoveAt(CollectionSource.IndexOf(CollectionSource.First(x => x.Key == editing)));
 
-        CollectionSource.Add(new KeyValuePair<string, string>(PendingKey.Text, PendingValue.Text));
+        CollectionSource.Add(new KeyValuePair<string, string>(getPendingKey(), PendingValue.Text));
 
         PendingKey.Text = string.Empty;
         PendingValue.Text = string.Empty;
@@ -51,6 +66,7 @@ public partial class DictionaryEditor : ContentView
         var item = CollectionSource.First(x => x.Key == key);
 
         PendingKey.Text = item.Key;
+        if (EditingKeyCollectionSource != null) PendingCollectionKey.SelectedItem = item.Key;
         PendingValue.Text = item.Value;
 
         editing = key;
@@ -58,19 +74,24 @@ public partial class DictionaryEditor : ContentView
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(PendingKey.Text)) return;
+        if (string.IsNullOrEmpty(getPendingKey())) return;
         if (string.IsNullOrEmpty(PendingValue.Text)) return;
-        if (string.IsNullOrEmpty(editing) && CollectionSource.Any(x => x.Key == PendingKey.Text)) return;
+        if (string.IsNullOrEmpty(editing) && CollectionSource.Any(x => x.Key == getPendingKey())) return;
 
         // keyname was changed but already exists in dictionary
-        if (!string.IsNullOrEmpty(editing) && editing != PendingKey.Text && CollectionSource.Any(x => x.Key == PendingKey.Text)) return;
+        if (!string.IsNullOrEmpty(editing) && editing != getPendingKey() && CollectionSource.Any(x => x.Key == getPendingKey())) return;
         if (!string.IsNullOrEmpty(editing) && !CollectionSource.Any(x => x.Key == editing)) return;
         if (!string.IsNullOrEmpty(editing)) CollectionSource.RemoveAt(CollectionSource.IndexOf(CollectionSource.First(x => x.Key == editing)));
 
-        CollectionSource.Add(new KeyValuePair<string, string>(PendingKey.Text, PendingValue.Text));
+        CollectionSource.Add(new KeyValuePair<string, string>(getPendingKey(), PendingValue.Text));
 
         PendingKey.Text = string.Empty;
         PendingValue.Text = string.Empty;
         editing = string.Empty;
+    }
+
+    private string getPendingKey()
+    {
+        return EditingKeyCollectionSource == null ? PendingKey.Text : PendingCollectionKey.SelectedItem as string;
     }
 }

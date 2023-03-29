@@ -5,37 +5,42 @@
              xmlns:xControlViewModels="clr-namespace:RoutinR.MAUI.Controls"
              x:Class="RoutinR.MAUI.Controls.DictionaryEditor">
     <VerticalStackLayout>
-    <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Placeholder="header key name" x:Name="PendingKey" />
-            <Entry Grid.Column="1" Placeholder="header value" x:Name="PendingValue" />
-            <Button Grid.Column="2" Text="Add" Clicked="Button_Clicked" />
-    </Grid>
-    <VerticalStackLayout>
-        <CollectionView ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=CollectionSource}"
-                        SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <VerticalStackLayout>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding Key}" />
-                            <Label Grid.Column="1" Text="{Binding Value}" />
-                                <Button Grid.Column="2" Text="Edit" Command="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=EditCommand}" CommandParameter="{Binding Key}" />
-                        </Grid>
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+        <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Picker Grid.Column="0"
+                    HorizontalOptions="CenterAndExpand"
+                    ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=EditingKeyCollectionSource}"
+                    x:Name="PendingCollectionKey"
+                    IsVisible="False" />
+                <Entry Grid.Column="0" Placeholder="header key name" x:Name="PendingKey" IsVisible="True" />
+                <Entry Grid.Column="1" Placeholder="header value" x:Name="PendingValue" />
+                <Button Grid.Column="2" Text="Add" Clicked="Button_Clicked" />
+        </Grid>
+        <VerticalStackLayout>
+            <CollectionView ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=CollectionSource}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Key}" />
+                                <Label Grid.Column="1" Text="{Binding Value}" />
+                                    <Button Grid.Column="2" Text="Edit" Command="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=EditCommand}" CommandParameter="{Binding Key}" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-        </CollectionView>
-    </VerticalStackLayout>
+            </CollectionView>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentView>

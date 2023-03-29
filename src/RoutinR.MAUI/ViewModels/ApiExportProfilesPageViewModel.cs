@@ -24,6 +24,9 @@ namespace RoutinR.MAUI.ViewModels
             foreach (var job in dataService.GetJobs()) Jobs.Add(job);
 
 
+            JobNames = new ObservableCollection<string>();
+            foreach (var job in Jobs) JobNames.Add(job.Name);
+
             dataService.AddApiExportProfile(new ApiExportProfile(
                 name: "TestName1",
                 postUrl: "https://postUrl1",
@@ -72,6 +75,9 @@ namespace RoutinR.MAUI.ViewModels
 
         [ObservableProperty]
         ObservableCollection<Job> jobs;
+
+        [ObservableProperty]
+        ObservableCollection<string> jobNames;
 
         [ObservableProperty]
         ObservableCollection<ApiExportProfile> apiExportProfiles;

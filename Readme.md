@@ -19,9 +19,11 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - Using Preferences to persist application settings see https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/preferences?view=net-maui-7.0&tabs=windows
 
 # Maui Stuff
-- using CommunityToolkit.Mvvm.ComponentModel to save boilerplate code
-- only define private lowercase fields inside ViewModel and decorate as ObservableProperty => this generates proper public PascalCase properties
-(but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, but restarting vs solves problems as always)
+- using CommunityToolkit.Mvvm.ComponentModel to save boilerplate code:
+	only define private lowercase fields inside ViewModel and decorate as ObservableProperty => this generates proper public PascalCase properties
+	(but sometimes can lead to weird error outputs inside visual studio, despite builds running correctly, but restarting vs solves problems as always)
+
+- dotnet workload update
 
 # Interesting Maui Links
 - https://github.com/jsuarezruiz/awesome-dotnet-maui
@@ -42,6 +44,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 # Maui issues:
 - crashes when scrollable content in swipeview on windows exceeds display: https://github.com/dotnet/maui/issues/8870
+- Picker width on Windows not filling container: https://github.com/dotnet/maui/issues/6391
 
 # Features
 - Hit the Punch Clock Button to start tracking time
