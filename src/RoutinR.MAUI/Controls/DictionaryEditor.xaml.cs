@@ -95,6 +95,7 @@ public partial class DictionaryEditor : ContentView
         PendingValue.Text = item.Value;
 
         editing = key;
+        AddOrSaveButton.Text = "Save";
     }
 
     private void Button_Clicked(object sender, EventArgs e)
@@ -113,6 +114,8 @@ public partial class DictionaryEditor : ContentView
         PendingKey.Text = string.Empty;
         PendingValue.Text = string.Empty;
         editing = string.Empty;
+
+        AddOrSaveButton.Text = "Add";
     }
 
     private string getPendingKey()

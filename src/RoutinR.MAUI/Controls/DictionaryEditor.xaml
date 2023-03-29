@@ -18,7 +18,7 @@
                     IsVisible="False" />
                 <Entry Grid.Column="0" Placeholder="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=KeyPlaceholder}" x:Name="PendingKey" IsVisible="True" />
                 <Editor Grid.Column="1" Placeholder="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=ValuePlaceholder}" x:Name="PendingValue" />
-                <Button Grid.Column="2" Text="Add" Clicked="Button_Clicked" />
+                <Button Grid.Column="2" Text="Add" x:Name="AddOrSaveButton" Clicked="Button_Clicked" />
         </Grid>
         <Grid>
             <CollectionView ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=CollectionSource}"
