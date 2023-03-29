@@ -9,7 +9,6 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - violating this might crash the application
 
 # Architecture
-
 - Models used to descibe states are located in RoutinR.Services
 - Services to provide base functionality are located in RoutinR.Services
 
