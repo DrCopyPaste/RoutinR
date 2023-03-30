@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RoutinR.Core\RoutinR.Core.csproj" />
+    <ProjectReference Include="..\RoutinR.Services.Interfaces\RoutinR.Services.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

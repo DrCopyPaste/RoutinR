@@ -9,7 +9,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - violating this might crash the application
 
 # Architecture
-- Models used to descibe states are located in RoutinR.Services
+- Models used to descibe states are located in RoutinR.Core
 - Services to provide base functionality are located in RoutinR.Services
 
 - core models are being tested in RoutinR.Core.Tests
@@ -36,6 +36,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - https://www.youtube.com/watch?v=ts-gqSFFlvE&list=PLNfklfxfM6YiO7fA0fJNO4rrbFLVIk3af&index=1 (MAUI Samples Playlist)
 - https://stackoverflow.com/questions/72598734/entity-framework-core-in-net-maui-xamarin-forms
 - https://github.com/MicrosoftDocs/xamarin-docs/issues/481 (SQLite.NET PCL Vs Entity Framework Core)
+
 # Interesting Testing Links
 - https://medium.com/asos-techblog/testing-authorization-scenarios-in-asp-net-core-web-api-484bc95d5f6f 
 - https://www.youtube.com/watch?v=GrJJXixjR8M (Implementing API Key Authentication in ASP.NET Core)

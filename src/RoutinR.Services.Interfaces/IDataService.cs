@@ -1,6 +1,6 @@
 ﻿using RoutinR.Core;
 
-namespace RoutinR.Services
+namespace RoutinR.Services.Interfaces
 {
     public interface IDataService
     {
