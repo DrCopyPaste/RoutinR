@@ -13,7 +13,7 @@ namespace RoutinR.Core
         public readonly string StartTimeToken;
         public readonly string EndTimeToken;
 
-        public readonly ReadOnlyDictionary<string, string> JobNameJsonTemplates;
+        public readonly ReadOnlyDictionary<Job, string> JobTemplates;
         public readonly ReadOnlyDictionary<string, string>? Headers = null;
 
         public override bool Equals(object? obj)
@@ -25,7 +25,7 @@ namespace RoutinR.Core
             if (this.StartTimeToken != that.StartTimeToken) return false;
             if (this.EndTimeToken != that.EndTimeToken) return false;
 
-            if (!this.JobNameJsonTemplates.OrderBy(x => x.Key).SequenceEqual(that.JobNameJsonTemplates.OrderBy(x => x.Key))) return false;
+            if (!this.JobTemplates.OrderBy(x => x.Key).SequenceEqual(that.JobTemplates.OrderBy(x => x.Key))) return false;
 
             if (this.Headers == null || that.Headers == null) return this.Headers == that.Headers;
             return this.Headers.OrderBy(x => x.Key).SequenceEqual(that.Headers.OrderBy(x => x.Key));
@@ -48,7 +48,7 @@ namespace RoutinR.Core
                 hash = hash * 486187739 + StartTimeToken.GetHashCode();
                 hash = hash * 486187739 + EndTimeToken.GetHashCode();
 
-                foreach (var template in JobNameJsonTemplates.OrderBy(x => x.Key))
+                foreach (var template in JobTemplates.OrderBy(x => x.Key))
                 {
                     hash = hash * 486187739 + template.Key.GetHashCode();
                     hash = hash * 486187739 + template.Value.GetHashCode();
@@ -69,7 +69,7 @@ namespace RoutinR.Core
             string name,
             string postUrl,
             Dictionary<string, string>? headers = null,
-            Dictionary<string, string>? jobNameJsonTemplates = null,
+            Dictionary<Job, string>? jobNameJsonTemplates = null,
             string startTimeToken = "_RoutinRStartTime_",
             string endTimeToken = "_RoutinREndTime_")
         {
@@ -99,7 +99,7 @@ namespace RoutinR.Core
                 }
             }
 
-            JobNameJsonTemplates = new ReadOnlyDictionary<string, string>(jobNameJsonTemplates);
+            JobTemplates = new ReadOnlyDictionary<Job, string>(jobNameJsonTemplates);
 
             if (headers == null) return;
             Headers = new ReadOnlyDictionary<string, string>(headers);

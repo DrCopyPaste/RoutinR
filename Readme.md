@@ -62,6 +62,10 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - saved job timesheets can be updated (change assigned job and/ or start/ end time)
 
 # Features ToDo
+- huge delay when adding to dictionaryeditor?!? (can provoke showing by leaving and reentering view?)
+
+- job picker is not preselected when leaving and reentering view (shouw we delete pending values on leave?)
+
 - external apis can be linked by creating api export profiles containing post url, api user, api key
 -- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
 
@@ -84,7 +88,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - ?allow apiprofile without job templates (in case jobs are created afterwards?)?
 - form field validation
 
-- rename jobjsontemplates => jobtemplates
+- is it dangerous to override Equals memorywise? should we use value types/ records/ structs?
 
 
 # Misc

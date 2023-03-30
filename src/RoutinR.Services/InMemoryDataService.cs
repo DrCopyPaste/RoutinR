@@ -140,7 +140,7 @@ namespace RoutinR.Services
         public void AddApiExportProfile(ApiExportProfile apiExportProfile)
         {
             if (apiExportProfiles.Any(profile => profile.Name == apiExportProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
-            if (apiExportProfile.JobNameJsonTemplates.Any(template => !jobs.Any(job => job.Name == template.Key))) throw new ArgumentException("not all job templates have valid corresponding jobs");
+            if (apiExportProfile.JobTemplates.Any(template => !jobs.Any(job => job.Equals(template.Key)))) throw new ArgumentException("not all job templates have valid corresponding jobs");
             apiExportProfiles.Add(apiExportProfile);
         }
 
@@ -157,7 +157,7 @@ namespace RoutinR.Services
         public void UpdateApiExportProfile(ApiExportProfile existingProfile, ApiExportProfile updatedProfile)
         {
             if (existingProfile.Name != updatedProfile.Name && apiExportProfiles.Any(profile => profile.Name == updatedProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
-            if (updatedProfile.JobNameJsonTemplates.Any(template => !jobs.Any(job => job.Name == template.Key))) throw new ArgumentException("not all job templates have valid corresponding jobs");
+            if (updatedProfile.JobTemplates.Any(template => !jobs.Any(job => job.Equals(template.Key)))) throw new ArgumentException("not all job templates have valid corresponding jobs");
 
             apiExportProfiles.Remove(existingProfile);
             apiExportProfiles.Add(updatedProfile);

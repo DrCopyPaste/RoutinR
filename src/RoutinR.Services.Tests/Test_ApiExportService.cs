@@ -42,10 +42,10 @@ namespace RoutinR.Services.Tests
                     { External.TestApi.Constants.Api_User, External.TestApi.Constants.Api_User },
                     { External.TestApi.Constants.Api_Key, External.TestApi.Constants.Api_Key }
                 },
-                jobNameJsonTemplates: new Dictionary<string, string>()
+                jobNameJsonTemplates: new Dictionary<Job, string>()
                 {
                     {
-                        Job.NewDefault().Name,
+                        Job.NewDefault(),
                         @"{
   ""begin"": ""_RoutinRStartTime_"",
   ""end"": ""_RoutinREndTime_"",
@@ -114,9 +114,9 @@ namespace RoutinR.Services.Tests
                     { userNameKey, userName },
                     { apiKeyName, apiKey }
                 },
-                jobNameJsonTemplates: new Dictionary<string, string>()
+                jobNameJsonTemplates: new Dictionary<Job, string>()
                 {
-                    { Job.NewDefault().Name, postTemplate }
+                    { Job.NewDefault(), postTemplate }
                 },
                 startTimeToken: "_RoutinRStartTime_",
                 endTimeToken: "_RoutinREndTime_");

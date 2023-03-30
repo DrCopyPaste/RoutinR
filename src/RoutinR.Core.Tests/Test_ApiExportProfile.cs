@@ -60,7 +60,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_START_",
-                    jobNameJsonTemplates: new() { { "JobName", "_START_" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_START_" } });
             }
             catch (ArgumentException)
             {
@@ -99,7 +99,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "emptytemplate" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "emptytemplate" } });
             }
             catch (ArgumentException)
             {
@@ -115,7 +115,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "_START_" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_START_" } });
             }
             catch (ArgumentException)
             {
@@ -131,7 +131,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "_END_" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_END_" } });
             }
             catch (ArgumentException)
             {
@@ -151,7 +151,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "emptytemplate" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "emptytemplate" } });
             }
             catch (ArgumentException)
             {
@@ -167,7 +167,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "_END_" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_END_" } });
             }
             catch (ArgumentException)
             {
@@ -183,7 +183,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "_START_" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_START_" } });
             }
             catch (ArgumentException)
             {
@@ -203,7 +203,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "_START_END_" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_START_END_" } });
             }
             catch (ArgumentException)
             {
@@ -219,7 +219,7 @@ namespace RoutinR.Core.Tests
                     postUrl: "https://posturl",
                     startTimeToken: "_START_",
                     endTimeToken: "_END_",
-                    jobNameJsonTemplates: new() { { "JobName", "_END_START_" } });
+                    jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_END_START_" } });
             }
             catch (ArgumentException)
             {

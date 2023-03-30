@@ -366,7 +366,7 @@ namespace RoutinR.Services.Tests
                 startTimeToken: "_START_",
                 endTimeToken: "_END_",
                 headers: new() { { "header1", "value1" } },
-                jobNameJsonTemplates: new() { { "JobName", "_START__END_" } });
+                jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_START__END_" } });
             dataService.AddApiExportProfile(apiExportProfile);
             var countAfter = dataService.ApiExportProfileCount;
 
@@ -385,7 +385,7 @@ namespace RoutinR.Services.Tests
                 startTimeToken: "_START_",
                 endTimeToken: "_END_",
                 headers: new() { { "header1", "value1" } },
-                jobNameJsonTemplates: new() { { "JobName", "_START__END_" } });
+                jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_START__END_" } });
             dataService.AddApiExportProfile(addedProfile);
 
             var profileFromService = dataService.GetApiExportProfileByName(name: "TestName");
@@ -406,7 +406,7 @@ namespace RoutinR.Services.Tests
                 startTimeToken: "_START_",
                 endTimeToken: "_END_",
                 headers: new() { { "header1", "value1" } },
-                jobNameJsonTemplates: new() { { "JobName", "_START__END_" } });
+                jobNameJsonTemplates: new() { { Job.NewFromName("JobName"), "_START__END_" } });
             dataService.AddApiExportProfile(addedProfile);
 
             var itemCount = dataService.ApiExportProfileCount;
@@ -417,7 +417,7 @@ namespace RoutinR.Services.Tests
                 startTimeToken: "_START1_",
                 endTimeToken: "_END1_",
                 headers: new() { { "header2", "value2" } },
-                jobNameJsonTemplates: new() { { "JobName1", "_START1__END1_" } });
+                jobNameJsonTemplates: new() { { Job.NewFromName("JobName1"), "_START1__END1_" } });
             dataService.UpdateApiExportProfile(addedProfile, updatedProfile);
 
             Assert.True(itemCount == dataService.ApiExportProfileCount, "profile count increased after updating an entry");

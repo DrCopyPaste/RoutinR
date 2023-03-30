@@ -26,7 +26,7 @@ namespace RoutinR.MAUI.ViewModels
                 startTimeToken: "_START1_",
                 endTimeToken: "_END1_",
                 headers: new() { { "header2", "value2" } },
-                jobNameJsonTemplates: new() { { Job.NewDefault().Name, "_START1__END1_" } }));
+                jobNameJsonTemplates: new() { { Job.NewDefault(), "_START1__END1_" } }));
 
             Jobs = new ObservableCollection<Job>();
             JobNames = new ObservableCollection<string>();
@@ -60,7 +60,7 @@ namespace RoutinR.MAUI.ViewModels
                 name: NewProfileName,
                 postUrl: NewPostUrl,
                 headers: NewHeaders.ToDictionary(x => x.Key, x => x.Value),
-                jobNameJsonTemplates: NewJobTemplates.ToDictionary(x => x.Key, x => x.Value),
+                jobNameJsonTemplates: NewJobTemplates.ToDictionary(x => Job.NewFromName(x.Key), x => x.Value),
                 startTimeToken: NewStartTimeToken,
                 endTimeToken: NewEndTimeToken);
 

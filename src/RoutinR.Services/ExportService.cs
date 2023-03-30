@@ -16,9 +16,9 @@ namespace RoutinR.Services
         /// <returns></returns>
         public async Task<ExportResult> ExportToApi(TimeSheetEntry timeSheetEntry, ApiExportProfile apiExportProfile, HttpClient httpClient)
         {
-            if (!apiExportProfile.JobNameJsonTemplates.Any(template => template.Key == timeSheetEntry.Job.Name)) return new ExportResult($"Export profile does not contain a template definition for job {timeSheetEntry.Job.Name}");
+            if (!apiExportProfile.JobTemplates.Any(template => template.Key.Equals(timeSheetEntry.Job))) return new ExportResult($"Export profile does not contain a template definition for job {timeSheetEntry.Job.Name}");
 
-            var postTemplate = apiExportProfile.JobNameJsonTemplates.First(template => template.Key == timeSheetEntry.Job.Name).Value;
+            var postTemplate = apiExportProfile.JobTemplates.First(template => template.Key.Equals(timeSheetEntry.Job)).Value;
 
             postTemplate = postTemplate.Replace(apiExportProfile.StartTimeToken, timeSheetEntry.StartTime.ToString("yyyy-MM-ddTHH:mm"));
             postTemplate = postTemplate.Replace(apiExportProfile.EndTimeToken, timeSheetEntry.EndTime.ToString("yyyy-MM-ddTHH:mm"));
