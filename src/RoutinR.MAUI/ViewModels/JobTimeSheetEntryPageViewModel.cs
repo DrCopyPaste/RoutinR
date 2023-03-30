@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using RoutinR.Core;
 using RoutinR.Services;
+using RoutinR.Services.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace RoutinR.MAUI.ViewModels
@@ -9,9 +10,9 @@ namespace RoutinR.MAUI.ViewModels
     [QueryProperty(nameof(JobTimeSheetEntry), "JobTimeSheetEntry")]
     public partial class JobTimeSheetEntryPageViewModel : BaseViewModel
     {
-        private readonly InMemoryDataService dataService;
+        private readonly IDataService dataService;
 
-        public JobTimeSheetEntryPageViewModel(InMemoryDataService dataService)
+        public JobTimeSheetEntryPageViewModel(IDataService dataService)
         {
             this.dataService = dataService;
 

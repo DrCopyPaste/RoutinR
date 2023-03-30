@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using RoutinR.Constants;
 using RoutinR.Core;
+using RoutinR.Services.Interfaces;
 using System.Data;
 using System.Reflection.PortableExecutable;
 
@@ -8,7 +9,7 @@ namespace RoutinR.Services.Tests
 {
     public class Test_InMemoryDataService
     {
-        private readonly InMemoryDataService dataService;
+        private readonly IDataService dataService;
 
         public Test_InMemoryDataService()
         {

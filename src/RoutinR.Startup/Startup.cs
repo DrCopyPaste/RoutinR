@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RoutinR.Services;
+using RoutinR.Services.Interfaces;
 
 namespace RoutinR.Startup
 {
@@ -8,7 +9,7 @@ namespace RoutinR.Startup
         public static void RegisterAppServicesToServiceCollection(IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<PunchClockService>();
-            serviceCollection.AddSingleton<InMemoryDataService>();
+            serviceCollection.AddSingleton<IDataService, InMemoryDataService>();
         }
     }
 }

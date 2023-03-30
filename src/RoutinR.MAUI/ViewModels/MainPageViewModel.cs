@@ -2,16 +2,17 @@
 using RoutinR.Constants;
 using RoutinR.Core;
 using RoutinR.Services;
+using RoutinR.Services.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace RoutinR.MAUI.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
-        private readonly InMemoryDataService dataService;
+        private readonly IDataService dataService;
         private readonly PunchClockService punchClockService;
 
-        public MainPageViewModel(PunchClockService punchClockService, InMemoryDataService dataService)
+        public MainPageViewModel(PunchClockService punchClockService, IDataService dataService)
         {
             this.dataService = dataService;
             this.punchClockService = punchClockService;

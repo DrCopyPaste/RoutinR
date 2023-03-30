@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Networking;
 using RoutinR.Core;
 using RoutinR.Services;
+using RoutinR.Services.Interfaces;
 using System.Collections.ObjectModel;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -10,9 +11,9 @@ namespace RoutinR.MAUI.ViewModels
 {
     public partial class JobsPageViewModel : BaseViewModel
     {
-        private readonly InMemoryDataService dataService;
+        private readonly IDataService dataService;
 
-        public JobsPageViewModel(InMemoryDataService dataService)
+        public JobsPageViewModel(IDataService dataService)
         {
             this.dataService = dataService;
             Jobs = new ObservableCollection<Job>();

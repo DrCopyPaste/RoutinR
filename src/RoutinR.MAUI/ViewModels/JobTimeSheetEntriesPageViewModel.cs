@@ -2,15 +2,16 @@
 using CommunityToolkit.Mvvm.Input;
 using RoutinR.Core;
 using RoutinR.Services;
+using RoutinR.Services.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace RoutinR.MAUI.ViewModels
 {
     public partial class JobTimeSheetEntriesPageViewModel : BaseViewModel
     {
-        private readonly InMemoryDataService dataService;
+        private readonly IDataService dataService;
 
-        public JobTimeSheetEntriesPageViewModel(InMemoryDataService dataService)
+        public JobTimeSheetEntriesPageViewModel(IDataService dataService)
         {
             this.dataService = dataService;
             JobTimeSheetEntries = new ObservableCollection<TimeSheetEntry>();

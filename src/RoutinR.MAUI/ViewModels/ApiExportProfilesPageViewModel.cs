@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using RoutinR.Constants;
 using RoutinR.Core;
 using RoutinR.Services;
+using RoutinR.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,9 +16,9 @@ namespace RoutinR.MAUI.ViewModels
 {
     public partial class ApiExportProfilesPageViewModel : BaseViewModel
     {
-        private readonly InMemoryDataService dataService;
+        private readonly IDataService dataService;
 
-        public ApiExportProfilesPageViewModel(InMemoryDataService dataService)
+        public ApiExportProfilesPageViewModel(IDataService dataService)
         {
             this.dataService = dataService;
             dataService.AddApiExportProfile(new ApiExportProfile(
