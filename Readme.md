@@ -64,8 +64,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 # Features ToDo
 - huge delay when adding to dictionaryeditor?!? (can provoke showing by leaving and reentering view?)
-
-- job picker is not preselected when leaving and reentering view (shouw we delete pending values on leave?)
+- job picker is not preselected when leaving and reentering view (should we delete pending values on leave? yeah KISS!!)
 
 - external apis can be linked by creating api export profiles containing post url, api user, api key
 -- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
@@ -86,17 +85,22 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - wrap all (core or service calling) client code with exception handling
 - Test "Equals"/"GetHashCode" ?
 
-- ?allow apiprofile without job templates (in case jobs are created afterwards?)?
+- ?allow apiprofile without job templates (in case jobs are created afterwards?)? => WHAT IF ALL JOBS GET DELETED that a profile references???
 - form field validation
 
 - is it dangerous to override Equals memorywise? should we use value types/ records/ structs?
+- concurrency tests for dataservices
 
 
 # Misc
 done 1. Application can toggle tracking time and not tracking time
+
 done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
-3. The internal collection of start- and stop-times can be exported (json, database, sth. else?)
+
+ui pending - services done 3. The internal collection of start- and stop-times can be exported (json, database, sth. else?)
+
 4. The internal collection of start- and stop-times can be persisted (database)
+
 
  Highlander-principle: there can only ever be one timer running
 - starting tracking time for a task-item stops tracking time for all other task-items, 

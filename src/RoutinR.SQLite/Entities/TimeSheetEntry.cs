@@ -1,5 +1,9 @@
-﻿namespace RoutinR.SQLite.Entities
+﻿using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
+
+namespace RoutinR.SQLite.Entities
 {
+    [PrimaryKey(nameof(StartTime), nameof(EndTime))]
     public class TimeSheetEntry
     {
         public Job Job { get;set; }

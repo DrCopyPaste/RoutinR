@@ -2,18 +2,28 @@ using Microsoft.VisualStudio.TestPlatform.Utilities;
 using RoutinR.Constants;
 using RoutinR.Core;
 using RoutinR.Services.Interfaces;
+using RoutinR.SQLite.Services;
 using System.Data;
 using System.Reflection.PortableExecutable;
 
 namespace RoutinR.Services.Tests
 {
-    public class Test_InMemoryDataService
+    public class Test_InMemoryDataService: IDisposable
     {
         private readonly IDataService dataService;
 
         public Test_InMemoryDataService()
         {
-            this.dataService = new InMemoryDataService();
+            this.dataService = new RoutinRSQLiteService("Data Source=:memory:");
+            //this.dataService = new InMemoryDataService();
+        }
+
+        public void Dispose()
+        {
+            if (dataService != null && dataService.GetType().Equals(typeof(RoutinRSQLiteService)))
+            {
+                (dataService as RoutinRSQLiteService).Dispose();
+            }
         }
 
         [Fact]
