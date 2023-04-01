@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RoutinR.Constants;
 using RoutinR.MAUI.Controls;
 using RoutinR.MAUI.ViewModels;
 using RoutinR.Services;
@@ -7,8 +8,21 @@ namespace RoutinR.MAUI
 {
     public static class MauiProgram
     {
+        private static string connectionString = $"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), nameof(RoutinR) + ".db")};";
+
         public static MauiApp CreateMauiApp()
         {
+            //Preferences.Default.Clear();
+            if (Preferences.Default.ContainsKey(SettingNames.SettingsDbPath))
+            {
+                MauiProgram.connectionString = Preferences.Default.Get<string>(SettingNames.SettingsDbPath, "Data Source=:memory:");
+            }
+            else
+            {
+                Preferences.Default.Set(SettingNames.SettingsDbPath, MauiProgram.connectionString);
+            }
+
+
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
@@ -53,7 +67,7 @@ namespace RoutinR.MAUI
             //mauiAppBuilder.Services.AddSingleton<PunchClockService>();
             //mauiAppBuilder.Services.AddSingleton<InMemoryDataService>();
 
-            Startup.Startup.RegisterAppServicesToServiceCollection(mauiAppBuilder.Services);
+            Startup.Startup.RegisterAppServicesToServiceCollection(mauiAppBuilder.Services, MauiProgram.connectionString);
             return mauiAppBuilder;
         }
 

@@ -21,13 +21,6 @@ namespace RoutinR.MAUI.ViewModels
         public ApiExportProfilesPageViewModel(IDataService dataService)
         {
             this.dataService = dataService;
-            dataService.AddApiExportProfile(new ApiExportProfile(
-                name: "TestName1",
-                postUrl: "https://postUrl1",
-                startTimeToken: "_START1_",
-                endTimeToken: "_END1_",
-                headers: new() { { "header2", "value2" } },
-                jobNameJsonTemplates: new() { { Job.NewDefault(), "_START1__END1_" } }));
 
             Jobs = new ObservableCollection<Job>();
             JobNames = new ObservableCollection<string>();

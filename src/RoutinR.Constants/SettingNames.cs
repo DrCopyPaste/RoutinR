@@ -5,6 +5,6 @@
         public static string CurrentJobName = nameof(CurrentJobName);
         public static string PreviousStartTime = nameof(PreviousStartTime);
 
-        //public static string CurrentIsRunning = nameof(CurrentIsRunning);
+        public static string SettingsDbPath = nameof(SettingsDbPath);
     }
 }

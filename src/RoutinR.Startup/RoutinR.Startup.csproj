@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RoutinR.Services\RoutinR.Services.csproj" />
+    <ProjectReference Include="..\RoutinR.SQLite\RoutinR.SQLite.csproj" />
   </ItemGroup>
 
 </Project>

@@ -31,6 +31,9 @@ namespace RoutinR.SQLite.Services
             this.context = new RoutinRContext(inMemorySqlite);
             this.context.Database.Migrate();
 
+
+            if (context.Jobs.Any(job => job.Name.Equals(Core.Job.NewDefault().Name))) return;
+
             context.Jobs.Add(new Entities.Job()
             {
                 Name = Core.Job.NewDefault().Name
@@ -55,25 +58,26 @@ namespace RoutinR.SQLite.Services
             if (context.ApiExportProfiles.Any(profile => profile.Name == apiExportProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
             if (apiExportProfile.JobTemplates.Any(template => !context.Jobs.Any(job => job.Name.Equals(template.Key.Name)))) throw new ArgumentException("not all job templates have valid corresponding jobs");
 
-            var jobTemplates = new List<JobTemplate>();
-            foreach (var template in apiExportProfile.JobTemplates)
-            {
-                jobTemplates.Add(new JobTemplate()
-                {
-                    Key = context.Jobs.First(job => job.Name.Equals(template.Key.Name)),
-                    Value = template.Value
-                });
-            };
-
-            context.ApiExportProfiles.Add(new Entities.ApiExportProfile()
+            var addedProfile = context.ApiExportProfiles.Add(new Entities.ApiExportProfile()
             {
                 Name = apiExportProfile.Name,
                 PostUrl = apiExportProfile.PostUrl,
                 Headers = JsonSerializer.Serialize(apiExportProfile.Headers),
-                JobTemplates = jobTemplates,
+                //JobTemplates = jobTemplates,
                 StartTimeToken = apiExportProfile.StartTimeToken,
                 EndTimeToken = apiExportProfile.EndTimeToken
-            });
+            }).Entity;
+
+            foreach (var template in apiExportProfile.JobTemplates)
+            {
+                var addedEntry = context.JobTemplates.Add(
+                    new JobTemplate()
+                    {
+                        ApiExportProfile = addedProfile,
+                        Key = context.Jobs.First(job => job.Name.Equals(template.Key.Name)),
+                        Value = template.Value
+                    }).Entity;
+            };
 
             context.SaveChanges();
         }
@@ -128,16 +132,33 @@ namespace RoutinR.SQLite.Services
 
         public IEnumerable<Core.ApiExportProfile> GetApiExportProfiles()
         {
-            return context.ApiExportProfiles.Select(profile =>
-                new Core.ApiExportProfile(
+            //var expr = context.ApiExportProfiles.Select(profile =>
+            //    new Core.ApiExportProfile(
+            //        profile.Name,
+            //        profile.PostUrl,
+            //        profile.Headers == null ? new Dictionary<string, string>() : JsonSerializer.Deserialize<Dictionary<string, string>>(profile.Headers, (JsonSerializerOptions?)null),
+            //        profile.JobTemplates.Any() ?
+            //            profile.JobTemplates.ToDictionary(template => Core.Job.NewFromName(template.Key.Name), template => template.Value) :
+            //            new Dictionary<Core.Job, string>(),
+            //        profile.StartTimeToken,
+            //        profile.EndTimeToken));
+
+            var pendingList = new List<Core.ApiExportProfile>();
+            foreach(var profile in context.ApiExportProfiles)
+            {
+                var pendingEntry = new Core.ApiExportProfile(
                     profile.Name,
                     profile.PostUrl,
-                    profile.Headers == null ? new Dictionary<string, string>() : JsonSerializer.Deserialize<Dictionary<string, string>>(profile.Headers, (JsonSerializerOptions?) null),
+                    profile.Headers == null ? new Dictionary<string, string>() : JsonSerializer.Deserialize<Dictionary<string, string>>(profile.Headers, (JsonSerializerOptions?)null),
                     profile.JobTemplates.Any() ?
                         profile.JobTemplates.ToDictionary(template => Core.Job.NewFromName(template.Key.Name), template => template.Value) :
                         new Dictionary<Core.Job, string>(),
                     profile.StartTimeToken,
-                    profile.EndTimeToken));
+                    profile.EndTimeToken);
+            }
+
+
+            return pendingList;
         }
 
         public void AddJob(Core.Job jobToAdd)

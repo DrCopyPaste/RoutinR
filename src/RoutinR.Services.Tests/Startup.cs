@@ -6,7 +6,7 @@ namespace RoutinR.Services.Tests
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            RoutinR.Startup.Startup.RegisterAppServicesToServiceCollection(services);
+            RoutinR.Startup.Startup.RegisterAppServicesToServiceCollection(services, "Data Source=:memory:");
         }
     }
 }
