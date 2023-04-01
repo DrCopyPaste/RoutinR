@@ -1,17 +1,20 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace RoutinR.SQLite.Entities
 {
+    [PrimaryKey(nameof(Id))]
     public class ApiExportProfile
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string PostUrl { get; set; } = string.Empty;
 
         public string StartTimeToken { get; set; } = string.Empty;
         public string EndTimeToken { get; set; } = string.Empty;
 
-        public ReadOnlyDictionary<string, string> JobNameJsonTemplates;
+        public ICollection<JobTemplate>? JobTemplates;
 
-        public IEnumerable<ApiExportProfileHeader> Headers;
+        public string Headers { get; set; } = string.Empty;
     }
 }

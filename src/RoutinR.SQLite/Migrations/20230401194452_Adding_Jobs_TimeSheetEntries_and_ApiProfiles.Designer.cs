@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RoutinR.SQLite;
 
@@ -10,9 +11,11 @@ using RoutinR.SQLite;
 namespace RoutinR.SQLite.Migrations
 {
     [DbContext(typeof(RoutinRContext))]
-    partial class RoutinRContextModelSnapshot : ModelSnapshot
+    [Migration("20230401194452_Adding_Jobs_TimeSheetEntries_and_ApiProfiles")]
+    partial class Adding_Jobs_TimeSheetEntries_and_ApiProfiles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");

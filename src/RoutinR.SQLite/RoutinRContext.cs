@@ -27,8 +27,9 @@ namespace RoutinR.SQLite
 
         }
 
-        //public DbSet<ApiExportProfile> ApiExportProfiles { get; set; }
+        public DbSet<ApiExportProfile> ApiExportProfiles { get; set; }
         //public DbSet<ExportResult> ExportResults { get; set; }
+        public DbSet<JobTemplate> JobTemplates { get; set; }   
         public DbSet<Job> Jobs { get; set; }   
         public DbSet<TimeSheetEntry> TimeSheetEntries { get; set; }
     }

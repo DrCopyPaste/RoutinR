@@ -7,13 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace RoutinR.SQLite.Services
 {
     public class RoutinRSQLiteService : IDataService, IDisposable
     {
-        public int ApiExportProfileCount => throw new NotImplementedException();
+        public int ApiExportProfileCount => context == null ? 0 : context.ApiExportProfiles.Count();
 
         public int JobCount => context == null ? 0 : context.Jobs.Count();
 
@@ -28,7 +29,6 @@ namespace RoutinR.SQLite.Services
             inMemorySqlite.Open();
 
             this.context = new RoutinRContext(inMemorySqlite);
-            //this.context.Database.EnsureCreated();
             this.context.Database.Migrate();
 
             context.Jobs.Add(new Entities.Job()
@@ -52,7 +52,92 @@ namespace RoutinR.SQLite.Services
 
         public void AddApiExportProfile(Core.ApiExportProfile apiExportProfile)
         {
-            throw new NotImplementedException();
+            if (context.ApiExportProfiles.Any(profile => profile.Name == apiExportProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
+            if (apiExportProfile.JobTemplates.Any(template => !context.Jobs.Any(job => job.Name.Equals(template.Key.Name)))) throw new ArgumentException("not all job templates have valid corresponding jobs");
+
+            var jobTemplates = new List<JobTemplate>();
+            foreach (var template in apiExportProfile.JobTemplates)
+            {
+                jobTemplates.Add(new JobTemplate()
+                {
+                    Key = context.Jobs.First(job => job.Name.Equals(template.Key.Name)),
+                    Value = template.Value
+                });
+            };
+
+            context.ApiExportProfiles.Add(new Entities.ApiExportProfile()
+            {
+                Name = apiExportProfile.Name,
+                PostUrl = apiExportProfile.PostUrl,
+                Headers = JsonSerializer.Serialize(apiExportProfile.Headers),
+                JobTemplates = jobTemplates,
+                StartTimeToken = apiExportProfile.StartTimeToken,
+                EndTimeToken = apiExportProfile.EndTimeToken
+            });
+
+            context.SaveChanges();
+        }
+
+        public void UpdateApiExportProfile(Core.ApiExportProfile existingProfile, Core.ApiExportProfile updatedProfile)
+        {
+            if (existingProfile.Name != updatedProfile.Name && context.ApiExportProfiles.Any(profile => profile.Name == updatedProfile.Name)) throw new ArgumentException("an api export profile with that name already exists");
+            if (updatedProfile.JobTemplates.Any(template => !context.Jobs.Any(job => job.Name.Equals(template.Key.Name)))) throw new ArgumentException("not all job templates have valid corresponding jobs");
+
+            var existingDbEntry = context.ApiExportProfiles.First(profile => profile.Name.Equals(existingProfile.Name));
+
+            existingDbEntry.Name = updatedProfile.Name;
+            existingDbEntry.PostUrl = updatedProfile.PostUrl;
+            existingDbEntry.StartTimeToken = updatedProfile.StartTimeToken;
+            existingDbEntry.EndTimeToken = updatedProfile.EndTimeToken;
+
+            existingDbEntry.Headers = JsonSerializer.Serialize(updatedProfile.Headers);
+            existingDbEntry.JobTemplates = new List<JobTemplate>();
+
+            foreach (var template in updatedProfile.JobTemplates)
+            {
+                existingDbEntry.JobTemplates.Add(new JobTemplate()
+                {
+                    Key = context.Jobs.First(job => job.Name.Equals(template.Key.Name)),
+                    Value = template.Value
+                });
+            };
+
+            context.ApiExportProfiles.Update(existingDbEntry);
+            context.SaveChanges();
+        }
+
+        public Core.ApiExportProfile? GetApiExportProfileByName(string name)
+        {
+            var dbResult = context.ApiExportProfiles.FirstOrDefault(profile => profile.Name == name);
+            if (dbResult == null) return null;
+
+            var dbResultTemplates = dbResult.JobTemplates;
+
+            var result = new Core.ApiExportProfile(
+                name: dbResult.Name,
+                postUrl: dbResult.PostUrl,
+                headers: dbResult.Headers == null ? new Dictionary<string, string>() : JsonSerializer.Deserialize<Dictionary<string, string>>(dbResult.Headers, (JsonSerializerOptions?) null),
+                jobNameJsonTemplates: dbResult.JobTemplates.Any() ?
+                    dbResult.JobTemplates.ToDictionary(template => Core.Job.NewFromName(template.Key.Name), template => template.Value) :
+                    new Dictionary<Core.Job, string>(),
+                startTimeToken: dbResult.StartTimeToken,
+                endTimeToken: dbResult.EndTimeToken);
+
+            return result;
+        }
+
+        public IEnumerable<Core.ApiExportProfile> GetApiExportProfiles()
+        {
+            return context.ApiExportProfiles.Select(profile =>
+                new Core.ApiExportProfile(
+                    profile.Name,
+                    profile.PostUrl,
+                    profile.Headers == null ? new Dictionary<string, string>() : JsonSerializer.Deserialize<Dictionary<string, string>>(profile.Headers, (JsonSerializerOptions?) null),
+                    profile.JobTemplates.Any() ?
+                        profile.JobTemplates.ToDictionary(template => Core.Job.NewFromName(template.Key.Name), template => template.Value) :
+                        new Dictionary<Core.Job, string>(),
+                    profile.StartTimeToken,
+                    profile.EndTimeToken));
         }
 
         public void AddJob(Core.Job jobToAdd)
@@ -104,23 +189,14 @@ namespace RoutinR.SQLite.Services
             throw new NotImplementedException();
         }
 
-        public Core.ApiExportProfile? GetApiExportProfileByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Core.ApiExportProfile> GetApiExportProfiles()
-        {
-            throw new NotImplementedException();
-        }
-
         public Core.Job? GetJobByName(string jobName)
         {
             if (!context.Jobs.Any(job => job.Name == jobName)) return null;
 
             var result = context.Jobs
                 .Where(job => job.Name == jobName)
-                .Select(job => Core.Job.NewFromName(job.Name)).First();
+                .Select(job => Core.Job.NewFromName(job.Name))
+                .First();
             return result;
         }
 
@@ -136,11 +212,6 @@ namespace RoutinR.SQLite.Services
                     Core.Job.NewFromName(entry.Job.Name),
                     entry.StartTime,
                     entry.EndTime)).AsEnumerable();
-        }
-
-        public void UpdateApiExportProfile(Core.ApiExportProfile existingProfile, Core.ApiExportProfile updatedProfile)
-        {
-            throw new NotImplementedException();
         }
 
         public void UpdateJob()
