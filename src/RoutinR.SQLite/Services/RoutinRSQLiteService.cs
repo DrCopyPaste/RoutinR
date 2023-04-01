@@ -112,7 +112,10 @@ namespace RoutinR.SQLite.Services
 
         public Core.ApiExportProfile? GetApiExportProfileByName(string name)
         {
-            var dbResult = context.ApiExportProfiles.FirstOrDefault(profile => profile.Name == name);
+            var dbResult = context.ApiExportProfiles
+                .Where(profile => profile.Name == name)
+                .Include(p => p.JobTemplates)
+                .FirstOrDefault();
             if (dbResult == null) return null;
 
             var dbResultTemplates = dbResult.JobTemplates;
