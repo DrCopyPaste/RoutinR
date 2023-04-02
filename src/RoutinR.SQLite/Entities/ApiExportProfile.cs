@@ -13,7 +13,7 @@ namespace RoutinR.SQLite.Entities
         public string StartTimeToken { get; set; } = string.Empty;
         public string EndTimeToken { get; set; } = string.Empty;
 
-        public ICollection<JobTemplate>? JobTemplates { get; set; }
+        public ICollection<JobTemplate> JobTemplates { get; set; }
 
         public string Headers { get; set; } = string.Empty;
     }

@@ -6,6 +6,7 @@ using RoutinR.SQLite.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -115,6 +116,7 @@ namespace RoutinR.SQLite.Services
             var dbResult = context.ApiExportProfiles
                 .Where(profile => profile.Name == name)
                 .Include(p => p.JobTemplates)
+                .ThenInclude(template => template.Key)
                 .FirstOrDefault();
             if (dbResult == null) return null;
 
@@ -124,8 +126,8 @@ namespace RoutinR.SQLite.Services
                 name: dbResult.Name,
                 postUrl: dbResult.PostUrl,
                 headers: dbResult.Headers == null ? new Dictionary<string, string>() : JsonSerializer.Deserialize<Dictionary<string, string>>(dbResult.Headers, (JsonSerializerOptions?) null),
-                jobNameJsonTemplates: dbResult.JobTemplates.Any() ?
-                    dbResult.JobTemplates.ToDictionary(template => Core.Job.NewFromName(template.Key.Name), template => template.Value) :
+                jobNameJsonTemplates: dbResult.JobTemplates != null && dbResult.JobTemplates.Any() ?
+                    JobTemplatesToDictionary(dbResult.JobTemplates) :
                     new Dictionary<Core.Job, string>(),
                 startTimeToken: dbResult.StartTimeToken,
                 endTimeToken: dbResult.EndTimeToken);
@@ -147,21 +149,59 @@ namespace RoutinR.SQLite.Services
             //        profile.EndTimeToken));
 
             var pendingList = new List<Core.ApiExportProfile>();
-            foreach(var profile in context.ApiExportProfiles)
+            foreach(var profile in context.ApiExportProfiles
+                .Include(profile => profile.JobTemplates)
+                .ThenInclude(template => template.Key))
             {
                 var pendingEntry = new Core.ApiExportProfile(
                     profile.Name,
                     profile.PostUrl,
                     profile.Headers == null ? new Dictionary<string, string>() : JsonSerializer.Deserialize<Dictionary<string, string>>(profile.Headers, (JsonSerializerOptions?)null),
-                    profile.JobTemplates.Any() ?
-                        profile.JobTemplates.ToDictionary(template => Core.Job.NewFromName(template.Key.Name), template => template.Value) :
+                    profile.JobTemplates != null && profile.JobTemplates.Any() ?
+                        JobTemplatesToDictionary(profile.JobTemplates) :
                         new Dictionary<Core.Job, string>(),
                     profile.StartTimeToken,
                     profile.EndTimeToken);
+
+                pendingList.Add(pendingEntry);
             }
 
 
             return pendingList;
+        }
+
+        private ICollection<JobTemplate> DictionaryToJobTemplates(Entities.ApiExportProfile profile, Dictionary<Core.Job, string> dictionary)
+        {
+            if (profile == null) return new List<JobTemplate>();
+            if (profile.JobTemplates == null) return new List<JobTemplate>();
+
+            var jobsFromTemplates = context.Jobs.Where(job => profile.JobTemplates.Select(template => template.Key.Name).Contains(job.Name));
+            if (jobsFromTemplates.Count() != profile.JobTemplates.Select(template => template.Key.Name).Distinct().Count()) return new List<JobTemplate>();
+
+            var result = new List<JobTemplate>();
+            foreach (var template in dictionary)
+            {
+                result.Add(new JobTemplate()
+                {
+                    ApiExportProfile = profile,
+                    Key = jobsFromTemplates.First(job => job.Name.Equals(template.Key.Name)),
+                    Value = template.Value
+                });
+            }
+
+            return result;
+        }
+
+        private Dictionary<Core.Job, string> JobTemplatesToDictionary(ICollection<JobTemplate> jobTemplates)
+        {
+            var result = new Dictionary<Core.Job, string>();
+
+            foreach (var jobTemplate in jobTemplates)
+            {
+                result.Add(Core.Job.NewFromName(jobTemplate.Key.Name), jobTemplate.Value);
+            }
+
+            return result;
         }
 
         public void AddJob(Core.Job jobToAdd)

@@ -60,6 +60,14 @@ namespace RoutinR.MAUI.ViewModels
 
             dataService.AddApiExportProfile(newProfile);
             ApiExportProfiles.Add(newProfile);
+
+            //NewProfileName = string.Empty;
+            //NewPostUrl = string.Empty;
+            //NewStartTimeToken = string.Empty;
+            //NewEndTimeToken = string.Empty;
+
+            //NewHeaders = new();
+            //NewJobTemplates = new();
         }
 
         public void Refresh()
