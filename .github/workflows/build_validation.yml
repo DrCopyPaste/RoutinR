@@ -69,7 +69,6 @@ jobs:
       # https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview
       - name: Build Windows MSIX
         run: |
-          cd src
           dotnet publish src\RoutinR.MAUI\RoutinR.MAUI.csproj -f net7.0-windows10.0.19041.0 -c Release 
           
 #       - name: Build and Run UnitTests
