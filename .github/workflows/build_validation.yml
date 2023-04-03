@@ -109,7 +109,6 @@ jobs:
       - name : Build Android App
         shell: bash
         run: |
-            cd src
             dotnet publish src/RoutinR.MAUI/RoutinR.MAUI.csproj -f:net7.0-android -c:Release
             
         # # Store Android Signing Keystore and password in Secrets using base64 encoding
