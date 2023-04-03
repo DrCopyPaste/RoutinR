@@ -110,7 +110,7 @@ jobs:
         shell: bash
         run: |
             cd src
-            dotnet publish src\RoutinR.MAUI\RoutinR.MAUI.csproj -f:net7.0-android -c:Release
+            dotnet publish src/RoutinR.MAUI/RoutinR.MAUI.csproj -f:net7.0-android -c:Release
             
         # # Store Android Signing Keystore and password in Secrets using base64 encoding
         # # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
