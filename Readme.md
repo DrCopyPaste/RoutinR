@@ -63,7 +63,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - saved job timesheets can be updated (change assigned job and/ or start/ end time)
 
 # Features ToDo
-- huge delay when adding to dictionaryeditor?!? (can provoke showing by leaving and reentering view?)
+- huge delay when adding to dictionaryeditor?!? (can provoke showing by pressing a key inside another dictionary editors key editor)
 - job picker is not preselected when leaving and reentering view (should we delete pending values on leave? yeah KISS!!)
 
 - external apis can be linked by creating api export profiles containing post url, api user, api key
@@ -91,15 +91,18 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - is it dangerous to override Equals memorywise? should we use value types/ records/ structs?
 - concurrency tests for dataservices
 
+- list views broken (dont show text (white on white?) on android
+- main view line breaks broken on android
+
 
 # Misc
 done 1. Application can toggle tracking time and not tracking time
 
 done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
 
-ui pending - services done 3. The internal collection of start- and stop-times can be exported (json, database, sth. else?)
+done 3. The internal collection of start- and stop-times can be exported (json, database, sth. else?)
 
-4. The internal collection of start- and stop-times can be persisted (database)
+done 4. The internal collection of start- and stop-times can be persisted (database)
 
 
  Highlander-principle: there can only ever be one timer running

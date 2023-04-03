@@ -14,6 +14,12 @@
                 FontSize="10"
                 HorizontalOptions="Center" />
 
+            <Label
+                Text="{Binding ConnectionStringText}"
+                SemanticProperties.HeadingLevel="Level5"
+                FontSize="10"
+                HorizontalOptions="Center" />
+
         </VerticalStackLayout>
     </ScrollView>
 
