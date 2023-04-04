@@ -8,19 +8,14 @@ namespace RoutinR.MAUI
 {
     public static class MauiProgram
     {
-        private static string connectionString = $"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), nameof(RoutinR) + ".db")};";
-
+        private static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), nameof(RoutinR) + ".db");
         public static MauiApp CreateMauiApp()
         {
-            //Preferences.Default.Clear();
-            if (Preferences.Default.ContainsKey(SettingNames.SettingsDbPath))
-            {
-                MauiProgram.connectionString = Preferences.Default.Get<string>(SettingNames.SettingsDbPath, "Data Source=:memory:");
-            }
-            else
-            {
-                Preferences.Default.Set(SettingNames.SettingsDbPath, MauiProgram.connectionString);
-            }
+            Preferences.Default.Clear();
+
+            // replace path with string.Empty for in memory db
+            MauiProgram.dbPath = Preferences.Default.Get<string>(SettingNames.SettingsDbPath, dbPath);
+            Preferences.Default.Set(SettingNames.SettingsDbPath, MauiProgram.dbPath);
 
 
             var builder = MauiApp.CreateBuilder();
@@ -67,7 +62,7 @@ namespace RoutinR.MAUI
             //mauiAppBuilder.Services.AddSingleton<PunchClockService>();
             //mauiAppBuilder.Services.AddSingleton<InMemoryDataService>();
 
-            Startup.Startup.RegisterAppServicesToServiceCollection(mauiAppBuilder.Services, MauiProgram.connectionString);
+            Startup.Startup.RegisterAppServicesToServiceCollection(mauiAppBuilder.Services, MauiProgram.dbPath);
             return mauiAppBuilder;
         }
 

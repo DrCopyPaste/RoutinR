@@ -14,7 +14,7 @@ namespace RoutinR.Services.Tests
 
         public Test_InMemoryDataService()
         {
-            this.dataService = new RoutinRSQLiteService("Data Source=:memory:");
+            this.dataService = new RoutinRSQLiteService();
             //this.dataService = new InMemoryDataService();
         }
 

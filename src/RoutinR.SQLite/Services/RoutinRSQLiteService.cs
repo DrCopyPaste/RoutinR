@@ -22,14 +22,19 @@ namespace RoutinR.SQLite.Services
         public int JobTimeSheetEntryCount => context == null ? 0 : context.TimeSheetEntries.Count();
 
         private readonly RoutinRContext context;
-        private readonly SqliteConnection inMemorySqlite;
+        private readonly SqliteConnection sqliteConnection;
 
-        public RoutinRSQLiteService(string connectionString)
+        /// <summary>
+        /// creates a new instance using a new dbContext constructing a connection string to the given dbPath
+        /// </summary>
+        /// <param name="dbPath">if empty connection string will use ":memory:"</param>
+        public RoutinRSQLiteService(string dbPath = "")
         {
-            inMemorySqlite = new SqliteConnection(connectionString);
-            inMemorySqlite.Open();
+            if (!string.IsNullOrEmpty(dbPath) && !Path.Exists(dbPath)) throw new FileNotFoundException(dbPath);
+            sqliteConnection = string.IsNullOrEmpty(dbPath) ? new SqliteConnection($"Data Source={dbPath}") : new SqliteConnection("Data Source=:memory:");
+            sqliteConnection.Open();
 
-            this.context = new RoutinRContext(inMemorySqlite);
+            this.context = new RoutinRContext(sqliteConnection);
             this.context.Database.Migrate();
 
 
@@ -45,10 +50,10 @@ namespace RoutinR.SQLite.Services
 
         public void Dispose()
         {
-            if (inMemorySqlite != null)
+            if (sqliteConnection != null)
             {
-                inMemorySqlite.Close();
-                inMemorySqlite.Dispose();
+                sqliteConnection.Close();
+                sqliteConnection.Dispose();
             }
 
             if (context != null) context.Dispose();

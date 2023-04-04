@@ -7,12 +7,12 @@ namespace RoutinR.Startup
 {
     public class Startup
     {
-        public static void RegisterAppServicesToServiceCollection(IServiceCollection serviceCollection, string connectionString)
+        public static void RegisterAppServicesToServiceCollection(IServiceCollection serviceCollection, string dbPath)
         {
             serviceCollection.AddSingleton<PunchClockService>();
 
             //serviceCollection.AddSingleton<IDataService, InMemoryDataService>();
-            serviceCollection.AddTransient<IDataService, RoutinRSQLiteService>(x => { return new RoutinRSQLiteService(connectionString); });
+            serviceCollection.AddTransient<IDataService, RoutinRSQLiteService>(x => { return new RoutinRSQLiteService(dbPath); });
         }
     }
 }
