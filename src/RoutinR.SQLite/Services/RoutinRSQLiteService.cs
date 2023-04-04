@@ -21,17 +21,28 @@ namespace RoutinR.SQLite.Services
 
         public int JobTimeSheetEntryCount => context == null ? 0 : context.TimeSheetEntries.Count();
 
-        private readonly RoutinRContext context;
-        private readonly SqliteConnection sqliteConnection;
+        private string dbPath;
+        private RoutinRContext context;
+        private SqliteConnection sqliteConnection;
 
         /// <summary>
         /// creates a new instance using a new dbContext constructing a connection string to the given dbPath
         /// </summary>
         /// <param name="dbPath">if empty connection string will use ":memory:"</param>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. ( Field is set in Initialize)
         public RoutinRSQLiteService(string dbPath = "")
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        {
+            this.dbPath = dbPath;
+
+            Initialize();
+        }
+
+        public void Initialize()
         {
             // path is created implicitly
             sqliteConnection = !string.IsNullOrEmpty(dbPath) ? new SqliteConnection($"Data Source={dbPath}") : new SqliteConnection("Data Source=:memory:");
+
             sqliteConnection.Open();
 
             this.context = new RoutinRContext(sqliteConnection);

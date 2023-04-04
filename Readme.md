@@ -62,6 +62,9 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - timesheets for all jobs can be viewed in a list
 - current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
 - saved job timesheets can be updated (change assigned job and/ or start/ end time)
+- api export profiles can be added with individual templates for jobs to export to an external rest api
+- the application db can be exported to a folder
+- the application db can be imported and overridden from a selected file
 
 # Features ToDo
 - huge delay when adding to dictionaryeditor?!? (can provoke showing by pressing a key inside another dictionary editors key editor)
@@ -100,15 +103,6 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 
 # Misc
-done 1. Application can toggle tracking time and not tracking time
-
-done 2. Starting and Stopping tracking time inserts those points in time to an internal collection (tuple<datetime, datetime> something)
-
-done 3. The internal collection of start- and stop-times can be exported (json, database, sth. else?)
-
-done 4. The internal collection of start- and stop-times can be persisted (database)
-
-
  Highlander-principle: there can only ever be one timer running
 - starting tracking time for a task-item stops tracking time for all other task-items, 
 - this is really only to make creating statistics of per day times easy

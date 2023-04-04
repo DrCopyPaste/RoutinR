@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RoutinR.Services.Interfaces;
+using RoutinR.SQLite.Services;
 
 namespace RoutinR.MAUI.ViewModels
 {
@@ -12,8 +13,6 @@ namespace RoutinR.MAUI.ViewModels
         public SettingsPageViewModel(IDataService dataService)
         {
             this.dataService = dataService;
-
-            NewJobName = "Blabla";
         }
 
         [RelayCommand]
@@ -42,7 +41,13 @@ namespace RoutinR.MAUI.ViewModels
                 var result = await FilePicker.Default.PickAsync(new PickOptions() { PickerTitle = "Import database file" });
                 if (result != null)
                 {
-                    // import database ...
+                    var importDbPath = result.FullPath;
+                    var targetDbPath = MauiProgram.dbPath;
+
+                    if (this.dataService.GetType() == typeof(RoutinRSQLiteService)) ((RoutinRSQLiteService)this.dataService).Dispose();
+                    File.Copy(importDbPath, targetDbPath, true);
+
+                    this.dataService.Initialize();
                 }
 
                 return;
@@ -54,8 +59,5 @@ namespace RoutinR.MAUI.ViewModels
 
             return;
         }
-
-        [ObservableProperty]
-        string newJobName;
     }
 }

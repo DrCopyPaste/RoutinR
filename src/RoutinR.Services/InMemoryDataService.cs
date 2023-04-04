@@ -51,6 +51,10 @@ namespace RoutinR.Services
             return jobTimeSheetEntries.AsEnumerable();
         }
 
+        public void Initialize()
+        {
+        }
+
         /// <summary>
         /// Adds a new job time sheet entry to the internal collection
         /// </summary>

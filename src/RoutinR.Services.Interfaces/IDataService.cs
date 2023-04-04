@@ -17,6 +17,7 @@ namespace RoutinR.Services.Interfaces
         Job? GetJobByName(string jobName);
         IEnumerable<Job> GetJobs();
         IEnumerable<TimeSheetEntry> GetJobTimeSheetEntries();
+        void Initialize();
         void UpdateApiExportProfile(ApiExportProfile existingProfile, ApiExportProfile updatedProfile);
         void UpdateJob();
         void UpdateJobTimeSheetEntry(TimeSheetEntry existingEntry, TimeSheetEntry updatedEntry);
