@@ -3,6 +3,7 @@ using RoutinR.Constants;
 using RoutinR.MAUI.Controls;
 using RoutinR.MAUI.ViewModels;
 using RoutinR.Services;
+using CommunityToolkit.Maui;
 
 namespace RoutinR.MAUI
 {
@@ -12,15 +13,11 @@ namespace RoutinR.MAUI
         public static MauiApp CreateMauiApp()
         {
             // Preferences.Default.Clear();
-
             // replace path with string.Empty for in memory db
             MauiProgram.dbPath = Preferences.Default.Get<string>(SettingNames.SettingsDbPath, dbPath);
             Preferences.Default.Set(SettingNames.SettingsDbPath, MauiProgram.dbPath);
-
-
             var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
+            builder.UseMauiApp<App>()
                 .RegisterAppServices()
                 .RegisterViewModels()
                 .RegisterViews()
@@ -28,12 +25,11 @@ namespace RoutinR.MAUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
-
+                })
+                .UseMauiCommunityToolkit();
 #if DEBUG
-		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
 
@@ -42,7 +38,6 @@ namespace RoutinR.MAUI
             //mauiAppBuilder.Services.AddTransient<AboutPage>();
             //mauiAppBuilder.Services.AddTransient<JobsPage>();
             //mauiAppBuilder.Services.AddTransient<MainPage>();
-
             RegisterViewsToServiceCollection(mauiAppBuilder.Services);
             return mauiAppBuilder;
         }
@@ -52,7 +47,6 @@ namespace RoutinR.MAUI
             //mauiAppBuilder.Services.AddTransient<AboutPageViewModel>();
             //mauiAppBuilder.Services.AddTransient<JobsPageViewModel>();
             //mauiAppBuilder.Services.AddTransient<MainPageViewModel>();
-
             RegisterViewModelsToServiceCollection(mauiAppBuilder.Services);
             return mauiAppBuilder;
         }
@@ -61,7 +55,6 @@ namespace RoutinR.MAUI
         {
             //mauiAppBuilder.Services.AddSingleton<PunchClockService>();
             //mauiAppBuilder.Services.AddSingleton<InMemoryDataService>();
-
             Startup.Startup.RegisterAppServicesToServiceCollection(mauiAppBuilder.Services, MauiProgram.dbPath);
             return mauiAppBuilder;
         }
