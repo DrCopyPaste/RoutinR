@@ -11,7 +11,7 @@ namespace RoutinR.MAUI
         private static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), nameof(RoutinR) + ".db");
         public static MauiApp CreateMauiApp()
         {
-            Preferences.Default.Clear();
+            // Preferences.Default.Clear();
 
             // replace path with string.Empty for in memory db
             MauiProgram.dbPath = Preferences.Default.Get<string>(SettingNames.SettingsDbPath, dbPath);
