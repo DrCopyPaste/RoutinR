@@ -49,6 +49,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - crashes when scrollable content in swipeview on windows exceeds display: https://github.com/dotnet/maui/issues/8870
 - Picker width on Windows not filling container: https://github.com/dotnet/maui/issues/6391
 - AndroidManifest file does not exist: https://github.com/dotnet/maui/issues/1129
+- Frame-Tag must have background color set to transparent
 
 # Features
 - Hit the Punch Clock Button to start tracking time
@@ -66,12 +67,17 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - the application db can be exported to a folder
 - the application db can be imported and overridden from a selected file
 
+# Installing
+- use the msix file from github action for windows
+- use the apk file from github action for android
+-- before trying to upgrade you should export your database and reimport that after upgrading
+-- upgrading does not really work
+-- (something to do with the non signed package?)
+
 # Features ToDo
 
 (pending) - external apis can be linked by creating api export profiles containing post url, api user, api key
 (pending) -- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
-
-- list views broken (dont show text (white on white?) on android
 
 - huge delay when adding to dictionaryeditor?!? (can provoke showing by pressing a key inside another dictionary editors key editor)
 - job picker is not preselected when leaving and reentering view (should we delete pending values on leave? yeah KISS!!)

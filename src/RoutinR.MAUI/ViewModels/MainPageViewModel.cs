@@ -9,12 +9,14 @@ namespace RoutinR.MAUI.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
+        private readonly ExportService exportService;
         private readonly IDataService dataService;
         private readonly PunchClockService punchClockService;
 
-        public MainPageViewModel(PunchClockService punchClockService, IDataService dataService)
+        public MainPageViewModel(PunchClockService punchClockService, IDataService dataService, ExportService exportService)
         {
             this.dataService = dataService;
+            this.exportService = exportService;
             this.punchClockService = punchClockService;
 
             Jobs = new ObservableCollection<Job>();
@@ -38,6 +40,7 @@ namespace RoutinR.MAUI.ViewModels
             LastStartTimeText = "never started before";
             LastEndTimeText = "never started or stopped before";
             TotalRuntimeText = "0";
+            this.exportService = exportService;
         }
 
         private void RestoreCurrentJob()
@@ -75,6 +78,22 @@ namespace RoutinR.MAUI.ViewModels
                 LastEndTimeText = jobTimeSheetEntry.EndTime.ToString();
 
                 dataService.AddJobTimeSheetEntry(jobTimeSheetEntry);
+
+                if (Preferences.Default.Get(SettingNames.ExportOnTimeSheetCompletion, false))
+                {
+                    try
+                    {
+                        var apiProfiles = dataService.GetApiExportProfiles().Where(profile => profile.JobTemplates.Any(template => template.Key.Name.Equals(CurrentJob.Name)));
+                        foreach (var profile in apiProfiles)
+                        {
+                            var result = exportService.ExportToApi(jobTimeSheetEntry, profile, new HttpClient()).GetAwaiter().GetResult();
+                            if (result != null && result.HasError)
+                            {
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+                }
             }
             else
             {
