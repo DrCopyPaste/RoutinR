@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RoutinR.Constants;
 using RoutinR.Services.Interfaces;
 using RoutinR.SQLite.Services;
 
@@ -13,7 +14,12 @@ namespace RoutinR.MAUI.ViewModels
         public SettingsPageViewModel(IDataService dataService)
         {
             this.dataService = dataService;
+
+            ExportOnStoppingTimeSheet = Preferences.Default.Get(SettingNames.ExportOnTimeSheetCompletion, false);
         }
+
+        [ObservableProperty]
+        private bool exportOnStoppingTimeSheet;
 
         [RelayCommand]
         async Task ExportDatabase(CancellationToken cancellationToken)

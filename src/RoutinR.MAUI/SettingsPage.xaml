@@ -4,11 +4,11 @@
              x:Class="RoutinR.MAUI.SettingsPage"
              Title="SettingsPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-
+        <HorizontalStackLayout>
+            <Label VerticalOptions="Center" Text="Export timesheets after stopping" />
+            <CheckBox VerticalOptions="Center" IsChecked="{Binding ExportOnStoppingTimeSheet}" CheckedChanged="CheckBox_CheckedChanged" />
+        </HorizontalStackLayout>
+        
         <Button Text="Import Database" Command="{Binding ImportDatabaseCommand}" />
         <Button Text="Export Database" Command="{Binding ExportDatabaseCommand}" />
     </VerticalStackLayout>
