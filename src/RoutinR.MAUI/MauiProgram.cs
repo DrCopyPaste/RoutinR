@@ -80,6 +80,7 @@ namespace RoutinR.MAUI
             serviceCollection.AddTransient<JobTimeSheetEntryPage>();
             serviceCollection.AddTransient<JobTimeSheetEntryPage>();
             serviceCollection.AddTransient<MainPage>();
+            serviceCollection.AddTransient<SettingsPage>();
         }
 
         public static void RegisterViewModelsToServiceCollection(IServiceCollection serviceCollection)
@@ -90,6 +91,7 @@ namespace RoutinR.MAUI
             serviceCollection.AddTransient<JobTimeSheetEntriesPageViewModel>();
             serviceCollection.AddTransient<JobTimeSheetEntryPageViewModel>();
             serviceCollection.AddTransient<MainPageViewModel>();
+            serviceCollection.AddTransient<SettingsPageViewModel>();
         }
     }
 }

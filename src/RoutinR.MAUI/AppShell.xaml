@@ -23,6 +23,10 @@
         ContentTemplate="{DataTemplate local:ApiExportProfilesPage}"
         Route="ApiExportProfilesPage" />
     <ShellContent
+        Title="Settings"
+        ContentTemplate="{DataTemplate local:SettingsPage}"
+        Route="SettingsPage" />
+    <ShellContent
         Title="About"
         ContentTemplate="{DataTemplate local:AboutPage}"
         Route="AboutPage" />
