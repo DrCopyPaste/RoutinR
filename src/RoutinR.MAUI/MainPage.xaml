@@ -8,26 +8,35 @@
             Padding="30,0"
             VerticalOptions="Start">
 
-            <Label
-                Text="{Binding TotalRuntimeText}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Total running time since last start"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-            <Button
-                Command="{Binding PunchClockClick}"
-                Text="Punch Clock"
-                SemanticProperties.Hint="Hit this button to start or stop tracking time"
-                HorizontalOptions="Center" />
-
-            <Picker
+                <Picker Grid.Column="0"
+                    HorizontalTextAlignment="Start"
                     ItemsSource="{Binding Jobs}"
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding CurrentJob}"
                     SelectedIndexChanged="Picker_SelectedIndexChanged"
                     />
+                
+                <Label Grid.Column="1"
+                    HorizontalOptions="End"
+                    Text="{Binding TotalRuntimeText}"
+                    SemanticProperties.HeadingLevel="Level2"
+                    SemanticProperties.Description="Total running time since last start"
+                    FontSize="18" />
 
+                <Button Grid.Column="2"
+                    HorizontalOptions="End"
+                    Command="{Binding PunchClockClick}"
+                    Text="Punch Clock"
+                    SemanticProperties.Hint="Hit this button to start or stop tracking time" />
+            </Grid>
+            
         </VerticalStackLayout>
     </ScrollView>
 
