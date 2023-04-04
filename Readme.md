@@ -67,40 +67,44 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - the application db can be imported and overridden from a selected file
 
 # Features ToDo
+
+(pending) - external apis can be linked by creating api export profiles containing post url, api user, api key
+(pending) -- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
+
+- list views broken (dont show text (white on white?) on android
+
 - huge delay when adding to dictionaryeditor?!? (can provoke showing by pressing a key inside another dictionary editors key editor)
 - job picker is not preselected when leaving and reentering view (should we delete pending values on leave? yeah KISS!!)
 
-- external apis can be linked by creating api export profiles containing post url, api user, api key
--- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
+- exporting creates an export log entry with date and reference to that timesheet entry
+- export individual timesheet entries
+- move db file info to settings
+- add clear all settings button
+- add clear database button
+- pretty format time sheet entries
+
+- (import) buttons change color on settings page after pressing?
+- sometimes desktop (win) app does only react to moving and closing (window does not refresh, links/buttons are dead)
+- form field validation
+- wrap all (core or service calling) client code with exception handling
+
+- overthink precision (ui allows only for minute precision, but backend uses second(??)-precision)
+- change timespan format (seconds and/or ms should always be visible to indicate progress)
 
 - testing TimeSheetEntry
 - testing ApiExportProfile
 - testing ExportService.ExportToApi extreme cases
 - prevent adding post templates that dont contain placeholders (make readonly, add getter/adder?)
-
 - visualize adjacent/ potentially overlapping time sheet entries when editing job time sheet entries
-- change timespan format (seconds and/or ms should always be visible to indicate progress)
-- consistend datetime formatters
+- consistent datetime formatters
 - job timesheets can be filtered by jobname and time interval (also today/ this week/ this month filter for time sheet entries)
 - enable merging adjacent time sheet entries if they share the same job
-
-
-- pretty format time sheet entries
-- wrap all (core or service calling) client code with exception handling
 - Test "Equals"/"GetHashCode" ?
-
 - ?allow apiprofile without job templates (in case jobs are created afterwards?)? => WHAT IF ALL JOBS GET DELETED that a profile references???
-- form field validation
-
 - is it dangerous to override Equals memorywise? should we use value types/ records/ structs?
 - concurrency tests for dataservices
 
-- list views broken (dont show text (white on white?) on android
-- main view line breaks broken on android
-- (import) buttons change color on settings page after pressing?
-
-- sometimes desktop (win) app does only react to moving and closing (window does not refresh, links/buttons are dead)
-
+- gracefully fail in cases the app encounters something unexpected
 
 # Misc
  Highlander-principle: there can only ever be one timer running
@@ -108,7 +112,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - this is really only to make creating statistics of per day times easy
 - so this MIGHT be changed in the future, then reworking how stats work :-)
 
-7. gracefully fail in cases the app encounters something unexpected
+7. 
 (like times from the future, negative timespans, etc.)
 
 
