@@ -30,8 +30,8 @@ namespace RoutinR.SQLite.Services
         /// <param name="dbPath">if empty connection string will use ":memory:"</param>
         public RoutinRSQLiteService(string dbPath = "")
         {
-            if (!string.IsNullOrEmpty(dbPath) && !Path.Exists(dbPath)) throw new FileNotFoundException(dbPath);
-            sqliteConnection = string.IsNullOrEmpty(dbPath) ? new SqliteConnection($"Data Source={dbPath}") : new SqliteConnection("Data Source=:memory:");
+            // path is created implicitly
+            sqliteConnection = !string.IsNullOrEmpty(dbPath) ? new SqliteConnection($"Data Source={dbPath}") : new SqliteConnection("Data Source=:memory:");
             sqliteConnection.Open();
 
             this.context = new RoutinRContext(sqliteConnection);

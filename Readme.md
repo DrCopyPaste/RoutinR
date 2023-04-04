@@ -93,6 +93,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 - list views broken (dont show text (white on white?) on android
 - main view line breaks broken on android
+- main page drop down doesnt show any selection does it even work?
 
 
 # Misc
