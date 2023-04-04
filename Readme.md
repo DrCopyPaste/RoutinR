@@ -66,6 +66,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - api export profiles can be added with individual templates for jobs to export to an external rest api
 - the application db can be exported to a folder
 - the application db can be imported and overridden from a selected file
+- setting "ExportOnStoppingTimeSheet" looks for export profiles when finishing a job, automatically exporting them to their target apis
 
 # Installing
 - use the msix file from github action for windows
@@ -75,13 +76,9 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 -- (something to do with the non signed package?)
 
 # Features ToDo
-
-(pending) - external apis can be linked by creating api export profiles containing post url, api user, api key
-(pending) -- jobs can then be assigned an individual post template (i.e. json with placeholders for start and end time)
+- api export profiles should be editable
 
 - huge delay when adding to dictionaryeditor?!? (can provoke showing by pressing a key inside another dictionary editors key editor)
-- job picker is not preselected when leaving and reentering view (should we delete pending values on leave? yeah KISS!!)
-
 - exporting creates an export log entry with date and reference to that timesheet entry
 - export individual timesheet entries
 - move db file info to settings

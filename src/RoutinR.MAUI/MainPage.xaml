@@ -32,7 +32,7 @@
 
                 <Button Grid.Column="2"
                     HorizontalOptions="End"
-                    Command="{Binding PunchClockClick}"
+                    Command="{Binding PunchClockClickCommand}"
                     Text="Punch Clock"
                     SemanticProperties.Hint="Hit this button to start or stop tracking time" />
             </Grid>

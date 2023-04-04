@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using RoutinR.Constants;
 using RoutinR.Core;
 using RoutinR.Services;
@@ -66,7 +67,8 @@ namespace RoutinR.MAUI.ViewModels
             }
         }
 
-        public Command PunchClockClick => new(() =>
+        [RelayCommand]
+        async Task PunchClockClick()
         {
             if (CurrentlyRunning)
             {
@@ -86,7 +88,7 @@ namespace RoutinR.MAUI.ViewModels
                         var apiProfiles = dataService.GetApiExportProfiles().Where(profile => profile.JobTemplates.Any(template => template.Key.Name.Equals(CurrentJob.Name)));
                         foreach (var profile in apiProfiles)
                         {
-                            var result = exportService.ExportToApi(jobTimeSheetEntry, profile, new HttpClient()).GetAwaiter().GetResult();
+                            var result = await exportService.ExportToApi(jobTimeSheetEntry, profile, new HttpClient());
                             if (result != null && result.HasError)
                             {
                             }
@@ -107,7 +109,7 @@ namespace RoutinR.MAUI.ViewModels
                 LastEndTimeText = "currently running";
                 LastStartTimeText = previousStartTime.ToString();
             }
-        });
+        }
 
         private void HandleTimerCallback(object state)
         {
