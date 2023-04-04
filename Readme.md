@@ -26,6 +26,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - dotnet workload update
 
 # Interesting Maui Links
+- android permissions in manifest: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/file-picker?view=net-maui-7.0&tabs=android
 - https://github.com/jsuarezruiz/awesome-dotnet-maui
 - https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/?view=net-maui-7.0
 - https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-7.0
@@ -93,7 +94,9 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 - list views broken (dont show text (white on white?) on android
 - main view line breaks broken on android
-- main page drop down doesnt show any selection does it even work?
+- (import) buttons change color on settings page after pressing?
+
+- sometimes desktop (win) app does only react to moving and closing (window does not refresh, links/buttons are dead)
 
 
 # Misc
