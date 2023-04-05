@@ -33,6 +33,7 @@ namespace RoutinR.MAUI.ViewModels
                 CurrentlyRunning = true;
                 Timer = new Timer(HandleTimerCallback, this, 0, 20);
                 LastEndTimeText = "currently running";
+                PunchClockLabel = "Stop";
 
                 return;
             }
@@ -41,6 +42,7 @@ namespace RoutinR.MAUI.ViewModels
             LastStartTimeText = "never started before";
             LastEndTimeText = "never started or stopped before";
             TotalRuntimeText = "0";
+            PunchClockLabel = "Start";
             this.exportService = exportService;
         }
 
@@ -78,6 +80,7 @@ namespace RoutinR.MAUI.ViewModels
                 CurrentlyRunning = false;
                 Timer.Dispose();
                 LastEndTimeText = jobTimeSheetEntry.EndTime.ToString();
+                PunchClockLabel = "Start";
 
                 dataService.AddJobTimeSheetEntry(jobTimeSheetEntry);
 
@@ -108,6 +111,7 @@ namespace RoutinR.MAUI.ViewModels
                 Timer = new Timer(HandleTimerCallback, this, 0, 20);
                 LastEndTimeText = "currently running";
                 LastStartTimeText = previousStartTime.ToString();
+                PunchClockLabel = "Stop";
             }
         }
 
@@ -161,5 +165,8 @@ namespace RoutinR.MAUI.ViewModels
 
         [ObservableProperty]
         private string totalRuntimeText;
+
+        [ObservableProperty]
+        string punchClockLabel;
     }
 }
