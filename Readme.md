@@ -2,6 +2,30 @@
 RoutinR makes keeping a timesheet as easy as pushing a button.
 (after some initial configuration)
 
+# Features
+- Hit the Punch Clock Button to start tracking time
+- a stopwatch like clock appears showing the total current running time
+- current starting time is shown
+- Hit the Punch Clock Button again to stop tracking time and log it
+- previous start and end time are shown
+- previous start time of a running session is being restored when application is closed and restarted
+- use the default idle job to track time
+- or add custom job names
+- timesheets for all jobs can be viewed in a list
+- current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
+- saved job timesheets can be updated (change assigned job and/ or start/ end time)
+- api export profiles can be added with individual templates for jobs to export to an external rest api
+- the application db can be exported to a folder
+- the application db can be imported and overridden from a selected file
+- setting "ExportOnStoppingTimeSheet" looks for export profiles when finishing a job, automatically exporting them to their target apis
+
+# Installing
+- use the msix file from github action for windows
+- use the apk file from github action for android
+-- before trying to upgrade you should export your database and reimport that after upgrading
+-- upgrading does not really work
+-- (something to do with the non signed package?)
+
 # Limits
 - crossing timezones is not supported
 - day light savings transitions are not supported (FBT/ SFT)
@@ -27,6 +51,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 
 # Interesting Maui Links
 - android permissions in manifest: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/file-picker?view=net-maui-7.0&tabs=android
+- https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/device/display?tabs=windows&view=net-maui-7.0#keep-the-screen-on
 - https://github.com/jsuarezruiz/awesome-dotnet-maui
 - https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/?view=net-maui-7.0
 - https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-7.0
@@ -51,48 +76,33 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - AndroidManifest file does not exist: https://github.com/dotnet/maui/issues/1129
 - Frame-Tag must have background color set to transparent
 
-# Features
-- Hit the Punch Clock Button to start tracking time
-- a stopwatch like clock appears showing the total current running time
-- current starting time is shown
-- Hit the Punch Clock Button again to stop tracking time and log it
-- previous start and end time are shown
-- previous start time of a running session is being restored when application is closed and restarted
-- use the default idle job to track time
-- or add custom job names
-- timesheets for all jobs can be viewed in a list
-- current job for punch clock can be changed (set effectively on stopping, enabling toggling while already having started)
-- saved job timesheets can be updated (change assigned job and/ or start/ end time)
-- api export profiles can be added with individual templates for jobs to export to an external rest api
-- the application db can be exported to a folder
-- the application db can be imported and overridden from a selected file
-- setting "ExportOnStoppingTimeSheet" looks for export profiles when finishing a job, automatically exporting them to their target apis
-
-# Installing
-- use the msix file from github action for windows
-- use the apk file from github action for android
--- before trying to upgrade you should export your database and reimport that after upgrading
--- upgrading does not really work
--- (something to do with the non signed package?)
-
 # Features ToDo
-- api export profiles should be editable
 
+- separate add api export profile from list view => new edit/add view
+- add api export profile view allows editing
+- hide header values (might contain api keys etc.) in frontend
+
+- api export profiles should be editable
+- option to suppress screen locking on android?
+- add toast notifications/ "general" (lockscreen?!?) notifications
+- how to add sth to lockscreen (like playercontrols from vlc)
+- versioning installer packages
+
+- sometimes desktop (win) app does only react to moving and closing (window does not refresh, links/buttons are dead)
+-- maui debug controls also dont show up in this case
 - huge delay when adding to dictionaryeditor?!? (can provoke showing by pressing a key inside another dictionary editors key editor)
 - exporting creates an export log entry with date and reference to that timesheet entry
 - export individual timesheet entries
-- move db file info to settings
+
 - add clear all settings button
 - add clear database button
 - pretty format time sheet entries
 
 - (import) buttons change color on settings page after pressing?
-- sometimes desktop (win) app does only react to moving and closing (window does not refresh, links/buttons are dead)
 - form field validation
 - wrap all (core or service calling) client code with exception handling
 
 - overthink precision (ui allows only for minute precision, but backend uses second(??)-precision)
-- change timespan format (seconds and/or ms should always be visible to indicate progress)
 
 - testing TimeSheetEntry
 - testing ApiExportProfile

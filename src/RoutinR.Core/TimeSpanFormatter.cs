@@ -6,11 +6,10 @@
         {
             if (timeSpan < TimeSpan.Zero) throw new ArgumentException("timespan is smaller than zero");
 
-            if (timeSpan.TotalSeconds < 60) return timeSpan.ToString("ss\\:ff");
-            if (timeSpan.TotalMinutes < 60) return timeSpan.ToString("mm\\:ss");
-            if (timeSpan.TotalHours < 24) return timeSpan.ToString("h\\:mm");
+            if (timeSpan.TotalMinutes < 60) return String.Format("{0:D2}m:{1:D2}s", timeSpan.Minutes, timeSpan.Seconds);
 
-            return timeSpan.ToString("d\\:h\\:mm");
+
+            return String.Format("{0}h:{1:D2}m:{2:D2}s", (int)timeSpan.TotalHours, timeSpan.Minutes, timeSpan.Seconds);            
         }
     }
 }
