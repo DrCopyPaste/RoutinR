@@ -13,7 +13,7 @@ namespace RoutinR.Startup
             serviceCollection.AddTransient<ExportService>();
 
             //serviceCollection.AddSingleton<IDataService, InMemoryDataService>();
-            serviceCollection.AddTransient<IDataService, RoutinRSQLiteService>(x => { return new RoutinRSQLiteService(dbPath); });
+            serviceCollection.AddSingleton<IDataService, RoutinRSQLiteService>(x => { return new RoutinRSQLiteService(dbPath); });
         }
     }
 }

@@ -98,6 +98,15 @@ public partial class DictionaryEditor : ContentView
         AddOrSaveButton.Text = "Save";
     }
 
+    [RelayCommand]
+    async Task Delete(string key)
+    {
+        if (!CollectionSource.Any(x => x.Key == key)) return;
+        var itemToDelete = CollectionSource.FirstOrDefault(x => x.Key == key);
+
+        CollectionSource.Remove(itemToDelete);
+    }
+
     private void Button_Clicked(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(getPendingKey())) return;

@@ -10,6 +10,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Picker Grid.Column="0"
                     HorizontalOptions="CenterAndExpand"
@@ -18,7 +19,7 @@
                     IsVisible="False" />
                 <Entry Grid.Column="0" Placeholder="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=KeyPlaceholder}" x:Name="PendingKey" IsVisible="True" />
                 <Editor Grid.Column="1" Placeholder="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=ValuePlaceholder}" x:Name="PendingValue" />
-                <Button Grid.Column="2" Text="Add" x:Name="AddOrSaveButton" Clicked="Button_Clicked" />
+                <Button Grid.Column="2" Grid.ColumnSpan="2" Text="Add" x:Name="AddOrSaveButton" Clicked="Button_Clicked" />
         </Grid>
         <Grid>
             <CollectionView ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=CollectionSource}"
@@ -31,10 +32,14 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding Key}" />
                                 <Label Grid.Column="1" Text="{Binding Value}" />
-                                    <Button Grid.Column="2" Text="Edit" Command="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=EditCommand}" CommandParameter="{Binding Key}" />
+                                <Button Grid.Column="2" Text="Edit"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=EditCommand}" CommandParameter="{Binding Key}" />
+                                <Button Grid.Column="3" Text="Delete"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type xControlViewModels:DictionaryEditor}}, Path=DeleteCommand}" CommandParameter="{Binding Key}" />
                             </Grid>
                         </VerticalStackLayout>
                     </DataTemplate>
