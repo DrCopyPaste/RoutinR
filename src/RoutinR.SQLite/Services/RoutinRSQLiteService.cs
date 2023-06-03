@@ -106,6 +106,11 @@ namespace RoutinR.SQLite.Services
 
             var existingDbEntry = context.ApiExportProfiles.First(profile => profile.Name.Equals(existingProfile.Name));
 
+            // todo: automatic cascading delete with ef?!?
+            //if (existingDbEntry.JobTemplates != null) existingDbEntry.JobTemplates.Clear();
+            context.JobTemplates.RemoveRange(context.JobTemplates.Where(template => template.ApiExportProfile.Id == existingDbEntry.Id));
+            context.SaveChanges();
+
             existingDbEntry.Name = updatedProfile.Name;
             existingDbEntry.PostUrl = updatedProfile.PostUrl;
             existingDbEntry.StartTimeToken = updatedProfile.StartTimeToken;

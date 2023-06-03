@@ -62,6 +62,7 @@ namespace RoutinR.MAUI
         public static void RegisterViewsToServiceCollection(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<AboutPage>();
+            serviceCollection.AddTransient<ApiExportProfilePage>();
             serviceCollection.AddTransient<ApiExportProfilesPage>();
             serviceCollection.AddTransient<JobsPage>();
             serviceCollection.AddTransient<JobTimeSheetEntriesPage>();
@@ -74,6 +75,7 @@ namespace RoutinR.MAUI
         public static void RegisterViewModelsToServiceCollection(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<AboutPageViewModel>();
+            serviceCollection.AddTransient<ApiExportProfilePageViewModel>();
             serviceCollection.AddTransient<ApiExportProfilesPageViewModel>();
             serviceCollection.AddTransient<JobsPageViewModel>();
             serviceCollection.AddTransient<JobTimeSheetEntriesPageViewModel>();

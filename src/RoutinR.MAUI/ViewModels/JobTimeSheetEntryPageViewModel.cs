@@ -44,6 +44,10 @@ namespace RoutinR.MAUI.ViewModels
                 new TimeSheetEntry(UpdatedJob, UpdatedStartTime, UpdatedEndTime));
         }
 
+        /// <summary>
+        /// this is a task to be called from appearing in the target page
+        /// because Query Parameter is not available at construction time
+        /// </summary>
         internal Task InitAsync()
         {
             UpdatedJob = JobTimeSheetEntry.Job;

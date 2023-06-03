@@ -5,9 +5,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 # Features
 - Hit the Punch Clock Button to start tracking time
 - a stopwatch like clock appears showing the total current running time
-- current starting time is shown
 - Hit the Punch Clock Button again to stop tracking time and log it
-- previous start and end time are shown
 - previous start time of a running session is being restored when application is closed and restarted
 - use the default idle job to track time
 - or add custom job names

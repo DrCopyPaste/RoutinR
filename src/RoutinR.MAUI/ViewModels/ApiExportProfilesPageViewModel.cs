@@ -32,42 +32,53 @@ namespace RoutinR.MAUI.ViewModels
         }
 
         [RelayCommand]
+        async Task Tap(ApiExportProfile entry)
+        {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "ApiExportProfile", entry }
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(ApiExportProfilePage)}", navigationParameter);
+        }
+
+        [RelayCommand]
         async Task Add()
         {
-            if (string.IsNullOrWhiteSpace(NewProfileName))
-                return;
+            //if (string.IsNullOrWhiteSpace(NewProfileName))
+            //    return;
 
-            if (string.IsNullOrWhiteSpace(NewPostUrl))
-                return;
+            //if (string.IsNullOrWhiteSpace(NewPostUrl))
+            //    return;
 
-            if (string.IsNullOrWhiteSpace(NewStartTimeToken))
-                return;
+            //if (string.IsNullOrWhiteSpace(NewStartTimeToken))
+            //    return;
 
-            if (string.IsNullOrWhiteSpace(NewEndTimeToken))
-                return;
+            //if (string.IsNullOrWhiteSpace(NewEndTimeToken))
+            //    return;
 
-            if (NewHeaders.Any())
-            {
-            }
+            //if (NewHeaders.Any())
+            //{
+            //}
 
-            var newProfile = new ApiExportProfile(
-                name: NewProfileName,
-                postUrl: NewPostUrl,
-                headers: NewHeaders.ToDictionary(x => x.Key, x => x.Value),
-                jobNameJsonTemplates: NewJobTemplates.ToDictionary(x => Job.NewFromName(x.Key), x => x.Value),
-                startTimeToken: NewStartTimeToken,
-                endTimeToken: NewEndTimeToken);
+            //var newProfile = new ApiExportProfile(
+            //    name: NewProfileName,
+            //    postUrl: NewPostUrl,
+            //    headers: NewHeaders.ToDictionary(x => x.Key, x => x.Value),
+            //    jobNameJsonTemplates: NewJobTemplates.ToDictionary(x => Job.NewFromName(x.Key), x => x.Value),
+            //    startTimeToken: NewStartTimeToken,
+            //    endTimeToken: NewEndTimeToken);
 
-            dataService.AddApiExportProfile(newProfile);
-            ApiExportProfiles.Add(newProfile);
+            //dataService.AddApiExportProfile(newProfile);
+            //ApiExportProfiles.Add(newProfile);
 
-            //NewProfileName = string.Empty;
-            //NewPostUrl = string.Empty;
-            //NewStartTimeToken = string.Empty;
-            //NewEndTimeToken = string.Empty;
+            ////NewProfileName = string.Empty;
+            ////NewPostUrl = string.Empty;
+            ////NewStartTimeToken = string.Empty;
+            ////NewEndTimeToken = string.Empty;
 
-            //NewHeaders = new();
-            //NewJobTemplates = new();
+            ////NewHeaders = new();
+            ////NewJobTemplates = new();
         }
 
         public void Refresh()

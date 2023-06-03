@@ -5,6 +5,7 @@
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute(nameof(ApiExportProfilePage), typeof(ApiExportProfilePage));
             Routing.RegisterRoute(nameof(JobTimeSheetEntryPage), typeof(JobTimeSheetEntryPage));
         }
     }
