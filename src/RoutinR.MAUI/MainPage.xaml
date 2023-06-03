@@ -8,12 +8,8 @@
             Padding="30,0"
             VerticalOptions="Start">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.6*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.2*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+            <Grid RowDefinitions="Auto"
+              ColumnDefinitions="0.2*, 0.6*, 0.2*">
 
                 <Picker Grid.Column="0"
                     HorizontalTextAlignment="Start"

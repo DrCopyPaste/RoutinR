@@ -24,23 +24,24 @@ namespace RoutinR.MAUI.ViewModels
             RefreshEntriesAndSelectJob();
             RestoreCurrentJob();
 
+            
+            previousEndTime = Preferences.Default.Get(SettingNames.PreviousEndTime, DateTime.Now);
+            if (!Preferences.Default.ContainsKey(SettingNames.PreviousEndTime)) Preferences.Default.Set(SettingNames.PreviousEndTime, previousEndTime);
+
+            Timer = new Timer(HandleTimerCallback, this, 0, 20);
+
             if (Preferences.Default.ContainsKey(SettingNames.PreviousStartTime))
             {
                 var restoredStartTime = Preferences.Default.Get(SettingNames.PreviousStartTime, DateTime.MinValue);
 
                 punchClockService.StartFrom(restoredStartTime);
-                LastStartTimeText = restoredStartTime.ToString();
                 CurrentlyRunning = true;
-                Timer = new Timer(HandleTimerCallback, this, 0, 20);
-                LastEndTimeText = "currently running";
                 PunchClockLabel = "Stop";
 
                 return;
             }
 
             CurrentlyRunning = false;
-            LastStartTimeText = "never started before";
-            LastEndTimeText = "never started or stopped before";
             TotalRuntimeText = "0";
             PunchClockLabel = "Start";
             this.exportService = exportService;
@@ -74,12 +75,14 @@ namespace RoutinR.MAUI.ViewModels
         {
             if (CurrentlyRunning)
             {
+                previousEndTime = DateTime.Now;
+                Preferences.Default.Set(SettingNames.PreviousEndTime, previousEndTime);
+
                 var jobTimeSheetEntry = punchClockService.Stop(CurrentJob);
                 Preferences.Default.Remove(SettingNames.PreviousStartTime);
 
                 CurrentlyRunning = false;
                 Timer.Dispose();
-                LastEndTimeText = jobTimeSheetEntry.EndTime.ToString();
                 PunchClockLabel = "Start";
 
                 dataService.AddJobTimeSheetEntry(jobTimeSheetEntry);
@@ -106,11 +109,10 @@ namespace RoutinR.MAUI.ViewModels
 
                 // save last start time to preferences to restore it in case of a restart
                 Preferences.Default.Set(SettingNames.PreviousStartTime, previousStartTime);
+                Preferences.Default.Remove(SettingNames.PreviousEndTime);
 
                 CurrentlyRunning = true;
                 Timer = new Timer(HandleTimerCallback, this, 0, 20);
-                LastEndTimeText = "currently running";
-                LastStartTimeText = previousStartTime.ToString();
                 PunchClockLabel = "Stop";
             }
         }
@@ -120,8 +122,19 @@ namespace RoutinR.MAUI.ViewModels
             Application.Current.Dispatcher.DispatchAsync(
                 () =>
                 {
-                    if (Paused) return;
-                    if (!CurrentlyRunning) return;
+                    var prefix = string.Empty;
+
+                    if (Paused)
+                    {
+                        TotalRuntimeText = "paused ";
+                        return;
+                    }
+
+                    if (!CurrentlyRunning)
+                    {
+                        TotalRuntimeText = $"idle for {TimeSpanFormatter.Format(DateTime.Now.Subtract(previousEndTime))}";
+                        return;
+                    }
 
                     TotalRuntimeText = TimeSpanFormatter.Format(punchClockService.TotalRunTime);
                 }
@@ -158,15 +171,11 @@ namespace RoutinR.MAUI.ViewModels
         private bool currentlyRunning;
 
         [ObservableProperty]
-        private string lastStartTimeText;
-
-        [ObservableProperty]
-        private string lastEndTimeText;
-
-        [ObservableProperty]
         private string totalRuntimeText;
 
         [ObservableProperty]
         string punchClockLabel;
+
+        private DateTime previousEndTime;
     }
 }
