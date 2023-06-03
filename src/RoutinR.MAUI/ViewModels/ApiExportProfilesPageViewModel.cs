@@ -45,40 +45,7 @@ namespace RoutinR.MAUI.ViewModels
         [RelayCommand]
         async Task Add()
         {
-            //if (string.IsNullOrWhiteSpace(NewProfileName))
-            //    return;
-
-            //if (string.IsNullOrWhiteSpace(NewPostUrl))
-            //    return;
-
-            //if (string.IsNullOrWhiteSpace(NewStartTimeToken))
-            //    return;
-
-            //if (string.IsNullOrWhiteSpace(NewEndTimeToken))
-            //    return;
-
-            //if (NewHeaders.Any())
-            //{
-            //}
-
-            //var newProfile = new ApiExportProfile(
-            //    name: NewProfileName,
-            //    postUrl: NewPostUrl,
-            //    headers: NewHeaders.ToDictionary(x => x.Key, x => x.Value),
-            //    jobNameJsonTemplates: NewJobTemplates.ToDictionary(x => Job.NewFromName(x.Key), x => x.Value),
-            //    startTimeToken: NewStartTimeToken,
-            //    endTimeToken: NewEndTimeToken);
-
-            //dataService.AddApiExportProfile(newProfile);
-            //ApiExportProfiles.Add(newProfile);
-
-            ////NewProfileName = string.Empty;
-            ////NewPostUrl = string.Empty;
-            ////NewStartTimeToken = string.Empty;
-            ////NewEndTimeToken = string.Empty;
-
-            ////NewHeaders = new();
-            ////NewJobTemplates = new();
+            await Shell.Current.GoToAsync($"{nameof(ApiExportProfilePage)}");
         }
 
         public void Refresh()

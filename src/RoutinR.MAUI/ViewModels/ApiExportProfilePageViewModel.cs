@@ -19,6 +19,7 @@ namespace RoutinR.MAUI.ViewModels
     public partial class ApiExportProfilePageViewModel : BaseViewModel
     {
         private readonly IDataService dataService;
+        private bool updateExistingProfile = false;
 
         public ApiExportProfilePageViewModel(IDataService dataService)
         {
@@ -45,6 +46,7 @@ namespace RoutinR.MAUI.ViewModels
         {
             if (ApiExportProfile == null) return Task.CompletedTask;
 
+            updateExistingProfile = true;
             ProfileName = ApiExportProfile.Name;
             PostUrl = ApiExportProfile.PostUrl;
             StartTimeToken = ApiExportProfile.StartTimeToken;
@@ -63,7 +65,7 @@ namespace RoutinR.MAUI.ViewModels
         [RelayCommand]
         async Task Save()
         {
-            if (ApiExportProfile == null) return;
+            if (ApiExportProfile == null && updateExistingProfile) return;
 
             if (string.IsNullOrWhiteSpace(ProfileName))
                 return;
@@ -90,7 +92,14 @@ namespace RoutinR.MAUI.ViewModels
                 startTimeToken: StartTimeToken,
                 endTimeToken: EndTimeToken);
 
-            dataService.UpdateApiExportProfile(ApiExportProfile, newProfile);
+            if (updateExistingProfile)
+            {
+                dataService.UpdateApiExportProfile(ApiExportProfile, newProfile);
+            }
+            else
+            {
+                dataService.AddApiExportProfile(newProfile);
+            }
         }
 
         [ObservableProperty]
