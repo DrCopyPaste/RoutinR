@@ -11,5 +11,7 @@
         
         <Button Text="Import Database" Command="{Binding ImportDatabaseCommand}" />
         <Button Text="Export Database" Command="{Binding ExportDatabaseCommand}" />
+
+        <Button Text="Delete all time sheet entries" Command="{Binding DeleteTimeSheetEntriesCommand}" />
     </VerticalStackLayout>
 </ContentPage>

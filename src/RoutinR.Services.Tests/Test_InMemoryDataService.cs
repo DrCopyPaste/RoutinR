@@ -365,6 +365,24 @@ namespace RoutinR.Services.Tests
         }
 
         [Fact]
+        [Trait("Category", "Job time sheet entries")]
+        public void No_entries_left_when_deleting_all_time_sheet_entries()
+        {
+            var entry = new TimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-20), DateTime.Now.AddMinutes(-19));
+            dataService.AddJobTimeSheetEntry(entry);
+
+            entry = new TimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-19), DateTime.Now.AddMinutes(-18));
+            dataService.AddJobTimeSheetEntry(entry);
+
+            entry = new TimeSheetEntry(job: Job.NewDefault(), startTime: DateTime.Now.AddMinutes(-18), DateTime.Now.AddMinutes(-17));
+            dataService.AddJobTimeSheetEntry(entry);
+
+            dataService.DeleteAllTimeSheetEntries();
+
+            Assert.True(gotExpectedException, "updating a job time sheet entry to a non existing job name did not raise the expected exception");
+        }
+
+        [Fact]
         [Trait("Category", "ApiExportProfiles")]
         public void Adding_a_profile_increases_count()
         {

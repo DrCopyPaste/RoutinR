@@ -167,5 +167,10 @@ namespace RoutinR.Services
             apiExportProfiles.Remove(existingProfile);
             apiExportProfiles.Add(updatedProfile);
         }
+
+        public void DeleteAllTimeSheetEntries()
+        {
+            apiExportProfiles.RemoveAll(x => true);
+        }
     }
 }

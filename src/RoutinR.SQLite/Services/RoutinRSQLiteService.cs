@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update;
 using RoutinR.Core;
 using RoutinR.Services.Interfaces;
 using RoutinR.SQLite.Entities;
@@ -337,6 +338,19 @@ namespace RoutinR.SQLite.Services
             }
 
             if (!string.IsNullOrEmpty(errorMessage)) throw new ArgumentException(errorMessage);
+
+        }
+
+        public void DeleteAllTimeSheetEntries()
+        {
+            try
+            {
+                context.TimeSheetEntries.ExecuteDelete();
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            { }
+
 
         }
     }

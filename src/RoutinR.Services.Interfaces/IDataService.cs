@@ -11,6 +11,7 @@ namespace RoutinR.Services.Interfaces
         void AddApiExportProfile(ApiExportProfile apiExportProfile);
         void AddJob(Job jobToAdd);
         void AddJobTimeSheetEntry(TimeSheetEntry jobTimeSheetEntry);
+        void DeleteAllTimeSheetEntries();
         void DeleteJob();
         ApiExportProfile? GetApiExportProfileByName(string name);
         IEnumerable<ApiExportProfile> GetApiExportProfiles();

@@ -59,9 +59,24 @@ namespace RoutinR.MAUI.ViewModels
                 return;
             }
             catch (Exception ex)
+            { }
+
+            return;
+        }
+
+        [RelayCommand]
+        async Task DeleteTimeSheetEntries()
+        {
+            try
             {
-                // The user canceled or something went wrong
+                bool deleteAll = await Application.Current.MainPage.DisplayAlert("Question?", "Are you sure you want to delete all time sheet entries?", "Delete All", "Cancel");
+                if (deleteAll)
+                {
+                    this.dataService.DeleteAllTimeSheetEntries();
+                }
             }
+            catch (Exception ex)
+            { }
 
             return;
         }
