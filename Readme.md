@@ -7,6 +7,7 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - a stopwatch like clock appears showing the total current running time
 - Hit the Punch Clock Button again to stop tracking time and log it
 - previous start time of a running session is being restored when application is closed and restarted
+- when currently not tracking a job the current idle time is shown
 - use the default idle job to track time
 - or add custom job names
 - timesheets for all jobs can be viewed in a list
@@ -75,6 +76,10 @@ RoutinR makes keeping a timesheet as easy as pushing a button.
 - Frame-Tag must have background color set to transparent
 
 # Features ToDo
+
+- show start time on main screen (optional?)
+- allow editing start time afterwards (before stopping)
+- allow stopping time "into the future" (create a job time sheet entry that ends in the future)
 
 - separate add api export profile from list view => new edit/add view
 - add api export profile view allows editing
